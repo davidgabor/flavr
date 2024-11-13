@@ -44,11 +44,11 @@ const Home = () => {
       </section>
 
       <section className="mb-16">
-        <h2 className="heading-2 text-center mb-8">All Cities</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <h2 className="heading-2 text-center mb-8">Explore my recommendations</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {cities.map((city) => (
             <Link to={`/cities/${city.id}`} key={city.id} className="card group">
-              <div className="aspect-[4/3] overflow-hidden">
+              <div className="aspect-[3/2] overflow-hidden rounded-t-lg">
                 <img
                   src={city.image}
                   alt={city.name}
@@ -56,9 +56,9 @@ const Home = () => {
                   loading="lazy"
                 />
               </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-xl mb-1">{city.name}</h3>
-                <p className="text-neutral-600">
+              <div className="p-3">
+                <h3 className="font-medium text-lg mb-0.5">{city.name}</h3>
+                <p className="text-sm text-neutral-600">
                   {city.recommendations.length} recommendations
                 </p>
               </div>
