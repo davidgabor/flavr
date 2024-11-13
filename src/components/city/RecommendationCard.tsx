@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MapPin, Star } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { optimizeImageUrl } from "@/utils/imageUtils";
 import { Recommendation } from "@/types/recommendation";
 
@@ -11,51 +11,38 @@ const RecommendationCard = ({
   type,
   cuisine,
   neighborhood,
-  rating,
   priceLevel,
   image
 }: RecommendationCardProps) => (
   <Link
     to={`/recommendations/${id}`}
-    className="card group"
+    className="group bg-white rounded-lg border border-neutral-200 hover:border-neutral-300 transition-colors duration-200"
   >
-    <div className="flex gap-4">
-      <div className="w-24 h-24 overflow-hidden rounded-lg flex-shrink-0">
+    <div className="flex items-center p-3 gap-3">
+      <div className="w-16 h-16 overflow-hidden rounded-md flex-shrink-0 bg-neutral-100">
         <img
-          src={optimizeImageUrl(image)}
+          src={optimizeImageUrl(image, 100)}
           alt={name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover"
           loading="lazy"
+          width={64}
+          height={64}
         />
       </div>
-      <div className="flex-1 py-2">
-        <div className="flex items-center justify-between mb-1">
-          <h2 className="text-lg font-semibold line-clamp-1">{name}</h2>
-          <span className="text-sm text-neutral-600">{priceLevel}</span>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center justify-between gap-2 mb-1">
+          <h2 className="font-medium text-neutral-800 truncate">{name}</h2>
+          <span className="text-sm text-neutral-500 flex-shrink-0">{priceLevel}</span>
         </div>
-
-        <div className="flex items-center gap-2 text-sm text-neutral-600 mb-2">
-          <span>{type}</span>
-          <span>•</span>
-          <span>{cuisine}</span>
+        <div className="text-sm text-neutral-600 mb-1 truncate">
+          {type} • {cuisine}
         </div>
-
-        <div className="flex items-center gap-4">
-          {neighborhood && (
-            <div className="flex items-center gap-1">
-              <MapPin size={14} className="text-neutral-500" />
-              <span className="text-sm text-neutral-600 line-clamp-1">
-                {neighborhood}
-              </span>
-            </div>
-          )}
-          <div className="flex items-center gap-1">
-            <Star size={14} className="text-primary" />
-            <span className="text-sm text-neutral-600">
-              {rating}
-            </span>
+        {neighborhood && (
+          <div className="flex items-center gap-1 text-neutral-500">
+            <MapPin size={14} />
+            <span className="text-sm truncate">{neighborhood}</span>
           </div>
-        </div>
+        )}
       </div>
     </div>
   </Link>

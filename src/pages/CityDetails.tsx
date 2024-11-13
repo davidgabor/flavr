@@ -44,12 +44,12 @@ const CityDetails = () => {
       
       <Tabs defaultValue={types[0]} className="w-full">
         <ScrollArea className="w-full">
-          <TabsList className="w-full justify-start border-b mb-6">
+          <TabsList className="w-full justify-start h-12 bg-neutral-100 p-1 rounded-lg">
             {types.map((type) => (
               <TabsTrigger 
                 key={type} 
                 value={type}
-                className="px-6"
+                className="px-6 data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm rounded-md transition-all"
               >
                 {type} ({groupedRecommendations[type].length})
               </TabsTrigger>
@@ -58,8 +58,8 @@ const CityDetails = () => {
         </ScrollArea>
 
         {types.map((type) => (
-          <TabsContent key={type} value={type} className="mt-0">
-            <div className="grid grid-cols-1 gap-4">
+          <TabsContent key={type} value={type} className="mt-6">
+            <div className="grid grid-cols-1 gap-3">
               {groupedRecommendations[type].map((recommendation) => (
                 <RecommendationCard
                   key={recommendation.id}
