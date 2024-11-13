@@ -1,18 +1,9 @@
 import { Link } from "react-router-dom";
 import { MapPin, Star } from "lucide-react";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { optimizeImageUrl } from "@/utils/imageUtils";
+import { Recommendation } from "@/types/recommendation";
 
-interface RecommendationCardProps {
-  id: string;
-  name: string;
-  type: string;
-  cuisine: string;
-  neighborhood?: string;
-  rating: number;
-  priceLevel: string;
-  image: string;
-}
+type RecommendationCardProps = Recommendation;
 
 const RecommendationCard = ({
   id,
