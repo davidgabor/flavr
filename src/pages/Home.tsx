@@ -15,11 +15,20 @@ const Home = () => {
   return (
     <div className="animate-fade-in">
       <section className="text-center max-w-3xl mx-auto mb-16">
+        <div className="mb-6">
+          <img
+            src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=150"
+            alt="David's profile"
+            className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-primary"
+          />
+          <span className="text-primary font-medium">Hey there! 👋</span>
+        </div>
+        
         <h1 className="heading-1 mb-6">
-          Discover the Best Local Food Spots
+          David's Personal Food & Drink Guide
         </h1>
         <p className="text-body text-lg mb-8">
-          Explore curated recommendations from food enthusiasts around the world
+          I'm sharing my favorite spots from around the world - places I personally love and recommend to friends and family. Each recommendation comes from my own experiences and countless meals shared with great company.
         </p>
         
         <div className="relative max-w-xl mx-auto">
