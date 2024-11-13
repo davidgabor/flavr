@@ -9,7 +9,7 @@ const Navbar = () => {
       <div className="container px-4 mx-auto">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="text-xl font-bold text-primary">
-            FoodieFinds
+            DG Finds
           </Link>
           
           <div className="hidden md:flex items-center space-x-4">
