@@ -3,6 +3,7 @@ export interface Recommendation {
   name: string;
   type: string;
   cuisine: string;
+  rating: number;
   priceLevel: string;
   description?: string;
   neighborhood?: string;
