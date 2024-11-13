@@ -59,7 +59,7 @@ const CityDetails = () => {
 
         {types.map((type) => (
           <TabsContent key={type} value={type} className="mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 gap-4">
               {groupedRecommendations[type].map((recommendation) => (
                 <RecommendationCard
                   key={recommendation.id}

@@ -8,7 +8,7 @@ interface RecommendationCardProps {
   name: string;
   type: string;
   cuisine: string;
-  neighborhood: string;
+  neighborhood?: string;
   rating: number;
   priceLevel: string;
   image: string;
@@ -28,38 +28,42 @@ const RecommendationCard = ({
     to={`/recommendations/${id}`}
     className="card group"
   >
-    <AspectRatio ratio={16/9} className="overflow-hidden">
-      <img
-        src={optimizeImageUrl(image)}
-        alt={name}
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-        loading="lazy"
-      />
-    </AspectRatio>
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-xl font-semibold">{name}</h2>
-        <span className="text-neutral-600">{priceLevel}</span>
+    <div className="flex gap-4">
+      <div className="w-24 h-24 overflow-hidden rounded-lg flex-shrink-0">
+        <img
+          src={optimizeImageUrl(image)}
+          alt={name}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          loading="lazy"
+        />
       </div>
-
-      <div className="flex items-center gap-4 text-sm text-neutral-600 mb-3">
-        <span>{type}</span>
-        <span>•</span>
-        <span>{cuisine}</span>
-      </div>
-
-      <div className="flex items-center gap-6">
-        <div className="flex items-center gap-1">
-          <MapPin size={16} className="text-neutral-500" />
-          <span className="text-sm text-neutral-600">
-            {neighborhood}
-          </span>
+      <div className="flex-1 py-2">
+        <div className="flex items-center justify-between mb-1">
+          <h2 className="text-lg font-semibold line-clamp-1">{name}</h2>
+          <span className="text-sm text-neutral-600">{priceLevel}</span>
         </div>
-        <div className="flex items-center gap-1">
-          <Star size={16} className="text-primary" />
-          <span className="text-sm text-neutral-600">
-            {rating}
-          </span>
+
+        <div className="flex items-center gap-2 text-sm text-neutral-600 mb-2">
+          <span>{type}</span>
+          <span>•</span>
+          <span>{cuisine}</span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          {neighborhood && (
+            <div className="flex items-center gap-1">
+              <MapPin size={14} className="text-neutral-500" />
+              <span className="text-sm text-neutral-600 line-clamp-1">
+                {neighborhood}
+              </span>
+            </div>
+          )}
+          <div className="flex items-center gap-1">
+            <Star size={14} className="text-primary" />
+            <span className="text-sm text-neutral-600">
+              {rating}
+            </span>
+          </div>
         </div>
       </div>
     </div>
