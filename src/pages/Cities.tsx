@@ -2,32 +2,95 @@ import { Link } from "react-router-dom";
 
 const CITIES = [
   {
+    id: "copenhagen",
+    name: "Copenhagen",
+    image: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc",
+    recommendationCount: 16,
+    description: "Nordic cuisine meets cozy atmosphere"
+  },
+  {
+    id: "florence",
+    name: "Florence",
+    image: "https://images.unsplash.com/photo-1534260164206-2a3a4a72891d",
+    recommendationCount: 4,
+    description: "Classic Italian trattorias and wine bars"
+  },
+  {
+    id: "barcelona",
+    name: "Barcelona",
+    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded",
+    recommendationCount: 28,
+    description: "Tapas, cocktails, and Catalan cuisine"
+  },
+  {
+    id: "dublin",
+    name: "Dublin",
+    image: "https://images.unsplash.com/photo-1549918864-48ac978761a4",
+    recommendationCount: 8,
+    description: "Traditional pubs and modern dining"
+  },
+  {
     id: "nyc",
     name: "New York City",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-    recommendationCount: 342,
-    description: "From classic pizzerias to Michelin-starred restaurants"
+    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9",
+    recommendationCount: 42,
+    description: "From classic delis to Michelin-starred restaurants"
   },
   {
-    id: "sf",
-    name: "San Francisco",
-    image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07",
-    recommendationCount: 256,
-    description: "A paradise for food innovation and fresh seafood"
+    id: "capetown",
+    name: "Cape Town",
+    image: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99",
+    recommendationCount: 18,
+    description: "Fine dining with mountain views"
   },
   {
-    id: "ldn",
+    id: "london",
     name: "London",
-    image: "https://images.unsplash.com/photo-1504893524553-b855bce32c67",
-    recommendationCount: 289,
-    description: "Diverse culinary scene with markets and fine dining"
+    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad",
+    recommendationCount: 19,
+    description: "Traditional pubs and global cuisine"
   },
   {
-    id: "tk",
-    name: "Tokyo",
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
-    recommendationCount: 421,
-    description: "World-class sushi and street food culture"
+    id: "stockholm",
+    name: "Stockholm",
+    image: "https://images.unsplash.com/photo-1509356843151-3e7d96241e11",
+    recommendationCount: 46,
+    description: "Nordic fine dining and cozy cafes"
+  },
+  {
+    id: "paris",
+    name: "Paris",
+    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+    recommendationCount: 23,
+    description: "Classic bistros and wine bars"
+  },
+  {
+    id: "losangeles",
+    name: "Los Angeles",
+    image: "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da",
+    recommendationCount: 8,
+    description: "Celebrity hotspots and street food"
+  },
+  {
+    id: "dubai",
+    name: "Dubai",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c",
+    recommendationCount: 12,
+    description: "Luxury dining with skyline views"
+  },
+  {
+    id: "milan",
+    name: "Milan",
+    image: "https://images.unsplash.com/photo-1512758017271-d7b84c2113f1",
+    recommendationCount: 6,
+    description: "Authentic Italian and modern fusion"
+  },
+  {
+    id: "malaga",
+    name: "Malaga",
+    image: "https://images.unsplash.com/photo-1591792111137-5b8219d5fdd3",
+    recommendationCount: 1,
+    description: "Seaside dining and tapas bars"
   }
 ];
 
