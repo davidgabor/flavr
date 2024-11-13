@@ -1,45 +1,35 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { RECOMMENDATIONS } from "@/data/recommendations";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { cities } from "@/utils/cities";
 
 const Home = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const cities = Object.entries(RECOMMENDATIONS).map(([id, city]) => ({
-    id,
-    ...city
-  }));
-
   return (
-    <div className="animate-fade-in">
-      <section className="text-center max-w-3xl mx-auto mb-16">
-        <div className="mb-6">
-          <img
-            src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=150"
-            alt="David's profile"
-            className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-primary"
-          />
-          <span className="text-primary font-medium">Hey there! 👋</span>
+    <div className="space-y-16 animate-fade-in">
+      <section className="text-center space-y-6">
+        <div className="flex flex-col items-center gap-4">
+          <Avatar className="w-24 h-24">
+            <AvatarImage
+              src="https://media.licdn.com/dms/image/v2/D4D03AQGTbmpMLQualw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1728313961873?e=1736985600&v=beta&t=-qTMspUk11IuzOzs_g4t5VXH0Jtamkd4Bayq4ZvaXQU"
+              alt="David's profile picture"
+            />
+          </Avatar>
+          <div className="max-w-2xl mx-auto">
+            <h1 className="heading-1 mb-4">
+              Hey! I'm David, and these are my favorite spots around the world
+            </h1>
+            <p className="text-lg text-neutral-600">
+              I love sharing my favorite restaurants and bars with friends and family.
+              Here's a curated list of places I personally recommend.
+            </p>
+          </div>
         </div>
-        
-        <h1 className="heading-1 mb-6">
-          David's Personal Food & Drink Guide
-        </h1>
-        <p className="text-body text-lg mb-8">
-          I'm sharing my favorite spots from around the world - places I personally love and recommend to friends and family. Each recommendation comes from my own experiences and countless meals shared with great company.
-        </p>
-        
-        <div className="relative max-w-xl mx-auto">
+        <div className="max-w-md mx-auto">
           <Input
-            type="text"
+            type="search"
             placeholder="Search cities or cuisines..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 h-12 text-lg"
+            className="bg-white"
           />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={20} />
         </div>
       </section>
 
@@ -65,19 +55,6 @@ const Home = () => {
             </Link>
           ))}
         </div>
-      </section>
-
-      <section className="text-center max-w-2xl mx-auto">
-        <h2 className="heading-2 mb-4">Share Your Favorite Spots</h2>
-        <p className="text-body mb-6">
-          Know a hidden gem? Help others discover amazing local restaurants and bars.
-        </p>
-        <Link
-          to="/cities"
-          className="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
-        >
-          Browse Cities
-        </Link>
       </section>
     </div>
   );
