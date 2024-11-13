@@ -3,24 +3,24 @@ import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
-const TRENDING_CITIES = [
+const CITIES = [
   {
-    id: "nyc",
-    name: "New York City",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-    recommendationCount: 342
+    id: "copenhagen",
+    name: "Copenhagen",
+    image: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=400",
+    recommendationCount: 5
   },
   {
-    id: "sf",
-    name: "San Francisco",
-    image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07",
-    recommendationCount: 256
+    id: "florence",
+    name: "Florence",
+    image: "https://images.unsplash.com/photo-1534260164206-2a3a4a72891d?w=400",
+    recommendationCount: 3
   },
   {
-    id: "ldn",
-    name: "London",
-    image: "https://images.unsplash.com/photo-1504893524553-b855bce32c67",
-    recommendationCount: 289
+    id: "barcelona",
+    name: "Barcelona",
+    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400",
+    recommendationCount: 3
   }
 ];
 
@@ -50,15 +50,16 @@ const Home = () => {
       </section>
 
       <section className="mb-16">
-        <h2 className="heading-2 text-center mb-8">Trending Cities</h2>
+        <h2 className="heading-2 text-center mb-8">All Cities</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {TRENDING_CITIES.map((city) => (
+          {CITIES.map((city) => (
             <Link to={`/cities/${city.id}`} key={city.id} className="card group">
               <div className="aspect-[4/3] overflow-hidden">
                 <img
                   src={city.image}
                   alt={city.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
                 />
               </div>
               <div className="p-4">

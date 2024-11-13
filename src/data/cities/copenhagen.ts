@@ -12,7 +12,7 @@ export const copenhagen = {
       description: "Nice Italian restaurant",
       hours: "11:00 AM - 11:00 PM",
       popularDishes: ["Pasta", "Pizza"],
-      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7"
+      image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400"
     },
     {
       id: "cafe-victor",
@@ -25,7 +25,7 @@ export const copenhagen = {
       description: "Always good, traditional Danish cuisine",
       hours: "10:00 AM - 10:00 PM",
       popularDishes: ["Frikadeller", "Smørrebrød"],
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"
+      image: "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=400"
     },
     {
       id: "barabba",
@@ -38,7 +38,33 @@ export const copenhagen = {
       description: "Super great & interesting Italian",
       hours: "5:00 PM - 11:00 PM",
       popularDishes: ["Tagliatelle", "Tiramisu"],
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475"
+      image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400"
+    },
+    {
+      id: "hart-bageri",
+      name: "Hart Bageri",
+      type: "Bakery",
+      cuisine: "Danish",
+      rating: 4.8,
+      priceLevel: "$$",
+      neighborhood: "Frederiksberg",
+      description: "Best bakery in town",
+      hours: "7:00 AM - 6:00 PM",
+      popularDishes: ["Cardamom Bun", "Sourdough Bread"],
+      image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400"
+    },
+    {
+      id: "atelier-september",
+      name: "Atelier September",
+      type: "Café",
+      cuisine: "Danish",
+      rating: 4.5,
+      priceLevel: "$$",
+      neighborhood: "Inner City",
+      description: "Beautiful café with great breakfast",
+      hours: "8:00 AM - 4:00 PM",
+      popularDishes: ["Avocado Toast", "Granola"],
+      image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400"
     }
   ]
 };

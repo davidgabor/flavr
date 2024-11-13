@@ -5,22 +5,22 @@ const CITIES = [
   {
     id: "copenhagen",
     name: "Copenhagen",
-    image: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc",
-    recommendationCount: 3,
+    image: "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=400",
+    recommendationCount: 5,
     description: "Nordic cuisine meets cozy atmosphere"
   },
   {
     id: "florence",
     name: "Florence",
-    image: "https://images.unsplash.com/photo-1534260164206-2a3a4a72891d",
-    recommendationCount: 1,
+    image: "https://images.unsplash.com/photo-1534260164206-2a3a4a72891d?w=400",
+    recommendationCount: 3,
     description: "Classic Italian trattorias and wine bars"
   },
   {
     id: "barcelona",
     name: "Barcelona",
-    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded",
-    recommendationCount: 1,
+    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400",
+    recommendationCount: 3,
     description: "Tapas, cocktails, and Catalan cuisine"
   }
 ];
