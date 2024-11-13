@@ -1,5 +1,5 @@
-import { useParams, Link } from "react-router-dom";
-import { useMemo } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useMemo, useEffect } from "react";
 import { ChevronRight } from "lucide-react";
 import CityHeader from "@/components/city/CityHeader";
 import RecommendationCard from "@/components/city/RecommendationCard";
@@ -21,12 +21,15 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useNavigate } from "react-router-dom";
 
 const CityDetails = () => {
   const { cityId } = useParams();
   const navigate = useNavigate();
   const cityData = RECOMMENDATIONS[cityId as keyof typeof RECOMMENDATIONS];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [cityId]);
 
   const cities = Object.entries(RECOMMENDATIONS).map(([id, city]) => ({
     id,
