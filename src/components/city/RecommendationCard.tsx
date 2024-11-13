@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { MapPin, Star } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { optimizeImageUrl } from "@/utils/imageUtils";
 
 interface RecommendationCardProps {
   id: string;
@@ -29,7 +30,7 @@ const RecommendationCard = ({
   >
     <AspectRatio ratio={16/9} className="overflow-hidden">
       <img
-        src={image}
+        src={optimizeImageUrl(image)}
         alt={name}
         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         loading="lazy"
