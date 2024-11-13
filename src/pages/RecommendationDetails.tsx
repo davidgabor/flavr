@@ -2,28 +2,15 @@ import { useParams, Link } from "react-router-dom";
 import { MapPin, Star, Clock, DollarSign, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-
-const RECOMMENDATIONS = {
-  r1: {
-    id: "r1",
-    name: "Joe's Pizza",
-    type: "Restaurant",
-    cuisine: "Italian",
-    rating: 4.8,
-    priceLevel: "$$",
-    neighborhood: "Greenwich Village",
-    address: "7 Carmine St, New York, NY 10014",
-    description: "A New York institution since 1975, serving authentic NY-style pizza by the slice. Known for their perfectly crispy crust and fresh ingredients.",
-    hours: "11:00 AM - 4:00 AM",
-    popularDishes: ["Classic Cheese Slice", "Fresh Mozzarella Slice", "Pepperoni Slice"],
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-    cityId: "nyc"
-  }
-};
+import { RECOMMENDATIONS } from "@/data/recommendations";
 
 const RecommendationDetails = () => {
   const { id } = useParams();
-  const recommendation = RECOMMENDATIONS[id as keyof typeof RECOMMENDATIONS];
+  
+  // Find the recommendation across all cities
+  const recommendation = Object.values(RECOMMENDATIONS)
+    .flatMap(city => city.recommendations)
+    .find(rec => rec.id === id);
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -48,10 +35,10 @@ const RecommendationDetails = () => {
     <div className="animate-fade-in max-w-4xl mx-auto">
       <div className="mb-8">
         <Link 
-          to={`/cities/${recommendation.cityId}`}
+          to="/cities"
           className="text-primary hover:underline mb-4 inline-block"
         >
-          ← Back to city
+          ← Back to cities
         </Link>
         
         <div className="rounded-xl overflow-hidden mb-8">
@@ -71,40 +58,41 @@ const RecommendationDetails = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <p className="text-body mb-6">{recommendation.description}</p>
+            <p className="text-neutral-600 mb-6">{recommendation.description}</p>
             
             <div className="space-y-4 mb-6">
-              <div className="flex items-center gap-2">
-                <MapPin className="text-neutral-500" size={20} />
-                <span className="text-body">{recommendation.address}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="text-neutral-500" size={20} />
-                <span className="text-body">{recommendation.hours}</span>
-              </div>
+              {recommendation.neighborhood && (
+                <div className="flex items-center gap-2">
+                  <MapPin className="text-neutral-500" size={20} />
+                  <span className="text-neutral-600">{recommendation.neighborhood}</span>
+                </div>
+              )}
+              {recommendation.hours && (
+                <div className="flex items-center gap-2">
+                  <Clock className="text-neutral-500" size={20} />
+                  <span className="text-neutral-600">{recommendation.hours}</span>
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 <DollarSign className="text-neutral-500" size={20} />
-                <span className="text-body">{recommendation.priceLevel}</span>
+                <span className="text-neutral-600">{recommendation.priceLevel}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="text-primary" size={20} />
-                <span className="text-body">{recommendation.rating}</span>
+                <span className="text-neutral-600">{recommendation.rating}</span>
               </div>
             </div>
-          </div>
 
-          <div>
-            <h2 className="heading-3 mb-4">Popular Dishes</h2>
-            <ul className="space-y-3">
-              {recommendation.popularDishes.map((dish) => (
-                <li 
-                  key={dish}
-                  className="p-3 bg-neutral-100 rounded-lg text-body"
-                >
-                  {dish}
-                </li>
-              ))}
-            </ul>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="font-medium">Type:</span>
+                <span className="text-neutral-600">{recommendation.type}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="font-medium">Cuisine:</span>
+                <span className="text-neutral-600">{recommendation.cuisine}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
