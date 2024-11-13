@@ -6,10 +6,10 @@ interface CityHeaderProps {
 }
 
 const CityHeader = ({ name, description }: CityHeaderProps) => (
-  <div className="text-center mb-12">
-    <h1 className="heading-1">{name}</h1>
+  <div className="flex-1">
+    <h1 className="text-3xl font-bold text-neutral-800 mb-2">{name}</h1>
     {description && (
-      <p className="text-body text-lg">
+      <p className="text-neutral-600 text-lg">
         {description}
       </p>
     )}

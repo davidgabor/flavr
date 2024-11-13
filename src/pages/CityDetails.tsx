@@ -67,12 +67,12 @@ const CityDetails = () => {
 
   return (
     <div className="animate-fade-in space-y-8">
-      <div className="flex flex-col gap-6">
+      <div className="bg-white shadow-sm rounded-lg p-6 space-y-6">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link to="/">Home</Link>
+                <Link to="/" className="text-neutral-600 hover:text-primary">Home</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator>
@@ -80,25 +80,25 @@ const CityDetails = () => {
             </BreadcrumbSeparator>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link to="/cities">Cities</Link>
+                <Link to="/cities" className="text-neutral-600 hover:text-primary">Cities</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator>
               <ChevronRight className="h-4 w-4" />
             </BreadcrumbSeparator>
             <BreadcrumbItem>
-              <BreadcrumbPage>{cityData.name}</BreadcrumbPage>
+              <BreadcrumbPage className="text-primary font-medium">{cityData.name}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <CityHeader name={cityData.name} description={cityData.description} />
           <Select value={cityId} onValueChange={handleCityChange}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] bg-white">
               <SelectValue placeholder="Switch city" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               {cities.map((city) => (
                 <SelectItem key={city.id} value={city.id}>
                   {city.name}
