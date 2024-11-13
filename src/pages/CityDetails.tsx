@@ -1,14 +1,37 @@
 import { useParams, Link } from "react-router-dom";
 import { useMemo } from "react";
+import { ChevronRight } from "lucide-react";
 import CityHeader from "@/components/city/CityHeader";
 import RecommendationCard from "@/components/city/RecommendationCard";
 import { RECOMMENDATIONS } from "@/data/recommendations";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { useNavigate } from "react-router-dom";
 
 const CityDetails = () => {
   const { cityId } = useParams();
+  const navigate = useNavigate();
   const cityData = RECOMMENDATIONS[cityId as keyof typeof RECOMMENDATIONS];
+
+  const cities = Object.entries(RECOMMENDATIONS).map(([id, city]) => ({
+    id,
+    name: city.name,
+  }));
 
   const groupedRecommendations = useMemo(() => {
     if (!cityData) return {};
@@ -27,6 +50,10 @@ const CityDetails = () => {
     return Object.keys(groupedRecommendations);
   }, [groupedRecommendations]);
 
+  const handleCityChange = (newCityId: string) => {
+    navigate(`/cities/${newCityId}`);
+  };
+
   if (!cityData) {
     return (
       <div className="text-center py-16">
@@ -40,7 +67,47 @@ const CityDetails = () => {
 
   return (
     <div className="animate-fade-in space-y-8">
-      <CityHeader name={cityData.name} />
+      <div className="flex flex-col gap-6">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link to="/">Home</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator>
+              <ChevronRight className="h-4 w-4" />
+            </BreadcrumbSeparator>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link to="/cities">Cities</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator>
+              <ChevronRight className="h-4 w-4" />
+            </BreadcrumbSeparator>
+            <BreadcrumbItem>
+              <BreadcrumbPage>{cityData.name}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <div className="flex items-center justify-between">
+          <CityHeader name={cityData.name} description={cityData.description} />
+          <Select value={cityId} onValueChange={handleCityChange}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Switch city" />
+            </SelectTrigger>
+            <SelectContent>
+              {cities.map((city) => (
+                <SelectItem key={city.id} value={city.id}>
+                  {city.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
       
       <Tabs defaultValue={types[0]} className="w-full">
         <ScrollArea className="w-full">
