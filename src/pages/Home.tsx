@@ -74,7 +74,7 @@ const Home = () => {
             backgroundImage: `url('https://i.ibb.co/0B24ZNC/kobby-mendez-g-VFEAm-Rpvj-Q-unsplash.jpg')`,
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/90 via-neutral-900/80 to-neutral-900" />
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/70 via-neutral-900/60 to-neutral-900" />
         <div className="relative max-w-3xl mx-auto space-y-6">
           <h1 className="text-4xl md:text-6xl font-judson">Our Favorite Spots, Everywhere</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
@@ -100,7 +100,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Destinations Sections */}
       <div className="container px-4 mx-auto space-y-24">
         {Object.entries(groupedDestinations).map(([region, destinations], regionIndex) => (
           <section key={region} className="space-y-8">
