@@ -39,18 +39,17 @@ const Home = () => {
       style={{ animationDelay: `${(index + 1) * 100}ms` }}
     >
       <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 relative">
-        <div className="absolute inset-0 bg-neutral-800 animate-pulse" />
+        <div className="absolute inset-0 bg-neutral-800" />
         <img
           src={destination.image}
           alt={destination.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full object-cover opacity-0 transition-opacity duration-500"
           loading="lazy"
           onLoad={(e) => {
             const img = e.target as HTMLImageElement;
-            img.parentElement?.querySelector('.animate-pulse')?.remove();
+            img.classList.remove('opacity-0');
             img.classList.add('opacity-100');
           }}
-          style={{ opacity: 0 }}
         />
       </div>
       <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
