@@ -77,18 +77,17 @@ const Navbar = () => {
         return [];
       }
 
-      const results: SearchResult[] = [
-        ...(destinationsRes.data || []).map((d) => ({
-          ...d,
-          resultType: 'destination' as const,
-        })),
-        ...(recommendationsRes.data || []).map((r) => ({
-          ...r,
-          resultType: 'recommendation' as const,
-        })),
-      ];
+      const destinations: DestinationResult[] = (destinationsRes.data || []).map((d) => ({
+        ...d,
+        resultType: 'destination',
+      }));
 
-      return results;
+      const recommendations: RecommendationResult[] = (recommendationsRes.data || []).map((r) => ({
+        ...r,
+        resultType: 'recommendation',
+      }));
+
+      return [...destinations, ...recommendations];
     },
     enabled: debouncedQuery.length > 0,
     staleTime: 1000 * 60 * 5, // Cache results for 5 minutes
