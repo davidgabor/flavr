@@ -19,4 +19,5 @@ export interface Destination {
   image: string;
   description: string;
   country: string;
+  region: string;
 }

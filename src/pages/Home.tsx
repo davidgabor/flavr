@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination } from "@/types/recommendation";
 
@@ -13,18 +13,23 @@ const Home = () => {
         .select(`
           *,
           recommendations:recommendations(count)
-        `);
+        `)
+        .order('region');
       
       if (error) throw error;
       return data as (Destination & { recommendations: { count: number }[] })[];
     },
   });
 
-  const groupedDestinations = {
-    europe: destinations.filter(d => ["copenhagen", "stockholm", "malaga", "paris", "barcelona", "florence", "milan"].includes(d.id)),
-    asia: destinations.filter(d => ["dubai", "bangkok", "singapore", "hongkong"].includes(d.id)),
-    unitedStates: destinations.filter(d => ["newyork", "losangeles", "sanfrancisco", "miami"].includes(d.id))
-  };
+  // Group destinations by region
+  const groupedDestinations = destinations.reduce((acc, destination) => {
+    const region = destination.region || 'Other';
+    if (!acc[region]) {
+      acc[region] = [];
+    }
+    acc[region].push(destination);
+    return acc;
+  }, {} as Record<string, (Destination & { recommendations: { count: number }[] })[]>);
 
   const handleDestinationClick = (destinationId: string) => {
     window.scrollTo(0, 0);
@@ -94,46 +99,20 @@ const Home = () => {
 
       {/* Destinations Sections */}
       <div className="container px-4 mx-auto space-y-24">
-        <section className="space-y-8 animate-fade-in [animation-delay:200ms]">
-          <div className="flex items-center gap-8 mb-12">
-            <div className="h-px bg-white/20 flex-1" />
-            <h2 className="text-3xl font-judson text-center">Europe</h2>
-            <div className="h-px bg-white/20 flex-1" />
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {groupedDestinations.europe.map((destination, index) => (
-              <DestinationCard key={destination.id} destination={destination} index={index} />
-            ))}
-          </div>
-        </section>
-
-        {/* Asia Section */}
-        <section className="space-y-8 animate-fade-in [animation-delay:400ms]">
-          <div className="flex items-center gap-8 mb-12">
-            <div className="h-px bg-white/20 flex-1" />
-            <h2 className="text-3xl font-judson text-center">Asia</h2>
-            <div className="h-px bg-white/20 flex-1" />
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {groupedDestinations.asia.map((destination, index) => (
-              <DestinationCard key={destination.id} destination={destination} index={index} />
-            ))}
-          </div>
-        </section>
-
-        {/* United States Section */}
-        <section className="space-y-8 animate-fade-in [animation-delay:600ms]">
-          <div className="flex items-center gap-8 mb-12">
-            <div className="h-px bg-white/20 flex-1" />
-            <h2 className="text-3xl font-judson text-center">United States</h2>
-            <div className="h-px bg-white/20 flex-1" />
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {groupedDestinations.unitedStates.map((destination, index) => (
-              <DestinationCard key={destination.id} destination={destination} index={index} />
-            ))}
-          </div>
-        </section>
+        {Object.entries(groupedDestinations).map(([region, destinations], regionIndex) => (
+          <section key={region} className="space-y-8">
+            <div className="flex items-center gap-8 mb-12">
+              <div className="h-px bg-white/20 flex-1" />
+              <h2 className="text-3xl font-judson text-center">{region}</h2>
+              <div className="h-px bg-white/20 flex-1" />
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {destinations.map((destination, index) => (
+                <DestinationCard key={destination.id} destination={destination} index={index} />
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
     </div>
   );

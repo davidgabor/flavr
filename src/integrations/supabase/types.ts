@@ -17,6 +17,7 @@ export type Database = {
           image: string
           name: string
           name_search: unknown | null
+          region: string
         }
         Insert: {
           country?: string
@@ -25,6 +26,7 @@ export type Database = {
           image: string
           name: string
           name_search?: unknown | null
+          region?: string
         }
         Update: {
           country?: string
@@ -33,6 +35,7 @@ export type Database = {
           image?: string
           name?: string
           name_search?: unknown | null
+          region?: string
         }
         Relationships: []
       }
