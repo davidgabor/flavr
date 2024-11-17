@@ -9,8 +9,17 @@ export interface Recommendation {
   neighborhood?: string;
   hours?: string;
   image: string;
+  images?: string[];
   created_at?: string;
   updated_at?: string;
+  address?: string;
+  latitude?: number;
+  longitude?: number;
+  website?: string;
+  instagram?: string;
+  phone?: string;
+  our_review?: string;
+  destination_id: string;
 }
 
 export interface Destination {

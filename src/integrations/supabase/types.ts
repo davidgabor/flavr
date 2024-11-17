@@ -41,6 +41,7 @@ export type Database = {
       }
       recommendations: {
         Row: {
+          address: string | null
           created_at: string
           cuisine: string
           description: string | null
@@ -48,15 +49,23 @@ export type Database = {
           hours: string | null
           id: string
           image: string
+          images: string[] | null
+          instagram: string | null
+          latitude: number | null
+          longitude: number | null
           name: string
           name_search: unknown | null
           neighborhood: string | null
+          our_review: string | null
+          phone: string | null
           price_level: string
           rating: number
           type: string
           updated_at: string
+          website: string | null
         }
         Insert: {
+          address?: string | null
           created_at?: string
           cuisine: string
           description?: string | null
@@ -64,15 +73,23 @@ export type Database = {
           hours?: string | null
           id: string
           image: string
+          images?: string[] | null
+          instagram?: string | null
+          latitude?: number | null
+          longitude?: number | null
           name: string
           name_search?: unknown | null
           neighborhood?: string | null
+          our_review?: string | null
+          phone?: string | null
           price_level: string
           rating: number
           type: string
           updated_at?: string
+          website?: string | null
         }
         Update: {
+          address?: string | null
           created_at?: string
           cuisine?: string
           description?: string | null
@@ -80,13 +97,20 @@ export type Database = {
           hours?: string | null
           id?: string
           image?: string
+          images?: string[] | null
+          instagram?: string | null
+          latitude?: number | null
+          longitude?: number | null
           name?: string
           name_search?: unknown | null
           neighborhood?: string | null
+          our_review?: string | null
+          phone?: string | null
           price_level?: string
           rating?: number
           type?: string
           updated_at?: string
+          website?: string | null
         }
         Relationships: [
           {
