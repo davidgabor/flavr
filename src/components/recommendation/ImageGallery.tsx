@@ -32,7 +32,7 @@ const ImageGallery = ({ images, name }: ImageGalleryProps) => {
         <div className="grid grid-rows-3 gap-4">
           {allImages.slice(1, 4).map((image, index) => (
             <div 
-              key={index}
+              key={image}
               className="relative rounded-xl overflow-hidden cursor-pointer bg-neutral-800"
               onClick={() => setSelectedImageIndex(index + 1)}
             >
