@@ -99,7 +99,7 @@ const RecommendationDetails = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="md:col-span-2 space-y-6">
                 <div>
-                  <h1 className="text-4xl font-judson mb-2">{name}</h1>
+                  <h1 className="text-5xl md:text-6xl font-judson mb-2">{name}</h1>
                   <div className="flex items-center gap-4 text-neutral-400">
                     <span>{type}</span>
                     <span>•</span>
