@@ -9,39 +9,39 @@ interface ImageGalleryProps {
 
 const ImageGallery = ({ images, name }: ImageGalleryProps) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
-  const allImages = images?.length ? images : [];
+  const allImages = images?.length ? [images[0], ...images.slice(1)] : [images[0]];
 
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4 h-[500px]">
         {/* Main Image */}
-        {allImages.length > 0 && (
-          <div 
-            className="relative rounded-xl overflow-hidden cursor-pointer bg-neutral-800"
-            onClick={() => setSelectedImageIndex(0)}
-          >
-            <img
-              src={optimizeImageUrl(allImages[0])}
-              alt={name}
-              className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-        )}
+        <div 
+          className="relative rounded-xl overflow-hidden cursor-pointer bg-neutral-800"
+          onClick={() => setSelectedImageIndex(0)}
+        >
+          <img
+            src={optimizeImageUrl(allImages[0])}
+            alt={name}
+            className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+          />
+        </div>
 
         {/* Thumbnail Grid */}
         <div className="grid grid-rows-3 gap-4">
           {allImages.slice(1, 4).map((image, index) => (
-            <div 
-              key={image}
-              className="relative rounded-xl overflow-hidden cursor-pointer bg-neutral-800"
-              onClick={() => setSelectedImageIndex(index + 1)}
-            >
-              <img
-                src={optimizeImageUrl(image)}
-                alt={`${name} ${index + 2}`}
-                className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-              />
-            </div>
+            image && (
+              <div 
+                key={image}
+                className="relative rounded-xl overflow-hidden cursor-pointer bg-neutral-800"
+                onClick={() => setSelectedImageIndex(index + 1)}
+              >
+                <img
+                  src={optimizeImageUrl(image)}
+                  alt={`${name} ${index + 2}`}
+                  className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            )
           ))}
         </div>
       </div>
