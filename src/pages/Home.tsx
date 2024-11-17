@@ -1,9 +1,30 @@
 import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { cities } from "@/utils/cities";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import type { Destination } from "@/types/recommendation";
 
 const Home = () => {
+  const { data: destinations = [], isLoading } = useQuery({
+    queryKey: ["destinations"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("destinations")
+        .select(`
+          *,
+          recommendations:recommendations(count)
+        `);
+      
+      if (error) throw error;
+      return data as (Destination & { recommendations: { count: number }[] })[];
+    },
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="space-y-16 animate-fade-in">
       <section className="text-center space-y-6">
@@ -27,7 +48,7 @@ const Home = () => {
         <div className="max-w-md mx-auto">
           <Input
             type="search"
-            placeholder="Search cities or cuisines..."
+            placeholder="Search destinations or cuisines..."
             className="bg-white"
           />
         </div>
@@ -36,20 +57,20 @@ const Home = () => {
       <section className="mb-16">
         <h2 className="heading-2 text-center mb-8">Explore my recommendations</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {cities.map((city) => (
-            <Link to={`/cities/${city.id}`} key={city.id} className="card group">
+          {destinations.map((destination) => (
+            <Link to={`/destinations/${destination.id}`} key={destination.id} className="card group">
               <div className="aspect-[3/2] overflow-hidden rounded-t-lg">
                 <img
-                  src={city.image}
-                  alt={city.name}
+                  src={destination.image}
+                  alt={destination.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   loading="lazy"
                 />
               </div>
               <div className="p-3">
-                <h3 className="font-medium text-lg mb-0.5">{city.name}</h3>
+                <h3 className="font-medium text-lg mb-0.5">{destination.name}</h3>
                 <p className="text-sm text-neutral-600">
-                  {city.recommendations.length} recommendations
+                  {destination.recommendations[0]?.count || 0} recommendations
                 </p>
               </div>
             </Link>

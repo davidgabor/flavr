@@ -9,7 +9,7 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      cities: {
+      destinations: {
         Row: {
           description: string
           id: string
@@ -32,10 +32,10 @@ export type Database = {
       }
       recommendations: {
         Row: {
-          city_id: string
           created_at: string
           cuisine: string
           description: string | null
+          destination_id: string
           hours: string | null
           id: string
           image: string
@@ -47,10 +47,10 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          city_id: string
           created_at?: string
           cuisine: string
           description?: string | null
+          destination_id: string
           hours?: string | null
           id: string
           image: string
@@ -62,10 +62,10 @@ export type Database = {
           updated_at?: string
         }
         Update: {
-          city_id?: string
           created_at?: string
           cuisine?: string
           description?: string | null
+          destination_id?: string
           hours?: string | null
           id?: string
           image?: string
@@ -78,10 +78,10 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "recommendations_city_id_fkey"
-            columns: ["city_id"]
+            foreignKeyName: "recommendations_destination_id_fkey"
+            columns: ["destination_id"]
             isOneToOne: false
-            referencedRelation: "cities"
+            referencedRelation: "destinations"
             referencedColumns: ["id"]
           },
         ]

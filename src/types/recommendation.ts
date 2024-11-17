@@ -13,7 +13,7 @@ export interface Recommendation {
   updated_at?: string;
 }
 
-export interface City {
+export interface Destination {
   id: string;
   name: string;
   image: string;
