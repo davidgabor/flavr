@@ -4,9 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Recommendation } from "@/types/recommendation";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import ImageGallery from "@/components/recommendation/ImageGallery";
-import RecommendationCard from "@/components/destination/RecommendationCard";
+import MoreRecommendations from "@/components/recommendation/MoreRecommendations";
 
 const RecommendationDetails = () => {
   const { destinationSlug, recommendationSlug } = useParams();
@@ -40,26 +39,6 @@ const RecommendationDetails = () => {
     },
   });
 
-  const { data: moreRecommendations = [] } = useQuery({
-    queryKey: ["more-recommendations", recommendation?.destination_id],
-    queryFn: async () => {
-      if (!recommendation?.destination_id) return [];
-      
-      // Using .order('id') with a random seed to achieve random ordering
-      const { data, error } = await supabase
-        .from("recommendations")
-        .select("*")
-        .eq("destination_id", recommendation.destination_id)
-        .neq("id", recommendation.id)
-        .limit(4)
-        .order('id', { ascending: true, nullsFirst: false, foreignTable: null });
-      
-      if (error) throw error;
-      return data as Recommendation[];
-    },
-    enabled: !!recommendation?.destination_id,
-  });
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -91,7 +70,8 @@ const RecommendationDetails = () => {
     instagram,
     phone,
     our_review,
-    destinations
+    destinations,
+    destination_id
   } = recommendation;
 
   const handleMapClick = () => {
@@ -207,21 +187,11 @@ const RecommendationDetails = () => {
               </div>
             </div>
 
-            {moreRecommendations.length > 0 && (
-              <div className="mt-16 pt-16 border-t border-neutral-800">
-                <h2 className="heading-2 mb-8">Explore more in {destinations.name}</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {moreRecommendations.map((rec) => (
-                    <RecommendationCard
-                      key={rec.id}
-                      {...rec}
-                      priceLevel={rec.price_level}
-                      destinationName={destinations.name}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
+            <MoreRecommendations 
+              destinationId={destination_id}
+              currentRecommendationId={recommendation.id}
+              destinationName={destinations.name}
+            />
           </div>
         </div>
       </div>
