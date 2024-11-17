@@ -70,7 +70,7 @@ const Home = () => {
               <div className="p-3">
                 <h3 className="font-medium text-lg mb-0.5">{destination.name}</h3>
                 <p className="text-sm text-neutral-600">
-                  {destination.recommendations[0]?.count || 0} recommendations
+                  {destination.recommendations?.[0]?.count || 0} recommendations
                 </p>
               </div>
             </Link>
