@@ -68,7 +68,7 @@ const Home = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=2000')`,
+            backgroundImage: `url('https://i.ibb.co/0B24ZNC/kobby-mendez-g-VFEAm-Rpvj-Q-unsplash.jpg')`,
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/90 via-neutral-900/80 to-neutral-900" />
