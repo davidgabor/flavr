@@ -8,7 +8,7 @@
   :root {
     --background: 0 0% 0%;
     --foreground: 0 0% 100%;
-    --radius: 0.5rem;
+    --radius: 0;
   }
 
   body {
@@ -37,7 +37,7 @@
   }
 
   .card {
-    @apply bg-neutral-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 overflow-hidden border border-white/10;
+    @apply bg-neutral-800 hover:shadow-xl transition-shadow duration-200 overflow-hidden border border-white/10;
   }
 
   .heading-1 {

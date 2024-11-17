@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import DestinationHeader from "@/components/destination/DestinationHeader";
 import RecommendationCard from "@/components/destination/RecommendationCard";
@@ -8,6 +8,7 @@ import type { Destination, Recommendation } from "@/types/recommendation";
 
 const DestinationDetails = () => {
   const { destinationId } = useParams();
+  const [selectedType, setSelectedType] = useState<string | null>(null);
 
   const { data: destinationData, isLoading: isLoadingDestination } = useQuery({
     queryKey: ["destination", destinationId],
@@ -67,43 +68,43 @@ const DestinationDetails = () => {
     );
   }
 
+  const types = Object.keys(groupedRecommendations);
+  const displayedType = selectedType || types[0];
+
   return (
     <div className="min-h-screen bg-neutral-900">
       <DestinationHeader 
         name={destinationData.name}
         description={destinationData.description}
         image={destinationData.image}
-        country="Sweden"
+        country={destinationData.country}
       />
       
       <div className="px-6 py-12 max-w-7xl mx-auto">
-        <div className="flex items-center gap-4 mb-8 overflow-x-auto pb-4 scrollbar-hide">
-          {Object.keys(groupedRecommendations).map((type) => (
+        <div className="flex items-center justify-center gap-4 mb-8 overflow-x-auto pb-4 scrollbar-hide">
+          {types.map((type) => (
             <button
               key={type}
-              className="px-6 py-2 rounded-full text-sm text-white/80 hover:text-white border border-white/20 hover:border-white/40 transition-colors whitespace-nowrap"
+              onClick={() => setSelectedType(type)}
+              className={`px-6 py-2 text-sm ${
+                type === displayedType
+                  ? "text-white border-white"
+                  : "text-white/80 border-white/20 hover:border-white/40"
+              } border transition-colors whitespace-nowrap`}
             >
               {type}
             </button>
           ))}
         </div>
 
-        {Object.entries(groupedRecommendations).map(([type, items]) => (
-          <div key={type} className="mb-16">
-            <div className="flex items-center gap-4 mb-8">
-              <h2 className="text-2xl text-white font-medium">{type}</h2>
-              <div className="h-px bg-white/20 flex-1" />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {items.map((recommendation) => (
-                <RecommendationCard
-                  key={recommendation.id}
-                  {...recommendation}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {groupedRecommendations[displayedType]?.map((recommendation) => (
+            <RecommendationCard
+              key={recommendation.id}
+              {...recommendation}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
