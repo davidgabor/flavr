@@ -76,7 +76,7 @@ const Home = () => {
         <div className="relative max-w-3xl mx-auto space-y-6 animate-fade-in">
           <h1 className="text-4xl md:text-6xl font-judson">Our Favorite Spots, Everywhere</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
-            We're David and Mark, two food lovers sharing our favorite spots from cities around the
+            We're David and Maja, two food lovers sharing our favorite spots from cities around the
             world. From cozy local haunts to standout dining experiences, each pick is a place we've
             tried, loved, and can't wait for you to enjoy.
           </p>
@@ -88,13 +88,13 @@ const Home = () => {
               loading="eager"
             />
             <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400"
-              alt="Mark's profile"
+              src="https://media.licdn.com/dms/image/v2/D4D03AQHA9ZPFYWC8nQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1728372617118?e=1737590400&v=beta&t=_hPUlmpjsO-ksPTeiJt4nROwGfDNlN0Smj6VfyWE7mg"
+              alt="Maja's profile"
               className="w-12 h-12 rounded-full border-2 border-white/20"
               loading="eager"
             />
           </div>
-          <div className="text-sm text-neutral-400">xoxo, David & Mark</div>
+          <div className="text-sm text-neutral-400">xoxo, David & Maja</div>
         </div>
       </section>
 
