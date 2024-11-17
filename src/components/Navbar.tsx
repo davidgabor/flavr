@@ -52,22 +52,18 @@ const Navbar = () => {
     queryFn: async () => {
       if (!debouncedQuery) return [];
 
+      const searchTerm = debouncedQuery.toLowerCase();
+
       const [destinationsRes, recommendationsRes] = await Promise.all([
         supabase
           .from("destinations")
           .select("id, name, description")
-          .textSearch('name_search', `'${debouncedQuery}'`, {
-            type: 'websearch',
-            config: 'english'
-          })
+          .ilike('name', `%${searchTerm}%`)
           .limit(5),
         supabase
           .from("recommendations")
           .select("id, name, type")
-          .textSearch('name_search', `'${debouncedQuery}'`, {
-            type: 'websearch',
-            config: 'english'
-          })
+          .ilike('name', `%${searchTerm}%`)
           .limit(5),
       ]);
 
