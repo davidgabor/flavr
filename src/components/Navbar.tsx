@@ -56,14 +56,14 @@ const Navbar = () => {
         supabase
           .from("destinations")
           .select("id, name, description")
-          .textSearch('name', debouncedQuery, {
+          .textSearch('name_search', debouncedQuery, {
             type: 'websearch',
             config: 'english'
           }),
         supabase
           .from("recommendations")
           .select("id, name, type")
-          .textSearch('name', debouncedQuery, {
+          .textSearch('name_search', debouncedQuery, {
             type: 'websearch',
             config: 'english'
           }),

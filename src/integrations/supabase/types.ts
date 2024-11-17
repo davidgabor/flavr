@@ -16,6 +16,7 @@ export type Database = {
           id: string
           image: string
           name: string
+          name_search: unknown | null
         }
         Insert: {
           country?: string
@@ -23,6 +24,7 @@ export type Database = {
           id: string
           image: string
           name: string
+          name_search?: unknown | null
         }
         Update: {
           country?: string
@@ -30,6 +32,7 @@ export type Database = {
           id?: string
           image?: string
           name?: string
+          name_search?: unknown | null
         }
         Relationships: []
       }
@@ -43,6 +46,7 @@ export type Database = {
           id: string
           image: string
           name: string
+          name_search: unknown | null
           neighborhood: string | null
           price_level: string
           rating: number
@@ -58,6 +62,7 @@ export type Database = {
           id: string
           image: string
           name: string
+          name_search?: unknown | null
           neighborhood?: string | null
           price_level: string
           rating: number
@@ -73,6 +78,7 @@ export type Database = {
           id?: string
           image?: string
           name?: string
+          name_search?: unknown | null
           neighborhood?: string | null
           price_level?: string
           rating?: number
