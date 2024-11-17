@@ -39,11 +39,10 @@ const Home = () => {
       style={{ animationDelay: `${(index + 1) * 100}ms` }}
     >
       <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 relative">
-        <div className="absolute inset-0 bg-neutral-800" />
         <img
           src={destination.image}
           alt={destination.name}
-          className="w-full h-full object-cover opacity-0 transition-opacity duration-500"
+          className="w-full h-full object-cover transition-all duration-500 opacity-0"
           loading="lazy"
           onLoad={(e) => {
             const img = e.target as HTMLImageElement;
@@ -101,7 +100,6 @@ const Home = () => {
 
       {/* Destinations Sections */}
       <div className="container px-4 mx-auto space-y-24">
-        {/* Europe Section */}
         <section className="space-y-8 animate-fade-in [animation-delay:200ms]">
           <div className="flex items-center gap-8 mb-12">
             <div className="h-px bg-white/20 flex-1" />
