@@ -68,12 +68,17 @@ const Home = () => {
     <div className="min-h-screen bg-neutral-900 text-white pb-24">
       {/* Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center text-center px-4">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url('https://i.ibb.co/0B24ZNC/kobby-mendez-g-VFEAm-Rpvj-Q-unsplash.jpg')`,
-          }}
-        />
+        <div className="absolute inset-0 overflow-hidden">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="https://videos.pexels.com/video-files/2620043/2620043-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+          </video>
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
         <div className="relative max-w-3xl mx-auto space-y-6">
           <h1 className="text-4xl md:text-6xl font-judson">Our Favorite Spots, Everywhere</h1>
