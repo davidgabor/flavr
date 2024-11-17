@@ -42,15 +42,15 @@ const Home = () => {
       onClick={() => handleDestinationClick(destination.id)}
       className="text-left group"
     >
-      <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800">
+      <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 group-hover:shadow-2xl transition-all duration-500">
         <img
           src={destination.image}
           alt={destination.name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           loading="lazy"
         />
       </div>
-      <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
+      <h3 className="text-xl font-judson mb-1 transition-colors duration-300 group-hover:text-primary">{destination.name}</h3>
       <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
     </button>
   );
