@@ -31,6 +31,33 @@ const Home = () => {
     navigate(`/destinations/${destinationId}`);
   };
 
+  const DestinationCard = ({ destination, index }: { destination: Destination & { recommendations: { count: number }[] }, index: number }) => (
+    <button
+      key={destination.id}
+      onClick={() => handleDestinationClick(destination.id)}
+      className="text-left group animate-fade-in"
+      style={{ animationDelay: `${(index + 1) * 100}ms` }}
+    >
+      <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 relative">
+        <div className="absolute inset-0 bg-neutral-800 animate-pulse" />
+        <img
+          src={destination.image}
+          alt={destination.name}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
+          onLoad={(e) => {
+            const img = e.target as HTMLImageElement;
+            img.parentElement?.querySelector('.animate-pulse')?.remove();
+            img.classList.add('opacity-100');
+          }}
+          style={{ opacity: 0 }}
+        />
+      </div>
+      <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
+      <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
+    </button>
+  );
+
   if (isLoading) {
     return <div className="min-h-screen bg-neutral-900 flex items-center justify-center">
       <div className="text-neutral-400">Loading...</div>
@@ -84,28 +111,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {groupedDestinations.europe.map((destination, index) => (
-              <button
-                key={destination.id}
-                onClick={() => handleDestinationClick(destination.id)}
-                className="text-left group animate-fade-in"
-                style={{ animationDelay: `${(index + 1) * 100}ms` }}
-              >
-                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 relative">
-                  <div className="absolute inset-0 bg-neutral-800 animate-pulse" />
-                  <img
-                    src={destination.image}
-                    alt={destination.name}
-                    className="w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:scale-110"
-                    loading="lazy"
-                    onLoad={(e) => {
-                      const img = e.target as HTMLImageElement;
-                      img.style.opacity = '1';
-                    }}
-                  />
-                </div>
-                <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
-                <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
-              </button>
+              <DestinationCard key={destination.id} destination={destination} index={index} />
             ))}
           </div>
         </section>
@@ -119,28 +125,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {groupedDestinations.asia.map((destination, index) => (
-              <button
-                key={destination.id}
-                onClick={() => handleDestinationClick(destination.id)}
-                className="text-left group animate-fade-in"
-                style={{ animationDelay: `${(index + 1) * 100}ms` }}
-              >
-                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 relative">
-                  <div className="absolute inset-0 bg-neutral-800 animate-pulse" />
-                  <img
-                    src={destination.image}
-                    alt={destination.name}
-                    className="w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:scale-110"
-                    loading="lazy"
-                    onLoad={(e) => {
-                      const img = e.target as HTMLImageElement;
-                      img.style.opacity = '1';
-                    }}
-                  />
-                </div>
-                <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
-                <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
-              </button>
+              <DestinationCard key={destination.id} destination={destination} index={index} />
             ))}
           </div>
         </section>
@@ -154,28 +139,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {groupedDestinations.unitedStates.map((destination, index) => (
-              <button
-                key={destination.id}
-                onClick={() => handleDestinationClick(destination.id)}
-                className="text-left group animate-fade-in"
-                style={{ animationDelay: `${(index + 1) * 100}ms` }}
-              >
-                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 relative">
-                  <div className="absolute inset-0 bg-neutral-800 animate-pulse" />
-                  <img
-                    src={destination.image}
-                    alt={destination.name}
-                    className="w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:scale-110"
-                    loading="lazy"
-                    onLoad={(e) => {
-                      const img = e.target as HTMLImageElement;
-                      img.style.opacity = '1';
-                    }}
-                  />
-                </div>
-                <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
-                <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
-              </button>
+              <DestinationCard key={destination.id} destination={destination} index={index} />
             ))}
           </div>
         </section>
