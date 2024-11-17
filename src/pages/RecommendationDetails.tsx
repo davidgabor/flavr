@@ -8,11 +8,19 @@ import { Separator } from "@/components/ui/separator";
 import ImageGallery from "@/components/recommendation/ImageGallery";
 
 const RecommendationDetails = () => {
-  const { id } = useParams();
+  const { destinationSlug, recommendationSlug } = useParams();
   
   const { data: recommendation, isLoading } = useQuery({
-    queryKey: ["recommendation", id],
+    queryKey: ["recommendation", destinationSlug, recommendationSlug],
     queryFn: async () => {
+      const { data: destinations, error: destinationError } = await supabase
+        .from("destinations")
+        .select("id, name")
+        .ilike('name', destinationSlug?.replace(/-/g, ' ') || '')
+        .single();
+
+      if (destinationError) throw destinationError;
+
       const { data, error } = await supabase
         .from("recommendations")
         .select(`
@@ -22,7 +30,8 @@ const RecommendationDetails = () => {
             country
           )
         `)
-        .eq("id", id)
+        .eq("destination_id", destinations.id)
+        .ilike('name', recommendationSlug?.replace(/-/g, ' ') || '')
         .single();
       
       if (error) throw error;
@@ -77,7 +86,7 @@ const RecommendationDetails = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-[1400px] mx-auto">
           <Link
-            to={`/destinations/${recommendation.destination_id}`}
+            to={`/${destinationSlug}`}
             className="inline-flex items-center gap-2 text-neutral-400 hover:text-primary transition-colors py-4"
           >
             <ArrowLeft size={20} />

@@ -18,16 +18,16 @@ const pluralizeType = (type: string, count: number) => {
 };
 
 const DestinationDetails = () => {
-  const { destinationId } = useParams();
+  const { destinationSlug } = useParams();
   const [selectedType, setSelectedType] = useState<string | null>(null);
 
   const { data: destinationData, isLoading: isLoadingDestination } = useQuery({
-    queryKey: ["destination", destinationId],
+    queryKey: ["destination", destinationSlug],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("destinations")
         .select("*")
-        .eq("id", destinationId)
+        .ilike('name', destinationSlug?.replace(/-/g, ' ') || '')
         .single();
       
       if (error) throw error;
@@ -36,16 +36,19 @@ const DestinationDetails = () => {
   });
 
   const { data: recommendations = [], isLoading: isLoadingRecommendations } = useQuery({
-    queryKey: ["recommendations", destinationId],
+    queryKey: ["recommendations", destinationData?.id],
     queryFn: async () => {
+      if (!destinationData?.id) return [];
+      
       const { data, error } = await supabase
         .from("recommendations")
         .select("*")
-        .eq("destination_id", destinationId);
+        .eq("destination_id", destinationData.id);
       
       if (error) throw error;
       return data as Recommendation[];
     },
+    enabled: !!destinationData?.id,
   });
 
   const groupedRecommendations = useMemo(() => {
@@ -113,6 +116,7 @@ const DestinationDetails = () => {
             <RecommendationCard
               key={recommendation.id}
               {...recommendation}
+              destinationName={destinationData.name}
             />
           ))}
         </div>

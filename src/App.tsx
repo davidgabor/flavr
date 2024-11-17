@@ -21,8 +21,8 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/destinations" element={<Destinations />} />
-              <Route path="/destinations/:destinationId" element={<DestinationDetails />} />
-              <Route path="/recommendations/:id" element={<RecommendationDetails />} />
+              <Route path="/:destinationSlug" element={<DestinationDetails />} />
+              <Route path="/:destinationSlug/:recommendationSlug" element={<RecommendationDetails />} />
             </Routes>
           </main>
         </BrowserRouter>

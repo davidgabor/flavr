@@ -26,6 +26,7 @@ type RecommendationResult = {
   name: string;
   type: string;
   resultType: 'recommendation';
+  destination_name: string;
 };
 
 type SearchResult = DestinationResult | RecommendationResult;
@@ -62,7 +63,14 @@ const Navbar = () => {
           .limit(5),
         supabase
           .from("recommendations")
-          .select("id, name, type")
+          .select(`
+            id, 
+            name, 
+            type,
+            destinations (
+              name
+            )
+          `)
           .ilike('name', `%${searchTerm}%`)
           .limit(5),
       ]);
@@ -85,6 +93,7 @@ const Navbar = () => {
       const recommendations: RecommendationResult[] = (recommendationsRes.data || []).map((r) => ({
         ...r,
         resultType: 'recommendation',
+        destination_name: r.destinations?.name || '',
       }));
 
       return [...destinations, ...recommendations];
@@ -97,9 +106,9 @@ const Navbar = () => {
     setOpen(false);
     setSearchQuery("");
     if (result.resultType === "destination") {
-      navigate(`/destinations/${result.id}`);
+      navigate(`/${result.name.toLowerCase().replace(/\s+/g, '-')}`);
     } else {
-      navigate(`/recommendations/${result.id}`);
+      navigate(`/${result.destination_name.toLowerCase().replace(/\s+/g, '-')}/${result.name.toLowerCase().replace(/\s+/g, '-')}`);
     }
   };
 
@@ -168,7 +177,7 @@ const Navbar = () => {
                         >
                           <span className="font-medium">{result.name}</span>
                           <span className="text-sm text-neutral-400">
-                            {result.type}
+                            {result.type} • {result.destination_name}
                           </span>
                         </CommandItem>
                       ))}

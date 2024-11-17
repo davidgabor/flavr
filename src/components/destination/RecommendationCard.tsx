@@ -4,16 +4,18 @@ import { Recommendation } from "@/types/recommendation";
 
 type RecommendationCardProps = Recommendation & {
   priceLevel: string;
+  destinationName: string;
 };
 
 const RecommendationCard = ({
   id,
   name,
   neighborhood,
-  image
+  image,
+  destinationName
 }: RecommendationCardProps) => (
   <Link
-    to={`/recommendations/${id}`}
+    to={`/${destinationName.toLowerCase().replace(/\s+/g, '-')}/${name.toLowerCase().replace(/\s+/g, '-')}`}
     className="group block aspect-[4/5] relative overflow-hidden bg-neutral-800"
   >
     <div className="absolute inset-0">
