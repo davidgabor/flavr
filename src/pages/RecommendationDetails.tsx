@@ -1,4 +1,4 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { MapPin, ArrowLeft, Globe, Instagram, Phone, Map } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -73,102 +73,106 @@ const RecommendationDetails = () => {
   const allImages = images?.length ? images : [recommendation.image];
 
   return (
-    <div className="animate-fade-in space-y-6 max-w-6xl mx-auto px-4">
-      <Link
-        to={`/destinations/${recommendation.destination_id}`}
-        className="inline-flex items-center gap-2 text-neutral-400 hover:text-primary transition-colors"
-      >
-        <ArrowLeft size={20} />
-        <span>Back to {destinations.name}</span>
-      </Link>
+    <div className="animate-fade-in">
+      <div className="container px-4 mx-auto">
+        <Link
+          to={`/destinations/${recommendation.destination_id}`}
+          className="inline-flex items-center gap-2 text-neutral-400 hover:text-primary transition-colors"
+        >
+          <ArrowLeft size={20} />
+          <span>Back to {destinations.name}</span>
+        </Link>
 
-      <ImageGallery images={allImages} name={name} />
+        <div className="mt-6 space-y-6 max-w-6xl">
+          <ImageGallery images={allImages} name={name} />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="md:col-span-2 space-y-6">
-          <div>
-            <h1 className="text-4xl font-judson mb-2">{name}</h1>
-            <div className="flex items-center gap-4 text-neutral-400">
-              <span>{type}</span>
-              <span>•</span>
-              <span>{cuisine}</span>
-              <span>•</span>
-              <span>{price_level}</span>
-            </div>
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="md:col-span-2 space-y-6">
+              <div>
+                <h1 className="text-4xl font-judson mb-2">{name}</h1>
+                <div className="flex items-center gap-4 text-neutral-400">
+                  <span>{type}</span>
+                  <span>•</span>
+                  <span>{cuisine}</span>
+                  <span>•</span>
+                  <span>{price_level}</span>
+                </div>
+              </div>
 
-          {our_review && (
-            <div className="space-y-2">
-              <h2 className="text-2xl font-judson">Our Review</h2>
-              <p className="text-neutral-300">{our_review}</p>
-            </div>
-          )}
+              {our_review && (
+                <div className="space-y-2">
+                  <h2 className="text-2xl font-judson">Our Review</h2>
+                  <p className="text-neutral-300">{our_review}</p>
+                </div>
+              )}
 
-          {description && (
-            <div className="space-y-2">
-              <h2 className="text-2xl font-judson">About</h2>
-              <p className="text-neutral-300">{description}</p>
-            </div>
-          )}
-        </div>
-
-        <div className="space-y-6">
-          {address && (
-            <div className="space-y-2">
-              <h3 className="font-medium">Location</h3>
-              <p className="text-neutral-300">{address}</p>
-              {latitude && longitude && (
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" onClick={handleMapClick}>
-                    <Map className="h-4 w-4 mr-2" />
-                    Open in Maps
-                  </Button>
+              {description && (
+                <div className="space-y-2">
+                  <h2 className="text-2xl font-judson">About</h2>
+                  <p className="text-neutral-300">{description}</p>
                 </div>
               )}
             </div>
-          )}
 
-          {hours && (
-            <div className="space-y-2">
-              <h3 className="font-medium">Opening Hours</h3>
-              <p className="text-neutral-300">{hours}</p>
-            </div>
-          )}
+            <div className="space-y-6">
+              {address && (
+                <div className="space-y-2">
+                  <h3 className="font-medium">Location</h3>
+                  <p className="text-neutral-300">{address}</p>
+                  {latitude && longitude && (
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={handleMapClick}>
+                        <Map className="h-4 w-4 mr-2" />
+                        Open in Maps
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
 
-          <div className="space-y-2">
-            <h3 className="font-medium">Contact & Social</h3>
-            <div className="space-y-2">
-              {website && (
-                <a
-                  href={website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-neutral-300 hover:text-primary"
-                >
-                  <Globe className="h-4 w-4" />
-                  Website
-                </a>
+              {hours && (
+                <div className="space-y-2">
+                  <h3 className="font-medium">Opening Hours</h3>
+                  <p className="text-neutral-300">{hours}</p>
+                </div>
               )}
-              {instagram && (
-                <a
-                  href={`https://instagram.com/${instagram.replace('@', '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-neutral-300 hover:text-primary"
-                >
-                  <Instagram className="h-4 w-4" />
-                  {instagram}
-                </a>
-              )}
-              {phone && (
-                <a
-                  href={`tel:${phone}`}
-                  className="flex items-center gap-2 text-neutral-300 hover:text-primary"
-                >
-                  <Phone className="h-4 w-4" />
-                  {phone}
-                </a>
-              )}
+
+              <div className="space-y-2">
+                <h3 className="font-medium">Contact & Social</h3>
+                <div className="space-y-2">
+                  {website && (
+                    <a
+                      href={website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-neutral-300 hover:text-primary"
+                    >
+                      <Globe className="h-4 w-4" />
+                      Website
+                    </a>
+                  )}
+                  {instagram && (
+                    <a
+                      href={`https://instagram.com/${instagram.replace('@', '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-neutral-300 hover:text-primary"
+                    >
+                      <Instagram className="h-4 w-4" />
+                      {instagram}
+                    </a>
+                  )}
+                  {phone && (
+                    <a
+                      href={`tel:${phone}`}
+                      className="flex items-center gap-2 text-neutral-300 hover:text-primary"
+                    >
+                      <Phone className="h-4 w-4" />
+                      {phone}
+                    </a>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>

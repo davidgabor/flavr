@@ -1,7 +1,7 @@
 import { optimizeImageUrl } from "@/utils/imageUtils";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface ImageGalleryProps {
   images: string[];
@@ -11,7 +11,6 @@ interface ImageGalleryProps {
 const ImageGallery = ({ images, name }: ImageGalleryProps) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   
-  // Ensure we have a valid array of images
   const allImages = Array.isArray(images) && images.length > 0 
     ? images 
     : [images[0]];
@@ -27,6 +26,24 @@ const ImageGallery = ({ images, name }: ImageGalleryProps) => {
       prev !== null ? (prev === allImages.length - 1 ? 0 : prev + 1) : null
     );
   };
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (selectedImageIndex === null) return;
+      
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        handlePrevImage();
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        handleNextImage();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedImageIndex]);
 
   return (
     <>
