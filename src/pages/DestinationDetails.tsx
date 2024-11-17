@@ -72,7 +72,7 @@ const DestinationDetails = () => {
   const displayedType = selectedType || types[0];
 
   return (
-    <div className="min-h-screen bg-neutral-900">
+    <div className="relative min-h-screen bg-neutral-900">
       <DestinationHeader 
         name={destinationData.name}
         description={destinationData.description}
