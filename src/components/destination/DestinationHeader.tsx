@@ -22,3 +22,6 @@ const DestinationHeader = ({ name, description, image, country }: DestinationHea
       )}
     </div>
   </div>
+);
+
+export default DestinationHeader;
