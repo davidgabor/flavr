@@ -27,7 +27,6 @@ const ImageGallery = ({ images, name }: ImageGalleryProps) => {
     );
   };
 
-  // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (selectedImageIndex === null) return;
@@ -47,8 +46,7 @@ const ImageGallery = ({ images, name }: ImageGalleryProps) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4 h-[500px]">
-        {/* Main Image */}
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4 h-[600px]">
         <div 
           className="relative rounded-xl overflow-hidden cursor-pointer bg-neutral-800"
           onClick={() => setSelectedImageIndex(0)}
@@ -60,7 +58,6 @@ const ImageGallery = ({ images, name }: ImageGalleryProps) => {
           />
         </div>
 
-        {/* Thumbnail Grid */}
         <div className="hidden md:grid grid-rows-3 gap-4">
           {allImages.slice(1, 4).map((image, index) => (
             <div 
@@ -78,7 +75,6 @@ const ImageGallery = ({ images, name }: ImageGalleryProps) => {
         </div>
       </div>
 
-      {/* Image Gallery Dialog */}
       <Dialog open={selectedImageIndex !== null} onOpenChange={() => setSelectedImageIndex(null)}>
         <DialogContent className="max-w-4xl p-0 bg-neutral-900 border-neutral-800">
           <div className="relative w-full h-[80vh] bg-neutral-900">
@@ -90,7 +86,6 @@ const ImageGallery = ({ images, name }: ImageGalleryProps) => {
               />
             )}
             
-            {/* Navigation Buttons */}
             <button
               onClick={handlePrevImage}
               className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"

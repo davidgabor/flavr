@@ -74,17 +74,17 @@ const RecommendationDetails = () => {
 
   return (
     <div className="animate-fade-in">
-      <div className="container mx-auto">
-        <div className="px-4 max-w-[1400px] mx-auto">
+      <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto">
           <Link
             to={`/destinations/${recommendation.destination_id}`}
-            className="inline-flex items-center gap-2 text-neutral-400 hover:text-primary transition-colors"
+            className="inline-flex items-center gap-2 text-neutral-400 hover:text-primary transition-colors py-4"
           >
             <ArrowLeft size={20} />
             <span>Back to {destinations.name}</span>
           </Link>
 
-          <div className="mt-6 space-y-6 max-w-6xl">
+          <div className="space-y-8">
             <ImageGallery images={allImages} name={name} />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -116,20 +116,20 @@ const RecommendationDetails = () => {
               </div>
 
               <div className="space-y-6">
-                {address && (
-                  <div className="space-y-2">
-                    <h3 className="font-medium">Location</h3>
+                <div className="space-y-2">
+                  <h3 className="font-medium">Location</h3>
+                  {address && (
                     <p className="text-neutral-300">{address}</p>
-                    {latitude && longitude && (
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm" onClick={handleMapClick}>
-                          <Map className="h-4 w-4 mr-2" />
-                          Open in Maps
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                )}
+                  )}
+                  {latitude && longitude && (
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={handleMapClick}>
+                        <Map className="h-4 w-4 mr-2" />
+                        Open in Maps
+                      </Button>
+                    </div>
+                  )}
+                </div>
 
                 {hours && (
                   <div className="space-y-2">
