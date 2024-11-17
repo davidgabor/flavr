@@ -42,13 +42,8 @@ const Home = () => {
         <img
           src={destination.image}
           alt={destination.name}
-          className="w-full h-full object-cover transition-all duration-500 opacity-0"
+          className="w-full h-full object-cover"
           loading="lazy"
-          onLoad={(e) => {
-            const img = e.target as HTMLImageElement;
-            img.classList.remove('opacity-0');
-            img.classList.add('opacity-100');
-          }}
         />
       </div>
       <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
