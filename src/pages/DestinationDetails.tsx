@@ -80,13 +80,13 @@ const DestinationDetails = () => {
         country={destinationData.country}
       />
       
-      <div className="px-6 py-12 max-w-7xl mx-auto">
-        <div className="flex items-center justify-center gap-4 mb-8 overflow-x-auto pb-4 scrollbar-hide">
+      <div className="px-4 py-8 max-w-7xl mx-auto">
+        <div className="flex items-center justify-center gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide">
           {types.map((type) => (
             <button
               key={type}
               onClick={() => setSelectedType(type)}
-              className={`px-6 py-2 text-sm ${
+              className={`px-4 py-1.5 text-sm ${
                 type === displayedType
                   ? "text-white border-white"
                   : "text-white/80 border-white/20 hover:border-white/40"
@@ -97,7 +97,7 @@ const DestinationDetails = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {groupedRecommendations[displayedType]?.map((recommendation) => (
             <RecommendationCard
               key={recommendation.id}
