@@ -73,7 +73,7 @@ const Navbar = () => {
         return [];
       }
 
-      return [
+      const results: SearchResult[] = [
         ...(destinationsRes.data || []).map((d) => ({
           ...d,
           resultType: 'destination' as const,
@@ -82,9 +82,12 @@ const Navbar = () => {
           ...r,
           resultType: 'recommendation' as const,
         })),
-      ] as SearchResult[];
+      ];
+
+      return results;
     },
     enabled: debouncedQuery.length > 0,
+    staleTime: 1000 * 60 * 5, // Cache results for 5 minutes
   });
 
   const handleResultClick = (result: SearchResult) => {
