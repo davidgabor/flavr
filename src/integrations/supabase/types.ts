@@ -11,18 +11,21 @@ export type Database = {
     Tables: {
       destinations: {
         Row: {
+          country: string
           description: string
           id: string
           image: string
           name: string
         }
         Insert: {
+          country?: string
           description: string
           id: string
           image: string
           name: string
         }
         Update: {
+          country?: string
           description?: string
           id?: string
           image?: string
