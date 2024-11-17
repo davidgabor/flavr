@@ -82,7 +82,7 @@ const RecommendationDetails = () => {
   const allImages = images?.length ? images : [recommendation.image];
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in pb-16">
       <div className="container mx-auto px-4">
         <div className="max-w-[1400px] mx-auto">
           <Link
