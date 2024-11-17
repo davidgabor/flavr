@@ -1,18 +1,14 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { MapPin, ArrowLeft, Globe, Instagram, Phone, Map } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { optimizeImageUrl } from "@/utils/imageUtils";
 import { supabase } from "@/integrations/supabase/client";
 import { Recommendation } from "@/types/recommendation";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import ImageGallery from "@/components/recommendation/ImageGallery";
 
 const RecommendationDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   
   const { data: recommendation, isLoading } = useQuery({
     queryKey: ["recommendation", id],
@@ -86,36 +82,7 @@ const RecommendationDetails = () => {
         <span>Back to {destinations.name}</span>
       </Link>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Main Image */}
-        <div 
-          className="aspect-square rounded-xl overflow-hidden cursor-pointer"
-          onClick={() => setSelectedImageIndex(0)}
-        >
-          <img
-            src={optimizeImageUrl(allImages[0])}
-            alt={name}
-            className="w-full h-full object-cover hover:scale-105 transition-transform"
-          />
-        </div>
-
-        {/* Thumbnail Grid */}
-        <div className="grid grid-cols-2 gap-4">
-          {allImages.slice(1, 5).map((image, index) => (
-            <div 
-              key={index}
-              className="aspect-square rounded-xl overflow-hidden cursor-pointer"
-              onClick={() => setSelectedImageIndex(index + 1)}
-            >
-              <img
-                src={optimizeImageUrl(image)}
-                alt={`${name} ${index + 2}`}
-                className="w-full h-full object-cover hover:scale-105 transition-transform"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      <ImageGallery images={allImages} name={name} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2 space-y-6">
@@ -206,19 +173,6 @@ const RecommendationDetails = () => {
           </div>
         </div>
       </div>
-
-      {/* Image Gallery Dialog */}
-      <Dialog open={selectedImageIndex !== null} onOpenChange={() => setSelectedImageIndex(null)}>
-        <DialogContent className="max-w-4xl">
-          {selectedImageIndex !== null && (
-            <img
-              src={optimizeImageUrl(allImages[selectedImageIndex])}
-              alt={`${name} ${selectedImageIndex + 1}`}
-              className="w-full h-full object-contain"
-            />
-          )}
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
