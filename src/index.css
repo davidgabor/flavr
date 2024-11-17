@@ -16,6 +16,17 @@
   }
 }
 
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 @layer components {
   .nav-link {
     @apply px-4 py-2 text-neutral-400 hover:text-white transition-colors duration-200;
