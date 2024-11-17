@@ -13,11 +13,11 @@ const ImageGallery = ({ images, name }: ImageGalleryProps) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4 aspect-[16/9] h-[600px]">
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4 h-[500px]">
         {/* Main Image */}
         {allImages.length > 0 && (
           <div 
-            className="relative rounded-xl overflow-hidden cursor-pointer bg-neutral-100"
+            className="relative rounded-xl overflow-hidden cursor-pointer bg-neutral-800"
             onClick={() => setSelectedImageIndex(0)}
           >
             <img
@@ -29,11 +29,11 @@ const ImageGallery = ({ images, name }: ImageGalleryProps) => {
         )}
 
         {/* Thumbnail Grid */}
-        <div className="grid grid-rows-3 gap-4 h-full">
+        <div className="grid grid-rows-3 gap-4">
           {allImages.slice(1, 4).map((image, index) => (
             <div 
               key={index}
-              className="relative rounded-xl overflow-hidden cursor-pointer bg-neutral-100"
+              className="relative rounded-xl overflow-hidden cursor-pointer bg-neutral-800"
               onClick={() => setSelectedImageIndex(index + 1)}
             >
               <img
