@@ -56,11 +56,19 @@ const Navbar = () => {
         supabase
           .from("destinations")
           .select("id, name, description")
-          .ilike('name', `%${debouncedQuery}%`),
+          .textSearch('name_search', `'${debouncedQuery}'`, {
+            type: 'websearch',
+            config: 'english'
+          })
+          .limit(5),
         supabase
           .from("recommendations")
           .select("id, name, type")
-          .ilike('name', `%${debouncedQuery}%`),
+          .textSearch('name_search', `'${debouncedQuery}'`, {
+            type: 'websearch',
+            config: 'english'
+          })
+          .limit(5),
       ]);
 
       if (destinationsRes.error) {
