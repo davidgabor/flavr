@@ -56,17 +56,11 @@ const Navbar = () => {
         supabase
           .from("destinations")
           .select("id, name, description")
-          .textSearch('name_search', debouncedQuery, {
-            type: 'websearch',
-            config: 'english'
-          }),
+          .ilike('name', `%${debouncedQuery}%`),
         supabase
           .from("recommendations")
           .select("id, name, type")
-          .textSearch('name_search', debouncedQuery, {
-            type: 'websearch',
-            config: 'english'
-          }),
+          .ilike('name', `%${debouncedQuery}%`),
       ]);
 
       if (destinationsRes.error) {
@@ -104,7 +98,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-neutral-900/90 to-neutral-900/0 backdrop-blur-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-neutral-900/50 backdrop-blur-sm">
       <div className="container px-4 mx-auto">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="text-xl font-judson text-white">
