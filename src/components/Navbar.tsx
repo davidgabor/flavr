@@ -105,7 +105,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-neutral-900/50 backdrop-blur-sm">
-      <div className="container px-4 mx-auto">
+      <div className="max-w-[1600px] px-8 mx-auto">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="text-xl font-judson text-white">
             Flavr

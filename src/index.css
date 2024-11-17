@@ -40,6 +40,10 @@
     @apply bg-neutral-800 hover:shadow-xl transition-shadow duration-200 overflow-hidden border border-white/10;
   }
 
+  .container {
+    @apply max-w-[1600px] mx-auto px-8;
+  }
+
   .heading-1 {
     @apply text-4xl md:text-5xl font-judson text-white mb-4;
   }

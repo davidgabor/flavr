@@ -17,7 +17,7 @@ const App = () => (
       <div className="min-h-screen bg-neutral-900">
         <BrowserRouter>
           <Navbar />
-          <main className="pt-16">
+          <main className="max-w-[1600px] mx-auto px-8 pt-16">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/destinations" element={<Destinations />} />
