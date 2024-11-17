@@ -35,13 +35,13 @@ const Home = () => {
     <div className="min-h-screen bg-neutral-900 text-white pb-24">
       {/* Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center text-center px-4">
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 to-neutral-900" />
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/80 to-neutral-900" />
         <img
-          src="https://images.unsplash.com/photo-1504893524553-b855bce32c67"
+          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=2000"
           alt="Hero background"
           className="absolute inset-0 w-full h-full object-cover -z-10"
         />
-        <div className="relative max-w-3xl mx-auto space-y-6">
+        <div className="relative max-w-3xl mx-auto space-y-6 animate-fade-in">
           <h1 className="text-4xl md:text-6xl font-judson">Our Favorite Spots, Everywhere</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
             We're David and Mark, two food lovers sharing our favorite spots from cities around the
@@ -67,18 +67,19 @@ const Home = () => {
       {/* Destinations Sections */}
       <div className="container px-4 mx-auto space-y-24">
         {/* Europe Section */}
-        <section className="space-y-8">
+        <section className="space-y-8 animate-fade-in [animation-delay:200ms]">
           <div className="flex items-center gap-8 mb-12">
             <div className="h-px bg-white/20 flex-1" />
             <h2 className="text-3xl font-judson text-center">Europe</h2>
             <div className="h-px bg-white/20 flex-1" />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {groupedDestinations.europe.map((destination) => (
+            {groupedDestinations.europe.map((destination, index) => (
               <Link
                 key={destination.id}
                 to={`/destinations/${destination.id}`}
-                className="group"
+                className="group animate-fade-in"
+                style={{ animationDelay: `${(index + 1) * 100}ms` }}
               >
                 <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4">
                   <img
@@ -95,18 +96,19 @@ const Home = () => {
         </section>
 
         {/* Asia Section */}
-        <section className="space-y-8">
+        <section className="space-y-8 animate-fade-in [animation-delay:400ms]">
           <div className="flex items-center gap-8 mb-12">
             <div className="h-px bg-white/20 flex-1" />
             <h2 className="text-3xl font-judson text-center">Asia</h2>
             <div className="h-px bg-white/20 flex-1" />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {groupedDestinations.asia.map((destination) => (
+            {groupedDestinations.asia.map((destination, index) => (
               <Link
                 key={destination.id}
                 to={`/destinations/${destination.id}`}
-                className="group"
+                className="group animate-fade-in"
+                style={{ animationDelay: `${(index + 1) * 100}ms` }}
               >
                 <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4">
                   <img
@@ -123,18 +125,19 @@ const Home = () => {
         </section>
 
         {/* United States Section */}
-        <section className="space-y-8">
+        <section className="space-y-8 animate-fade-in [animation-delay:600ms]">
           <div className="flex items-center gap-8 mb-12">
             <div className="h-px bg-white/20 flex-1" />
             <h2 className="text-3xl font-judson text-center">United States</h2>
             <div className="h-px bg-white/20 flex-1" />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {groupedDestinations.unitedStates.map((destination) => (
+            {groupedDestinations.unitedStates.map((destination, index) => (
               <Link
                 key={destination.id}
                 to={`/destinations/${destination.id}`}
-                className="group"
+                className="group animate-fade-in"
+                style={{ animationDelay: `${(index + 1) * 100}ms` }}
               >
                 <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4">
                   <img
