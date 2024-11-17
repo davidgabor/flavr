@@ -13,33 +13,33 @@ const ImageGallery = ({ images, name }: ImageGalleryProps) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4 aspect-[16/9] h-[600px]">
         {/* Main Image */}
         {allImages.length > 0 && (
           <div 
-            className="aspect-square rounded-xl overflow-hidden cursor-pointer"
+            className="relative rounded-xl overflow-hidden cursor-pointer bg-neutral-100"
             onClick={() => setSelectedImageIndex(0)}
           >
             <img
               src={optimizeImageUrl(allImages[0])}
               alt={name}
-              className="w-full h-full object-cover hover:scale-105 transition-transform"
+              className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-500"
             />
           </div>
         )}
 
         {/* Thumbnail Grid */}
-        <div className="grid grid-cols-2 gap-4">
-          {allImages.slice(1, 5).map((image, index) => (
+        <div className="grid grid-rows-3 gap-4 h-full">
+          {allImages.slice(1, 4).map((image, index) => (
             <div 
               key={index}
-              className="aspect-square rounded-xl overflow-hidden cursor-pointer"
+              className="relative rounded-xl overflow-hidden cursor-pointer bg-neutral-100"
               onClick={() => setSelectedImageIndex(index + 1)}
             >
               <img
                 src={optimizeImageUrl(image)}
                 alt={`${name} ${index + 2}`}
-                className="w-full h-full object-cover hover:scale-105 transition-transform"
+                className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
           ))}
