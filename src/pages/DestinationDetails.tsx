@@ -103,7 +103,7 @@ const DestinationDetails = () => {
                   : "text-white/80 border-white/20 hover:border-white/40"
               } border transition-colors whitespace-nowrap`}
             >
-              {pluralizeType(type, groupedRecommendations[type].length)}
+              {pluralizeType(type, groupedRecommendations[type].length)} ({groupedRecommendations[type].length})
             </button>
           ))}
         </div>
