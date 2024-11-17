@@ -35,10 +35,9 @@ const Home = () => {
     <button
       key={destination.id}
       onClick={() => handleDestinationClick(destination.id)}
-      className="text-left group animate-fade-in"
-      style={{ animationDelay: `${(index + 1) * 100}ms` }}
+      className="text-left group"
     >
-      <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 relative">
+      <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800">
         <img
           src={destination.image}
           alt={destination.name}
@@ -68,7 +67,7 @@ const Home = () => {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/90 via-neutral-900/80 to-neutral-900" />
-        <div className="relative max-w-3xl mx-auto space-y-6 animate-fade-in">
+        <div className="relative max-w-3xl mx-auto space-y-6">
           <h1 className="text-4xl md:text-6xl font-judson">Our Favorite Spots, Everywhere</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
             We're David and Maja, two food lovers sharing our favorite spots from cities around the
