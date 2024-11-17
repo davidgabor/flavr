@@ -1,7 +1,5 @@
-import { Link } from "react-router-dom";
-import { Input } from "@/components/ui/input";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination } from "@/types/recommendation";
 
@@ -21,62 +19,128 @@ const Home = () => {
     },
   });
 
+  const groupedDestinations = {
+    europe: destinations.filter(d => ["copenhagen", "stockholm", "malaga", "paris", "barcelona", "florence", "milan"].includes(d.id)),
+    asia: destinations.filter(d => ["dubai", "bangkok", "singapore", "hongkong"].includes(d.id)),
+    unitedStates: destinations.filter(d => ["newyork", "losangeles", "sanfrancisco", "miami"].includes(d.id))
+  };
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="min-h-screen bg-neutral-900 flex items-center justify-center">
+      <div className="text-neutral-400">Loading...</div>
+    </div>;
   }
 
   return (
-    <div className="space-y-16 animate-fade-in">
-      <section className="text-center space-y-6">
-        <div className="flex flex-col items-center gap-4">
-          <Avatar className="w-24 h-24">
-            <AvatarImage
+    <div className="min-h-screen bg-neutral-900 text-white pb-24">
+      {/* Hero Section */}
+      <section className="relative h-[70vh] flex items-center justify-center text-center px-4">
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 to-neutral-900" />
+        <img
+          src="https://images.unsplash.com/photo-1504893524553-b855bce32c67"
+          alt="Hero background"
+          className="absolute inset-0 w-full h-full object-cover -z-10"
+        />
+        <div className="relative max-w-3xl mx-auto space-y-6">
+          <h1 className="text-4xl md:text-6xl font-light">Our Favorite Spots, Everywhere</h1>
+          <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
+            We're David and Mark, two food lovers sharing our favorite spots from cities around the
+            world. From cozy local haunts to standout dining experiences, each pick is a place we've
+            tried, loved, and can't wait for you to enjoy.
+          </p>
+          <div className="flex items-center justify-center gap-4">
+            <img
               src="https://media.licdn.com/dms/image/v2/D4D03AQGTbmpMLQualw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1728313961873?e=1736985600&v=beta&t=-qTMspUk11IuzOzs_g4t5VXH0Jtamkd4Bayq4ZvaXQU"
-              alt="David's profile picture"
+              alt="David's profile"
+              className="w-12 h-12 rounded-full border-2 border-white/20"
             />
-          </Avatar>
-          <div className="max-w-2xl mx-auto">
-            <h1 className="heading-1 mb-4">
-              Hey! I'm David, and these are my favorite spots around the world
-            </h1>
-            <p className="text-lg text-neutral-600">
-              I love sharing my favorite restaurants and bars with friends and family.
-              Here's a curated list of places I personally recommend.
-            </p>
+            <img
+              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400"
+              alt="Mark's profile"
+              className="w-12 h-12 rounded-full border-2 border-white/20"
+            />
           </div>
-        </div>
-        <div className="max-w-md mx-auto">
-          <Input
-            type="search"
-            placeholder="Search destinations or cuisines..."
-            className="bg-white"
-          />
+          <div className="text-sm text-neutral-400">xoxo, David & Mark</div>
         </div>
       </section>
 
-      <section className="mb-16">
-        <h2 className="heading-2 text-center mb-8">Explore my recommendations</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {destinations.map((destination) => (
-            <Link to={`/destinations/${destination.id}`} key={destination.id} className="card group">
-              <div className="aspect-[3/2] overflow-hidden rounded-t-lg">
+      {/* Destinations Sections */}
+      <div className="container px-4 mx-auto space-y-24">
+        {/* Europe Section */}
+        <section className="space-y-8">
+          <h2 className="text-3xl font-light text-center">Europe</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {groupedDestinations.europe.map((destination) => (
+              <Link
+                key={destination.id}
+                to={`/destinations/${destination.id}`}
+                className="group relative aspect-square overflow-hidden rounded-lg"
+              >
                 <img
                   src={destination.image}
                   alt={destination.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-              </div>
-              <div className="p-3">
-                <h3 className="font-medium text-lg mb-0.5">{destination.name}</h3>
-                <p className="text-sm text-neutral-600">
-                  {destination.recommendations?.[0]?.count || 0} recommendations
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 p-4">
+                  <h3 className="text-lg font-medium">{destination.name}</h3>
+                  <p className="text-sm text-neutral-300">{destination.recommendations?.[0]?.count || 0} spots</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Asia Section */}
+        <section className="space-y-8">
+          <h2 className="text-3xl font-light text-center">Asia</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {groupedDestinations.asia.map((destination) => (
+              <Link
+                key={destination.id}
+                to={`/destinations/${destination.id}`}
+                className="group relative aspect-square overflow-hidden rounded-lg"
+              >
+                <img
+                  src={destination.image}
+                  alt={destination.name}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 p-4">
+                  <h3 className="text-lg font-medium">{destination.name}</h3>
+                  <p className="text-sm text-neutral-300">{destination.recommendations?.[0]?.count || 0} spots</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* United States Section */}
+        <section className="space-y-8">
+          <h2 className="text-3xl font-light text-center">United States</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {groupedDestinations.unitedStates.map((destination) => (
+              <Link
+                key={destination.id}
+                to={`/destinations/${destination.id}`}
+                className="group relative aspect-square overflow-hidden rounded-lg"
+              >
+                <img
+                  src={destination.image}
+                  alt={destination.name}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 p-4">
+                  <h3 className="text-lg font-medium">{destination.name}</h3>
+                  <p className="text-sm text-neutral-300">{destination.recommendations?.[0]?.count || 0} spots</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

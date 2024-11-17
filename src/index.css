@@ -4,42 +4,42 @@
  
 @layer base {
   :root {
-    --background: 40 33% 98%;
-    --foreground: 20 15% 15%;
-    --radius: 0.75rem;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --radius: 0.5rem;
   }
 
   body {
-    @apply bg-neutral-100 text-neutral-800 antialiased;
+    @apply bg-neutral-900 text-white antialiased;
   }
 }
 
 @layer components {
   .nav-link {
-    @apply px-4 py-2 text-neutral-600 hover:text-primary transition-colors duration-200;
+    @apply px-4 py-2 text-neutral-400 hover:text-white transition-colors duration-200;
   }
   
   .nav-link-active {
-    @apply text-primary font-medium;
+    @apply text-white font-medium;
   }
 
   .card {
-    @apply bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden;
+    @apply bg-neutral-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 overflow-hidden border border-white/10;
   }
 
   .heading-1 {
-    @apply text-4xl md:text-5xl font-bold text-neutral-800 mb-4;
+    @apply text-4xl md:text-5xl font-light text-white mb-4;
   }
 
   .heading-2 {
-    @apply text-3xl md:text-4xl font-bold text-neutral-800 mb-3;
+    @apply text-3xl md:text-4xl font-light text-white mb-3;
   }
 
   .heading-3 {
-    @apply text-2xl md:text-3xl font-semibold text-neutral-800 mb-2;
+    @apply text-2xl md:text-3xl font-light text-white mb-2;
   }
 
   .text-body {
-    @apply text-neutral-700 leading-relaxed;
+    @apply text-neutral-300 leading-relaxed;
   }
 }
