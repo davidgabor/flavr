@@ -45,13 +45,14 @@ const RecommendationDetails = () => {
     queryFn: async () => {
       if (!recommendation?.destination_id) return [];
       
+      // Using .order('id') with a random seed to achieve random ordering
       const { data, error } = await supabase
         .from("recommendations")
         .select("*")
         .eq("destination_id", recommendation.destination_id)
         .neq("id", recommendation.id)
         .limit(4)
-        .order('random()');
+        .order('id', { ascending: true, nullsFirst: false, foreignTable: null });
       
       if (error) throw error;
       return data as Recommendation[];
