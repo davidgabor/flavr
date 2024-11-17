@@ -41,15 +41,13 @@ const Home = () => {
     <div className="min-h-screen bg-neutral-900 text-white pb-24">
       {/* Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center text-center px-4">
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/80 via-neutral-900/90 to-neutral-900" />
         <div 
-          className="absolute inset-0 -z-10"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=2000')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
           }}
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/90 via-neutral-900/80 to-neutral-900" />
         <div className="relative max-w-3xl mx-auto space-y-6 animate-fade-in">
           <h1 className="text-4xl md:text-6xl font-judson">Our Favorite Spots, Everywhere</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
@@ -92,12 +90,17 @@ const Home = () => {
                 className="text-left group animate-fade-in"
                 style={{ animationDelay: `${(index + 1) * 100}ms` }}
               >
-                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800">
+                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 relative">
+                  <div className="absolute inset-0 bg-neutral-800 animate-pulse" />
                   <img
                     src={destination.image}
                     alt={destination.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:scale-110"
                     loading="lazy"
+                    onLoad={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.style.opacity = '1';
+                    }}
                   />
                 </div>
                 <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
@@ -122,12 +125,17 @@ const Home = () => {
                 className="text-left group animate-fade-in"
                 style={{ animationDelay: `${(index + 1) * 100}ms` }}
               >
-                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800">
+                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 relative">
+                  <div className="absolute inset-0 bg-neutral-800 animate-pulse" />
                   <img
                     src={destination.image}
                     alt={destination.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:scale-110"
                     loading="lazy"
+                    onLoad={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.style.opacity = '1';
+                    }}
                   />
                 </div>
                 <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
@@ -152,12 +160,17 @@ const Home = () => {
                 className="text-left group animate-fade-in"
                 style={{ animationDelay: `${(index + 1) * 100}ms` }}
               >
-                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800">
+                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 relative">
+                  <div className="absolute inset-0 bg-neutral-800 animate-pulse" />
                   <img
                     src={destination.image}
                     alt={destination.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:scale-110"
                     loading="lazy"
+                    onLoad={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.style.opacity = '1';
+                    }}
                   />
                 </div>
                 <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
