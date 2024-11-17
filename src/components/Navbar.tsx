@@ -34,8 +34,18 @@ type SearchResult = DestinationResult | RecommendationResult;
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isScrolled, setIsScrolled] = useState(false);
   const debouncedQuery = useDebounce(searchQuery, 300);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -113,7 +123,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-neutral-900/50 backdrop-blur-sm">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${
+      isScrolled ? "bg-neutral-900/50 backdrop-blur-sm" : "bg-transparent"
+    }`}>
       <div className="container px-4 mx-auto">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="text-xl font-judson text-white">
