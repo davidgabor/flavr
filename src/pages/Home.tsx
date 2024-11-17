@@ -31,15 +31,15 @@ const Home = () => {
     return acc;
   }, {} as Record<string, (Destination & { recommendations: { count: number }[] })[]>);
 
-  const handleDestinationClick = (destinationId: string) => {
+  const handleDestinationClick = (destinationName: string) => {
     window.scrollTo(0, 0);
-    navigate(`/destinations/${destinationId}`);
+    navigate(`/${destinationName.toLowerCase().replace(/\s+/g, '-')}`);
   };
 
   const DestinationCard = ({ destination, index }: { destination: Destination & { recommendations: { count: number }[] }, index: number }) => (
     <button
       key={destination.id}
-      onClick={() => handleDestinationClick(destination.id)}
+      onClick={() => handleDestinationClick(destination.name)}
       className="text-left group"
     >
       <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 group-hover:shadow-2xl transition-all duration-500">
