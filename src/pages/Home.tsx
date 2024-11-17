@@ -94,7 +94,7 @@ const Home = () => {
               loading="eager"
             />
           </div>
-          <div className="text-sm text-neutral-400">xoxo, David & Maja</div>
+          <div className="text-sm text-neutral-400">Enjoy,<br />David & Maja</div>
         </div>
       </section>
 
