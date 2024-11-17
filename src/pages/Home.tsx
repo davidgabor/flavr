@@ -52,7 +52,7 @@ const Home = () => {
       </div>
       <div className="space-y-1">
         <p className="text-xs uppercase tracking-wider text-neutral-500">{destination.country}</p>
-        <h3 className="text-xl font-judson transition-colors duration-300 group-hover:text-primary">{destination.name}</h3>
+        <h3 className="text-2xl font-judson transition-colors duration-300 group-hover:text-primary">{destination.name}</h3>
         <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
       </div>
     </button>
