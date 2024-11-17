@@ -18,6 +18,9 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        judson: ["Judson", "serif"],
+      },
       colors: {
         primary: "rgb(229, 107, 71)",
         secondary: "rgb(163, 177, 138)",

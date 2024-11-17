@@ -42,7 +42,7 @@ const Home = () => {
           className="absolute inset-0 w-full h-full object-cover -z-10"
         />
         <div className="relative max-w-3xl mx-auto space-y-6">
-          <h1 className="text-4xl md:text-6xl font-light">Our Favorite Spots, Everywhere</h1>
+          <h1 className="text-4xl md:text-6xl font-judson">Our Favorite Spots, Everywhere</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
             We're David and Mark, two food lovers sharing our favorite spots from cities around the
             world. From cozy local haunts to standout dining experiences, each pick is a place we've
@@ -68,24 +68,27 @@ const Home = () => {
       <div className="container px-4 mx-auto space-y-24">
         {/* Europe Section */}
         <section className="space-y-8">
-          <h2 className="text-3xl font-light text-center">Europe</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="flex items-center gap-8 mb-12">
+            <div className="h-px bg-white/20 flex-1" />
+            <h2 className="text-3xl font-judson text-center">Europe</h2>
+            <div className="h-px bg-white/20 flex-1" />
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {groupedDestinations.europe.map((destination) => (
               <Link
                 key={destination.id}
                 to={`/destinations/${destination.id}`}
-                className="group relative aspect-square overflow-hidden rounded-lg"
+                className="group"
               >
-                <img
-                  src={destination.image}
-                  alt={destination.name}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 p-4">
-                  <h3 className="text-lg font-medium">{destination.name}</h3>
-                  <p className="text-sm text-neutral-300">{destination.recommendations?.[0]?.count || 0} spots</p>
+                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4">
+                  <img
+                    src={destination.image}
+                    alt={destination.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
                 </div>
+                <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
+                <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
               </Link>
             ))}
           </div>
@@ -93,24 +96,27 @@ const Home = () => {
 
         {/* Asia Section */}
         <section className="space-y-8">
-          <h2 className="text-3xl font-light text-center">Asia</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="flex items-center gap-8 mb-12">
+            <div className="h-px bg-white/20 flex-1" />
+            <h2 className="text-3xl font-judson text-center">Asia</h2>
+            <div className="h-px bg-white/20 flex-1" />
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {groupedDestinations.asia.map((destination) => (
               <Link
                 key={destination.id}
                 to={`/destinations/${destination.id}`}
-                className="group relative aspect-square overflow-hidden rounded-lg"
+                className="group"
               >
-                <img
-                  src={destination.image}
-                  alt={destination.name}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 p-4">
-                  <h3 className="text-lg font-medium">{destination.name}</h3>
-                  <p className="text-sm text-neutral-300">{destination.recommendations?.[0]?.count || 0} spots</p>
+                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4">
+                  <img
+                    src={destination.image}
+                    alt={destination.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
                 </div>
+                <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
+                <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
               </Link>
             ))}
           </div>
@@ -118,24 +124,27 @@ const Home = () => {
 
         {/* United States Section */}
         <section className="space-y-8">
-          <h2 className="text-3xl font-light text-center">United States</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="flex items-center gap-8 mb-12">
+            <div className="h-px bg-white/20 flex-1" />
+            <h2 className="text-3xl font-judson text-center">United States</h2>
+            <div className="h-px bg-white/20 flex-1" />
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {groupedDestinations.unitedStates.map((destination) => (
               <Link
                 key={destination.id}
                 to={`/destinations/${destination.id}`}
-                className="group relative aspect-square overflow-hidden rounded-lg"
+                className="group"
               >
-                <img
-                  src={destination.image}
-                  alt={destination.name}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 p-4">
-                  <h3 className="text-lg font-medium">{destination.name}</h3>
-                  <p className="text-sm text-neutral-300">{destination.recommendations?.[0]?.count || 0} spots</p>
+                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4">
+                  <img
+                    src={destination.image}
+                    alt={destination.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
                 </div>
+                <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
+                <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
               </Link>
             ))}
           </div>
