@@ -6,6 +6,17 @@ import RecommendationCard from "@/components/destination/RecommendationCard";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination, Recommendation } from "@/types/recommendation";
 
+const pluralizeType = (type: string, count: number) => {
+  if (count <= 1) return type;
+  
+  // Special cases
+  if (type.toLowerCase() === "cafe") return "Cafes";
+  if (type.toLowerCase() === "pub") return "Pubs";
+  
+  // General case: add 's'
+  return `${type}s`;
+};
+
 const DestinationDetails = () => {
   const { destinationId } = useParams();
   const [selectedType, setSelectedType] = useState<string | null>(null);
@@ -92,7 +103,7 @@ const DestinationDetails = () => {
                   : "text-white/80 border-white/20 hover:border-white/40"
               } border transition-colors whitespace-nowrap`}
             >
-              {type}
+              {pluralizeType(type, groupedRecommendations[type].length)}
             </button>
           ))}
         </div>
