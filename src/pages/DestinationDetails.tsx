@@ -2,8 +2,8 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useMemo, useEffect } from "react";
 import { ChevronRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import CityHeader from "@/components/city/CityHeader";
-import RecommendationCard from "@/components/city/RecommendationCard";
+import DestinationHeader from "@/components/destination/DestinationHeader";
+import RecommendationCard from "@/components/destination/RecommendationCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -22,48 +22,48 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { supabase } from "@/integrations/supabase/client";
-import { City, Recommendation } from "@/types/recommendation";
+import type { Destination, Recommendation } from "@/types/recommendation";
 
-const CityDetails = () => {
-  const { cityId } = useParams();
+const DestinationDetails = () => {
+  const { destinationId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [cityId]);
+  }, [destinationId]);
 
-  const { data: cityData, isLoading: isLoadingCity } = useQuery({
-    queryKey: ["city", cityId],
+  const { data: destinationData, isLoading: isLoadingDestination } = useQuery({
+    queryKey: ["destination", destinationId],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("cities")
+        .from("destinations")
         .select("*")
-        .eq("id", cityId)
+        .eq("id", destinationId)
         .single();
       
       if (error) throw error;
-      return data as City;
+      return data as Destination;
     },
   });
 
   const { data: recommendations = [], isLoading: isLoadingRecommendations } = useQuery({
-    queryKey: ["recommendations", cityId],
+    queryKey: ["recommendations", destinationId],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("recommendations")
         .select("*")
-        .eq("city_id", cityId);
+        .eq("destination_id", destinationId);
       
       if (error) throw error;
       return data as Recommendation[];
     },
   });
 
-  const { data: cities = [] } = useQuery({
-    queryKey: ["cities"],
+  const { data: destinations = [] } = useQuery({
+    queryKey: ["destinations"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("cities")
+        .from("destinations")
         .select("id, name")
         .order("name");
       
@@ -90,18 +90,18 @@ const CityDetails = () => {
     return Object.keys(groupedRecommendations);
   }, [groupedRecommendations]);
 
-  const handleCityChange = (newCityId: string) => {
-    navigate(`/cities/${newCityId}`);
+  const handleDestinationChange = (newDestinationId: string) => {
+    navigate(`/destinations/${newDestinationId}`);
   };
 
-  if (isLoadingCity || isLoadingRecommendations) {
+  if (isLoadingDestination || isLoadingRecommendations) {
     return <div>Loading...</div>;
   }
 
-  if (!cityData) {
+  if (!destinationData) {
     return (
       <div className="text-center py-16">
-        <h1 className="heading-1">City not found</h1>
+        <h1 className="heading-1">Destination not found</h1>
         <Link to="/" className="text-primary hover:underline">
           Back to Home
         </Link>
@@ -124,28 +124,28 @@ const CityDetails = () => {
             </BreadcrumbSeparator>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link to="/cities" className="text-neutral-600 hover:text-primary">Cities</Link>
+                <Link to="/destinations" className="text-neutral-600 hover:text-primary">Destinations</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator>
               <ChevronRight className="h-4 w-4" />
             </BreadcrumbSeparator>
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-primary font-medium">{cityData.name}</BreadcrumbPage>
+              <BreadcrumbPage className="text-primary font-medium">{destinationData.name}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <CityHeader name={cityData.name} description={cityData.description} />
-          <Select value={cityId} onValueChange={handleCityChange}>
+          <DestinationHeader name={destinationData.name} description={destinationData.description} />
+          <Select value={destinationId} onValueChange={handleDestinationChange}>
             <SelectTrigger className="w-[180px] bg-white">
-              <SelectValue placeholder="Switch city" />
+              <SelectValue placeholder="Switch destination" />
             </SelectTrigger>
             <SelectContent className="bg-white">
-              {cities.map((city) => (
-                <SelectItem key={city.id} value={city.id}>
-                  {city.name}
+              {destinations.map((destination) => (
+                <SelectItem key={destination.id} value={destination.id}>
+                  {destination.name}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -185,4 +185,4 @@ const CityDetails = () => {
   );
 };
 
-export default CityDetails;
+export default DestinationDetails;
