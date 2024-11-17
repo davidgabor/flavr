@@ -74,8 +74,8 @@ const RecommendationDetails = () => {
 
   return (
     <div className="animate-fade-in">
-      <div className="w-full">
-        <div>
+      <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto">
           <Link
             to={`/destinations/${recommendation.destination_id}`}
             className="inline-flex items-center gap-2 text-neutral-400 hover:text-primary transition-colors py-4"
