@@ -68,16 +68,15 @@ const Home = () => {
     <div className="min-h-screen bg-neutral-900 text-white">
       {/* Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16">
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0">
           <video
             autoPlay
             muted
             loop
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
+            className="w-full h-full object-cover"
           >
-            <source src="https://cdn.flavr.guide/hero-video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
+            <source src="https://videos.pexels.com/video-files/2620043/2620043-uhd_2560_1440_25fps.mp4" type="video/mp4" />
           </video>
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
