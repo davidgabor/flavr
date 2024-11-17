@@ -65,9 +65,9 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-900 text-white pb-24">
+    <div className="min-h-screen bg-neutral-900 text-white">
       {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center text-center px-4">
+      <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16">
         <div className="absolute inset-0 overflow-hidden">
           <video
             autoPlay
