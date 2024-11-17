@@ -1,14 +1,30 @@
 import { useParams, Link } from "react-router-dom";
 import { MapPin, ArrowLeft } from "lucide-react";
-import { RECOMMENDATIONS } from "@/data/recommendations";
+import { useQuery } from "@tanstack/react-query";
 import { optimizeImageUrl } from "@/utils/imageUtils";
+import { supabase } from "@/integrations/supabase/client";
+import { Recommendation } from "@/types/recommendation";
 
 const RecommendationDetails = () => {
   const { id } = useParams();
   
-  const recommendation = Object.values(RECOMMENDATIONS)
-    .flatMap((city) => city.recommendations)
-    .find((rec) => rec.id === id);
+  const { data: recommendation, isLoading } = useQuery({
+    queryKey: ["recommendation", id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("recommendations")
+        .select("*")
+        .eq("id", id)
+        .single();
+      
+      if (error) throw error;
+      return data as Recommendation;
+    },
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   if (!recommendation) {
     return (
@@ -25,7 +41,7 @@ const RecommendationDetails = () => {
     name,
     type,
     cuisine,
-    priceLevel,
+    price_level,
     description,
     neighborhood,
     hours,
@@ -54,7 +70,7 @@ const RecommendationDetails = () => {
         <div className="flex items-start justify-between gap-4">
           <h1 className="heading-1 mb-0">{name}</h1>
           <span className="text-lg font-medium text-neutral-600">
-            {priceLevel}
+            {price_level}
           </span>
         </div>
 

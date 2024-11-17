@@ -4,16 +4,18 @@ export interface Recommendation {
   type: string;
   cuisine: string;
   rating: number;
-  priceLevel: string;
+  price_level: string;
   description?: string;
   neighborhood?: string;
   hours?: string;
   image: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface City {
+  id: string;
   name: string;
   image: string;
   description: string;
-  recommendations: Recommendation[];
 }

@@ -4,7 +4,9 @@ import { optimizeImageUrl } from "@/utils/imageUtils";
 import { Recommendation } from "@/types/recommendation";
 import { Button } from "@/components/ui/button";
 
-type RecommendationCardProps = Recommendation;
+type RecommendationCardProps = Recommendation & {
+  priceLevel: string;
+};
 
 const RecommendationCard = ({
   id,
@@ -12,6 +14,7 @@ const RecommendationCard = ({
   type,
   cuisine,
   neighborhood,
+  price_level,
   priceLevel,
   image
 }: RecommendationCardProps) => {
@@ -20,6 +23,8 @@ const RecommendationCard = ({
     const searchQuery = encodeURIComponent(`${name} ${neighborhood || ''}`);
     window.open(`https://www.google.com/maps/search/?api=1&query=${searchQuery}`, '_blank');
   };
+
+  const displayPriceLevel = priceLevel || price_level;
 
   return (
     <Link
@@ -40,7 +45,7 @@ const RecommendationCard = ({
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 mb-1">
             <h2 className="font-medium text-neutral-800 truncate">{name}</h2>
-            <span className="text-sm text-neutral-500 flex-shrink-0">{priceLevel}</span>
+            <span className="text-sm text-neutral-500 flex-shrink-0">{displayPriceLevel}</span>
           </div>
           <div className="text-sm text-neutral-600 mb-1 truncate">
             {type} • {cuisine}

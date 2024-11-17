@@ -1,9 +1,9 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useMemo, useEffect } from "react";
 import { ChevronRight } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import CityHeader from "@/components/city/CityHeader";
 import RecommendationCard from "@/components/city/RecommendationCard";
-import { RECOMMENDATIONS } from "@/data/recommendations";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -21,33 +21,70 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { supabase } from "@/integrations/supabase/client";
+import { City, Recommendation } from "@/types/recommendation";
 
 const CityDetails = () => {
   const { cityId } = useParams();
   const navigate = useNavigate();
-  const cityData = RECOMMENDATIONS[cityId as keyof typeof RECOMMENDATIONS];
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [cityId]);
 
-  const cities = Object.entries(RECOMMENDATIONS).map(([id, city]) => ({
-    id,
-    name: city.name,
-  }));
+  const { data: cityData, isLoading: isLoadingCity } = useQuery({
+    queryKey: ["city", cityId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("cities")
+        .select("*")
+        .eq("id", cityId)
+        .single();
+      
+      if (error) throw error;
+      return data as City;
+    },
+  });
+
+  const { data: recommendations = [], isLoading: isLoadingRecommendations } = useQuery({
+    queryKey: ["recommendations", cityId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("recommendations")
+        .select("*")
+        .eq("city_id", cityId);
+      
+      if (error) throw error;
+      return data as Recommendation[];
+    },
+  });
+
+  const { data: cities = [] } = useQuery({
+    queryKey: ["cities"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("cities")
+        .select("id, name")
+        .order("name");
+      
+      if (error) throw error;
+      return data as { id: string; name: string; }[];
+    },
+  });
 
   const groupedRecommendations = useMemo(() => {
-    if (!cityData) return {};
-    
-    return cityData.recommendations.reduce((acc, recommendation) => {
+    return recommendations.reduce((acc, recommendation) => {
       const type = recommendation.type;
       if (!acc[type]) {
         acc[type] = [];
       }
-      acc[type].push(recommendation);
+      acc[type].push({
+        ...recommendation,
+        priceLevel: recommendation.price_level
+      });
       return acc;
-    }, {} as Record<string, typeof cityData.recommendations>);
-  }, [cityData]);
+    }, {} as Record<string, (Recommendation & { priceLevel: string })[]>);
+  }, [recommendations]);
 
   const types = useMemo(() => {
     return Object.keys(groupedRecommendations);
@@ -56,6 +93,10 @@ const CityDetails = () => {
   const handleCityChange = (newCityId: string) => {
     navigate(`/cities/${newCityId}`);
   };
+
+  if (isLoadingCity || isLoadingRecommendations) {
+    return <div>Loading...</div>;
+  }
 
   if (!cityData) {
     return (
