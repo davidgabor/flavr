@@ -1,17 +1,35 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { Search, X } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { Input } from "./ui/input";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useState, useEffect } from "react";
+import { Search } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 
 const Navbar = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedQuery = useDebounce(searchQuery, 300);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpen((open) => !open);
+      }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
 
   const { data: searchResults = [], isLoading } = useQuery({
     queryKey: ["search", debouncedQuery],
@@ -28,21 +46,27 @@ const Navbar = () => {
           .from("recommendations")
           .select("id, name, type")
           .ilike("name", `%${debouncedQuery}%`)
-          .limit(5)
+          .limit(5),
       ]);
 
       return [
-        ...(destinationsRes.data || []).map(d => ({ ...d, resultType: 'destination' })),
-        ...(recommendationsRes.data || []).map(r => ({ ...r, resultType: 'recommendation' }))
+        ...(destinationsRes.data || []).map((d) => ({
+          ...d,
+          resultType: "destination",
+        })),
+        ...(recommendationsRes.data || []).map((r) => ({
+          ...r,
+          resultType: "recommendation",
+        })),
       ];
     },
-    enabled: debouncedQuery.length > 0
+    enabled: debouncedQuery.length > 0,
   });
 
   const handleResultClick = (result: any) => {
-    setIsSearchOpen(false);
+    setOpen(false);
     setSearchQuery("");
-    if (result.resultType === 'destination') {
+    if (result.resultType === "destination") {
       navigate(`/destinations/${result.id}`);
     } else {
       navigate(`/recommendations/${result.id}`);
@@ -57,65 +81,76 @@ const Navbar = () => {
             Flavr
           </Link>
 
-          <div className="relative">
-            {isSearchOpen ? (
-              <div className="absolute right-0 w-[300px] md:w-[400px]">
-                <div className="flex items-center gap-2">
-                  <Input
-                    type="search"
-                    placeholder="Search destinations and recommendations..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400"
-                    autoFocus
-                  />
-                  <button
-                    onClick={() => {
-                      setIsSearchOpen(false);
-                      setSearchQuery("");
-                    }}
-                    className="p-2 text-neutral-400 hover:text-white transition-colors"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
-
-                {debouncedQuery && (
-                  <div className="absolute top-full w-full mt-2 bg-neutral-800 border border-neutral-700 rounded-lg overflow-hidden shadow-xl">
-                    {isLoading ? (
-                      <div className="p-4 text-neutral-400">Searching...</div>
-                    ) : searchResults.length > 0 ? (
-                      <div className="py-2">
-                        {searchResults.map((result: any) => (
-                          <button
-                            key={`${result.resultType}-${result.id}`}
-                            onClick={() => handleResultClick(result)}
-                            className="w-full px-4 py-2 text-left hover:bg-neutral-700 text-white"
-                          >
-                            <div className="font-medium">{result.name}</div>
-                            <div className="text-sm text-neutral-400">
-                              {result.resultType === 'destination' ? 'Destination' : result.type}
-                            </div>
-                          </button>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="p-4 text-neutral-400">No results found</div>
-                    )}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <button
-                onClick={() => setIsSearchOpen(true)}
-                className="p-2 text-neutral-400 hover:text-white transition-colors"
-              >
-                <Search size={20} />
-              </button>
-            )}
-          </div>
+          <button
+            onClick={() => setOpen(true)}
+            className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-neutral-400 hover:text-white transition-colors bg-neutral-800/50 rounded-md border border-neutral-700"
+          >
+            <Search size={16} />
+            <span>Search...</span>
+            <kbd className="hidden md:inline-flex h-5 select-none items-center gap-1 rounded border border-neutral-700 bg-neutral-800 px-1.5 font-mono text-[10px] font-medium text-neutral-400">
+              <span className="text-xs">⌘</span>K
+            </kbd>
+          </button>
         </div>
       </div>
+
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput
+          placeholder="Search destinations and recommendations..."
+          value={searchQuery}
+          onValueChange={setSearchQuery}
+        />
+        <CommandList>
+          {debouncedQuery.length > 0 && (
+            <>
+              {isLoading ? (
+                <div className="py-6 text-center text-sm text-neutral-400">
+                  Searching...
+                </div>
+              ) : searchResults.length > 0 ? (
+                <>
+                  <CommandGroup heading="Destinations">
+                    {searchResults
+                      .filter((r) => r.resultType === "destination")
+                      .map((result) => (
+                        <CommandItem
+                          key={`${result.resultType}-${result.id}`}
+                          onSelect={() => handleResultClick(result)}
+                          className="flex flex-col items-start"
+                        >
+                          <span className="font-medium">{result.name}</span>
+                          {result.description && (
+                            <span className="text-sm text-neutral-400 line-clamp-1">
+                              {result.description}
+                            </span>
+                          )}
+                        </CommandItem>
+                      ))}
+                  </CommandGroup>
+                  <CommandGroup heading="Recommendations">
+                    {searchResults
+                      .filter((r) => r.resultType === "recommendation")
+                      .map((result) => (
+                        <CommandItem
+                          key={`${result.resultType}-${result.id}`}
+                          onSelect={() => handleResultClick(result)}
+                          className="flex flex-col items-start"
+                        >
+                          <span className="font-medium">{result.name}</span>
+                          <span className="text-sm text-neutral-400">
+                            {result.type}
+                          </span>
+                        </CommandItem>
+                      ))}
+                  </CommandGroup>
+                </>
+              ) : (
+                <CommandEmpty>No results found.</CommandEmpty>
+              )}
+            </>
+          )}
+        </CommandList>
+      </CommandDialog>
     </nav>
   );
 };
