@@ -14,6 +14,22 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
+type DestinationResult = {
+  id: string;
+  name: string;
+  description: string;
+  resultType: 'destination';
+};
+
+type RecommendationResult = {
+  id: string;
+  name: string;
+  type: string;
+  resultType: 'recommendation';
+};
+
+type SearchResult = DestinationResult | RecommendationResult;
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -52,18 +68,18 @@ const Navbar = () => {
       return [
         ...(destinationsRes.data || []).map((d) => ({
           ...d,
-          resultType: "destination",
+          resultType: 'destination' as const,
         })),
         ...(recommendationsRes.data || []).map((r) => ({
           ...r,
-          resultType: "recommendation",
+          resultType: 'recommendation' as const,
         })),
-      ];
+      ] as SearchResult[];
     },
     enabled: debouncedQuery.length > 0,
   });
 
-  const handleResultClick = (result: any) => {
+  const handleResultClick = (result: SearchResult) => {
     setOpen(false);
     setSearchQuery("");
     if (result.resultType === "destination") {
@@ -111,7 +127,7 @@ const Navbar = () => {
                 <>
                   <CommandGroup heading="Destinations">
                     {searchResults
-                      .filter((r) => r.resultType === "destination")
+                      .filter((r): r is DestinationResult => r.resultType === "destination")
                       .map((result) => (
                         <CommandItem
                           key={`${result.resultType}-${result.id}`}
@@ -129,7 +145,7 @@ const Navbar = () => {
                   </CommandGroup>
                   <CommandGroup heading="Recommendations">
                     {searchResults
-                      .filter((r) => r.resultType === "recommendation")
+                      .filter((r): r is RecommendationResult => r.resultType === "recommendation")
                       .map((result) => (
                         <CommandItem
                           key={`${result.resultType}-${result.id}`}
