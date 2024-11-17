@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination } from "@/types/recommendation";
 
 const Home = () => {
+  const navigate = useNavigate();
   const { data: destinations = [], isLoading } = useQuery({
     queryKey: ["destinations"],
     queryFn: async () => {
@@ -25,6 +26,11 @@ const Home = () => {
     unitedStates: destinations.filter(d => ["newyork", "losangeles", "sanfrancisco", "miami"].includes(d.id))
   };
 
+  const handleDestinationClick = (destinationId: string) => {
+    window.scrollTo(0, 0);
+    navigate(`/destinations/${destinationId}`);
+  };
+
   if (isLoading) {
     return <div className="min-h-screen bg-neutral-900 flex items-center justify-center">
       <div className="text-neutral-400">Loading...</div>
@@ -35,11 +41,14 @@ const Home = () => {
     <div className="min-h-screen bg-neutral-900 text-white pb-24">
       {/* Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center text-center px-4">
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/80 to-neutral-900" />
-        <img
-          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=2000"
-          alt="Hero background"
-          className="absolute inset-0 w-full h-full object-cover -z-10"
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/80 via-neutral-900/90 to-neutral-900" />
+        <div 
+          className="absolute inset-0 -z-10"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=2000')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
         />
         <div className="relative max-w-3xl mx-auto space-y-6 animate-fade-in">
           <h1 className="text-4xl md:text-6xl font-judson">Our Favorite Spots, Everywhere</h1>
@@ -53,11 +62,13 @@ const Home = () => {
               src="https://media.licdn.com/dms/image/v2/D4D03AQGTbmpMLQualw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1728313961873?e=1736985600&v=beta&t=-qTMspUk11IuzOzs_g4t5VXH0Jtamkd4Bayq4ZvaXQU"
               alt="David's profile"
               className="w-12 h-12 rounded-full border-2 border-white/20"
+              loading="eager"
             />
             <img
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400"
               alt="Mark's profile"
               className="w-12 h-12 rounded-full border-2 border-white/20"
+              loading="eager"
             />
           </div>
           <div className="text-sm text-neutral-400">xoxo, David & Mark</div>
@@ -75,22 +86,23 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {groupedDestinations.europe.map((destination, index) => (
-              <Link
+              <button
                 key={destination.id}
-                to={`/destinations/${destination.id}`}
-                className="group animate-fade-in"
+                onClick={() => handleDestinationClick(destination.id)}
+                className="text-left group animate-fade-in"
                 style={{ animationDelay: `${(index + 1) * 100}ms` }}
               >
-                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4">
+                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800">
                   <img
                     src={destination.image}
                     alt={destination.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
                   />
                 </div>
                 <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
                 <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
-              </Link>
+              </button>
             ))}
           </div>
         </section>
@@ -104,22 +116,23 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {groupedDestinations.asia.map((destination, index) => (
-              <Link
+              <button
                 key={destination.id}
-                to={`/destinations/${destination.id}`}
-                className="group animate-fade-in"
+                onClick={() => handleDestinationClick(destination.id)}
+                className="text-left group animate-fade-in"
                 style={{ animationDelay: `${(index + 1) * 100}ms` }}
               >
-                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4">
+                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800">
                   <img
                     src={destination.image}
                     alt={destination.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
                   />
                 </div>
                 <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
                 <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
-              </Link>
+              </button>
             ))}
           </div>
         </section>
@@ -133,22 +146,23 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {groupedDestinations.unitedStates.map((destination, index) => (
-              <Link
+              <button
                 key={destination.id}
-                to={`/destinations/${destination.id}`}
-                className="group animate-fade-in"
+                onClick={() => handleDestinationClick(destination.id)}
+                className="text-left group animate-fade-in"
                 style={{ animationDelay: `${(index + 1) * 100}ms` }}
               >
-                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4">
+                <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800">
                   <img
                     src={destination.image}
                     alt={destination.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
                   />
                 </div>
                 <h3 className="text-xl font-judson mb-1">{destination.name}</h3>
                 <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
-              </Link>
+              </button>
             ))}
           </div>
         </section>
