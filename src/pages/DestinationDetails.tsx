@@ -30,16 +30,22 @@ const DestinationDetails = () => {
   const { data: destinationData, isLoading: isLoadingDestination } = useQuery({
     queryKey: ["destination", destinationSlug],
     queryFn: async () => {
-      const formattedName = toTitleCase(destinationSlug || '');
-      console.log('Searching for destination:', formattedName);
+      if (!destinationSlug) throw new Error("No destination slug provided");
+      
+      console.log('Searching for destination with slug:', destinationSlug);
       
       const { data, error } = await supabase
         .from("destinations")
         .select("*")
-        .ilike('name', formattedName)
+        .or(`name.ilike.${destinationSlug.replace(/-/g, ' ')}`)
         .single();
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching destination:', error);
+        throw error;
+      }
+      
+      console.log('Found destination:', data);
       return data as Destination;
     },
   });

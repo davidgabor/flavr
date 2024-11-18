@@ -8,32 +8,30 @@ import ImageGallery from "@/components/recommendation/ImageGallery";
 import MoreRecommendations from "@/components/recommendation/MoreRecommendations";
 import BreadcrumbNavigation from "@/components/navigation/Breadcrumb";
 
-const toTitleCase = (str: string) => {
-  return str
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
-};
-
 const RecommendationDetails = () => {
   const { destinationSlug, recommendationSlug } = useParams();
   
   const { data: recommendation, isLoading } = useQuery({
     queryKey: ["recommendation", destinationSlug, recommendationSlug],
     queryFn: async () => {
-      const formattedDestinationName = toTitleCase(destinationSlug || '');
-      const formattedRecommendationName = toTitleCase(recommendationSlug || '');
-      
-      console.log('Searching for destination:', formattedDestinationName);
-      console.log('Searching for recommendation:', formattedRecommendationName);
+      if (!destinationSlug || !recommendationSlug) {
+        throw new Error("Missing destination or recommendation slug");
+      }
 
+      console.log('Searching with slugs:', { destinationSlug, recommendationSlug });
+      
       const { data: destinations, error: destinationError } = await supabase
         .from("destinations")
         .select("id, name")
-        .ilike('name', formattedDestinationName)
+        .or(`name.ilike.${destinationSlug.replace(/-/g, ' ')}`)
         .single();
 
-      if (destinationError) throw destinationError;
+      if (destinationError) {
+        console.error('Error fetching destination:', destinationError);
+        throw destinationError;
+      }
+
+      console.log('Found destination:', destinations);
 
       const { data, error } = await supabase
         .from("recommendations")
@@ -45,10 +43,15 @@ const RecommendationDetails = () => {
           )
         `)
         .eq("destination_id", destinations.id)
-        .ilike('name', formattedRecommendationName)
+        .or(`name.ilike.${recommendationSlug.replace(/-/g, ' ')}`)
         .single();
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching recommendation:', error);
+        throw error;
+      }
+
+      console.log('Found recommendation:', data);
       return data as Recommendation & { destinations: { name: string; country: string } };
     },
   });
