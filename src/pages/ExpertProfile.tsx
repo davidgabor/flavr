@@ -9,7 +9,7 @@ import type { Recommendation } from "@/types/recommendation";
 
 const ExpertProfile = () => {
   const { expertSlug } = useParams();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -98,6 +98,13 @@ const ExpertProfile = () => {
     dest => dest.name.toLowerCase() === destinationParam
   )?.id || destinations[0]?.id;
 
+  const handleTabChange = (value: string) => {
+    const selectedDestination = destinations.find(dest => dest.id === value);
+    if (selectedDestination) {
+      setSearchParams({ destination: selectedDestination.name.toLowerCase() });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
       <div className="container mx-auto px-4 py-16">
@@ -115,7 +122,7 @@ const ExpertProfile = () => {
           </div>
         </div>
 
-        <Tabs defaultValue={initialTab} className="space-y-8">
+        <Tabs defaultValue={initialTab} className="space-y-8" onValueChange={handleTabChange}>
           <TabsList className="bg-neutral-800 border-neutral-700">
             {destinations.map((destination) => (
               <TabsTrigger
