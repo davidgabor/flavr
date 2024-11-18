@@ -10,27 +10,31 @@ const RecommendationContent = ({
   hours,
 }: RecommendationContentProps) => {
   return (
-    <div className="space-y-6">
-      {our_review && (
-        <div className="space-y-2">
-          <h2 className="text-2xl font-judson">Our Review</h2>
-          <p className="text-neutral-300">{our_review}</p>
-        </div>
-      )}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="space-y-6">
+        {our_review && (
+          <div className="space-y-2">
+            <h2 className="text-2xl font-judson">Our Review</h2>
+            <p className="text-neutral-300">{our_review}</p>
+          </div>
+        )}
 
-      {description && (
-        <div className="space-y-2">
-          <h2 className="text-2xl font-judson">About</h2>
-          <p className="text-neutral-300">{description}</p>
-        </div>
-      )}
+        {description && (
+          <div className="space-y-2">
+            <h2 className="text-2xl font-judson">About</h2>
+            <p className="text-neutral-300">{description}</p>
+          </div>
+        )}
+      </div>
 
-      {hours && (
-        <div className="space-y-2">
-          <h3 className="font-medium">Opening Hours</h3>
-          <p className="text-neutral-300">{hours}</p>
-        </div>
-      )}
+      <div className="space-y-6">
+        {hours && (
+          <div className="space-y-2">
+            <h3 className="font-medium">Opening Hours</h3>
+            <p className="text-neutral-300">{hours}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
