@@ -1,7 +1,6 @@
 import { Globe, Instagram, Phone, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ImageGallery from "./ImageGallery";
-import ExpertsList from "./ExpertsList";
 
 interface RecommendationHeaderProps {
   id: string;
@@ -22,7 +21,6 @@ interface RecommendationHeaderProps {
 }
 
 const RecommendationHeader = ({
-  id,
   name,
   type,
   cuisine,
@@ -130,8 +128,6 @@ const RecommendationHeader = ({
               )}
             </div>
           </div>
-
-          <ExpertsList recommendationId={id} />
         </div>
       </div>
     </div>
