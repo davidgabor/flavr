@@ -1,5 +1,5 @@
-import { useParams, Link } from "react-router-dom";
-import { MapPin, ArrowLeft, Globe, Instagram, Phone, Map } from "lucide-react";
+import { useParams } from "react-router-dom";
+import { Globe, Instagram, Phone, Map } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Recommendation } from "@/types/recommendation";
@@ -48,9 +48,6 @@ const RecommendationDetails = () => {
     return (
       <div className="text-center py-16">
         <h1 className="heading-1">Recommendation not found</h1>
-        <Link to="/" className="text-primary hover:underline">
-          Back to Home
-        </Link>
       </div>
     );
   }
@@ -67,7 +64,6 @@ const RecommendationDetails = () => {
     cuisine,
     price_level,
     description,
-    neighborhood,
     hours,
     images,
     address,
@@ -94,14 +90,6 @@ const RecommendationDetails = () => {
       <BreadcrumbNavigation items={breadcrumbItems} />
       <div className="container mx-auto px-4">
         <div className="max-w-[1400px] mx-auto">
-          <Link
-            to={`/${destinationSlug}`}
-            className="inline-flex items-center gap-2 text-neutral-400 hover:text-primary transition-colors py-4"
-          >
-            <ArrowLeft size={20} />
-            <span>Back to {destinations.name}</span>
-          </Link>
-
           <div className="space-y-8">
             <ImageGallery images={allImages} name={name} />
 

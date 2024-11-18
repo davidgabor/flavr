@@ -20,7 +20,7 @@ const BreadcrumbNavigation = ({ items }: BreadcrumbNavigationProps) => {
       <div className="container mx-auto">
         <Breadcrumb className="px-4 py-3 text-sm">
           {items.map((item, index) => (
-            <BreadcrumbItem key={index}>
+            <BreadcrumbItem key={index} className="flex items-center">
               <BreadcrumbLink asChild>
                 <Link
                   to={item.href}
@@ -32,7 +32,7 @@ const BreadcrumbNavigation = ({ items }: BreadcrumbNavigationProps) => {
                 </Link>
               </BreadcrumbLink>
               {index < items.length - 1 && (
-                <BreadcrumbSeparator className="text-neutral-600" />
+                <BreadcrumbSeparator className="text-neutral-600 flex items-center" />
               )}
             </BreadcrumbItem>
           ))}
