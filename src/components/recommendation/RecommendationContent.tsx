@@ -11,17 +11,17 @@ const RecommendationContent = ({
 }: RecommendationContentProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div className="md:col-span-2 space-y-6">
+      <div className="md:col-span-2">
         {our_review && (
-          <div className="space-y-2">
-            <h2 className="text-2xl font-judson">Our Review</h2>
+          <div className="mb-6">
+            <h2 className="text-2xl font-judson mb-2">Our Review</h2>
             <p className="text-neutral-300">{our_review}</p>
           </div>
         )}
 
         {description && (
-          <div className="space-y-2">
-            <h2 className="text-2xl font-judson">About</h2>
+          <div>
+            <h2 className="text-2xl font-judson mb-2">About</h2>
             <p className="text-neutral-300">{description}</p>
           </div>
         )}
@@ -29,8 +29,8 @@ const RecommendationContent = ({
 
       <div>
         {hours && (
-          <div className="space-y-2">
-            <h3 className="font-medium">Opening Hours</h3>
+          <div>
+            <h3 className="font-medium mb-2">Opening Hours</h3>
             <p className="text-neutral-300">{hours}</p>
           </div>
         )}
