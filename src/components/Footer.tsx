@@ -28,14 +28,10 @@ const Footer = () => {
     return acc;
   }, {} as Record<string, Destination[]>);
 
-  // Calculate the number of columns needed (number of regions + 1 for About)
-  const numberOfRegions = Object.keys(groupedDestinations).length;
-  const gridColumns = numberOfRegions + 1;
-
   return (
     <footer className="border-t border-white/10 mt-24">
       <div className="container mx-auto px-4 py-12">
-        <div className={`grid grid-cols-1 md:grid-cols-${gridColumns} gap-x-6`}>
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-x-6">
           <div>
             <h4 className="font-judson text-xl mb-3">About Flavr</h4>
             <p className="text-neutral-400 text-sm leading-relaxed">
