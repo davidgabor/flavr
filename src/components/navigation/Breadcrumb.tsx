@@ -16,25 +16,29 @@ interface BreadcrumbNavigationProps {
 
 const BreadcrumbNavigation = ({ items }: BreadcrumbNavigationProps) => {
   return (
-    <Breadcrumb className="px-4 py-3 text-sm">
-      {items.map((item, index) => (
-        <BreadcrumbItem key={index}>
-          <BreadcrumbLink asChild>
-            <Link
-              to={item.href}
-              className={`hover:text-primary transition-colors ${
-                item.current ? "text-white" : "text-neutral-400"
-              }`}
-            >
-              {item.label}
-            </Link>
-          </BreadcrumbLink>
-          {index < items.length - 1 && (
-            <BreadcrumbSeparator className="text-neutral-600" />
-          )}
-        </BreadcrumbItem>
-      ))}
-    </Breadcrumb>
+    <div className="bg-neutral-800/50 border-b border-white/10">
+      <div className="container mx-auto">
+        <Breadcrumb className="px-4 py-3 text-sm">
+          {items.map((item, index) => (
+            <BreadcrumbItem key={index}>
+              <BreadcrumbLink asChild>
+                <Link
+                  to={item.href}
+                  className={`hover:text-primary transition-colors ${
+                    item.current ? "text-white" : "text-neutral-400"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </BreadcrumbLink>
+              {index < items.length - 1 && (
+                <BreadcrumbSeparator className="text-neutral-600" />
+              )}
+            </BreadcrumbItem>
+          ))}
+        </Breadcrumb>
+      </div>
+    </div>
   );
 };
 

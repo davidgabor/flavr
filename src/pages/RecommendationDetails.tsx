@@ -6,6 +6,7 @@ import { Recommendation } from "@/types/recommendation";
 import { Button } from "@/components/ui/button";
 import ImageGallery from "@/components/recommendation/ImageGallery";
 import MoreRecommendations from "@/components/recommendation/MoreRecommendations";
+import BreadcrumbNavigation from "@/components/navigation/Breadcrumb";
 
 const RecommendationDetails = () => {
   const { destinationSlug, recommendationSlug } = useParams();
@@ -54,6 +55,12 @@ const RecommendationDetails = () => {
     );
   }
 
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: recommendation.destinations.name, href: `/${destinationSlug}` },
+    { label: recommendation.name, href: `/${destinationSlug}/${recommendationSlug}`, current: true },
+  ];
+
   const {
     name,
     type,
@@ -84,6 +91,7 @@ const RecommendationDetails = () => {
 
   return (
     <div className="animate-fade-in pb-16">
+      <BreadcrumbNavigation items={breadcrumbItems} />
       <div className="container mx-auto px-4">
         <div className="max-w-[1400px] mx-auto">
           <Link

@@ -1,5 +1,5 @@
-import { useParams, Link } from "react-router-dom";
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import DestinationHeader from "@/components/destination/DestinationHeader";
 import RecommendationCard from "@/components/destination/RecommendationCard";
@@ -10,11 +10,9 @@ import type { Destination, Recommendation } from "@/types/recommendation";
 const pluralizeType = (type: string, count: number) => {
   if (count <= 1) return type;
   
-  // Special cases
   if (type.toLowerCase() === "cafe") return "Cafes";
   if (type.toLowerCase() === "pub") return "Pubs";
   
-  // General case: add 's'
   return `${type}s`;
 };
 
@@ -52,19 +50,17 @@ const DestinationDetails = () => {
     enabled: !!destinationData?.id,
   });
 
-  const groupedRecommendations = useMemo(() => {
-    return recommendations.reduce((acc, recommendation) => {
-      const type = recommendation.type;
-      if (!acc[type]) {
-        acc[type] = [];
-      }
-      acc[type].push({
-        ...recommendation,
-        priceLevel: recommendation.price_level
-      });
-      return acc;
-    }, {} as Record<string, (Recommendation & { priceLevel: string })[]>);
-  }, [recommendations]);
+  const groupedRecommendations = recommendations.reduce((acc, recommendation) => {
+    const type = recommendation.type;
+    if (!acc[type]) {
+      acc[type] = [];
+    }
+    acc[type].push({
+      ...recommendation,
+      priceLevel: recommendation.price_level
+    });
+    return acc;
+  }, {} as Record<string, (Recommendation & { priceLevel: string })[]>);
 
   if (isLoadingDestination || isLoadingRecommendations) {
     return <div className="min-h-screen bg-neutral-900" />;
