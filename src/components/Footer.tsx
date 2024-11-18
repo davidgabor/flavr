@@ -40,13 +40,13 @@ const Footer = () => {
           </div>
           <div className="md:col-span-3">
             <h4 className="font-judson text-xl mb-4">Our Destinations</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-4">
               {Object.entries(groupedDestinations).map(([region, destinations]) => (
                 <div key={region}>
-                  <h5 className="text-sm font-medium text-white border-b border-white/5 pb-1.5 mb-2">
+                  <h5 className="text-sm font-medium text-white border-b border-white/5 pb-1 mb-1.5">
                     {region}
                   </h5>
-                  <ul className="space-y-1">
+                  <ul className="space-y-0.5">
                     {destinations.map((destination) => (
                       <li key={destination.id}>
                         <a
