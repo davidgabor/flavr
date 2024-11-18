@@ -166,52 +166,6 @@ const Home = () => {
           </form>
         </div>
       </section>
-
-      {/* Instagram Section */}
-      <section className="container px-4 mx-auto mt-32">
-        <div className="text-center space-y-8">
-          <h2 className="text-3xl font-judson">Follow Our Journey</h2>
-          <p className="text-neutral-400">See our latest food adventures on Instagram</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="aspect-square bg-neutral-800 rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
-              <img
-                src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38"
-                alt="Food"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="aspect-square bg-neutral-800 rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
-              <img
-                src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543"
-                alt="Food"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="aspect-square bg-neutral-800 rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
-              <img
-                src="https://images.unsplash.com/photo-1484723091739-30a097e8f929"
-                alt="Food"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="aspect-square bg-neutral-800 rounded-lg overflow-hidden hover:opacity-90 transition-opacity">
-              <img
-                src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe"
-                alt="Food"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-neutral-800 hover:bg-neutral-700 text-white px-6 py-2 rounded transition-colors mt-4"
-          >
-            @flavr_food
-          </a>
-        </div>
-      </section>
     </div>
   );
 };
