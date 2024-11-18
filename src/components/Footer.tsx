@@ -32,7 +32,7 @@ const Footer = () => {
     <footer className="border-t border-white/10 mt-24">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-6 gap-x-6">
-          <div>
+          <div className="md:col-span-2">
             <h4 className="font-judson text-xl mb-3">About Flavr</h4>
             <p className="text-neutral-400 text-sm leading-relaxed">
               Curating and sharing our favorite dining spots from around the world. Every recommendation is personally tested and thoughtfully selected.
