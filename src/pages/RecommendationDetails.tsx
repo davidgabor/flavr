@@ -8,16 +8,29 @@ import ImageGallery from "@/components/recommendation/ImageGallery";
 import MoreRecommendations from "@/components/recommendation/MoreRecommendations";
 import BreadcrumbNavigation from "@/components/navigation/Breadcrumb";
 
+const toTitleCase = (str: string) => {
+  return str
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+};
+
 const RecommendationDetails = () => {
   const { destinationSlug, recommendationSlug } = useParams();
   
   const { data: recommendation, isLoading } = useQuery({
     queryKey: ["recommendation", destinationSlug, recommendationSlug],
     queryFn: async () => {
+      const formattedDestinationName = toTitleCase(destinationSlug || '');
+      const formattedRecommendationName = toTitleCase(recommendationSlug || '');
+      
+      console.log('Searching for destination:', formattedDestinationName);
+      console.log('Searching for recommendation:', formattedRecommendationName);
+
       const { data: destinations, error: destinationError } = await supabase
         .from("destinations")
         .select("id, name")
-        .ilike('name', destinationSlug?.replace(/-/g, ' ') || '')
+        .ilike('name', formattedDestinationName)
         .single();
 
       if (destinationError) throw destinationError;
@@ -32,7 +45,7 @@ const RecommendationDetails = () => {
           )
         `)
         .eq("destination_id", destinations.id)
-        .ilike('name', recommendationSlug?.replace(/-/g, ' ') || '')
+        .ilike('name', formattedRecommendationName)
         .single();
       
       if (error) throw error;
