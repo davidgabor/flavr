@@ -44,7 +44,7 @@ const Experts = () => {
             <Link
               key={expert.id}
               to={`/expert/${expert.id}`}
-              className="group bg-neutral-800/50 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden hover:border-white/20 transition-all duration-300"
+              className="card group"
             >
               <div className="aspect-[4/3] overflow-hidden bg-neutral-800">
                 {expert.image ? (
