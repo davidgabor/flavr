@@ -101,11 +101,11 @@ const Home = () => {
               loading="eager"
             />
           </div>
-          <div className="text-sm text-neutral-400 mb-96">Enjoy,<br />David & Maja</div>
+          <div className="text-sm text-neutral-400">Enjoy,<br />David & Maja</div>
         </div>
       </section>
 
-      <div className="container px-4 mx-auto space-y-24">
+      <div className="mt-96 container px-4 mx-auto space-y-24">
         {Object.entries(groupedDestinations).map(([region, destinations], regionIndex) => (
           <section key={region} className="space-y-8">
             <div className="flex items-center gap-8 mb-12">
