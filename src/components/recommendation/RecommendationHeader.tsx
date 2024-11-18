@@ -7,7 +7,7 @@ interface RecommendationHeaderProps {
   type: string;
   cuisine: string;
   price_level: string;
-  images: string[];
+  images?: string[];
   image: string;
   address?: string;
   latitude?: number;
