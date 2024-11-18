@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import SearchDialog from "./navigation/SearchDialog";
@@ -6,6 +6,7 @@ import SearchDialog from "./navigation/SearchDialog";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,15 +28,34 @@ const Navbar = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
+  const isActive = (path: string) => location.pathname === path;
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${
       isScrolled ? "bg-neutral-900/50 backdrop-blur-sm" : "bg-transparent"
     }`}>
       <div className="container px-4 mx-auto">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="text-xl font-judson text-white">
-            Flavr
-          </Link>
+          <div className="flex items-center gap-8">
+            <Link to="/" className="text-xl font-judson text-white">
+              Flavr
+            </Link>
+            
+            <div className="hidden md:flex items-center gap-6">
+              <Link 
+                to="/destinations" 
+                className={`text-sm ${isActive('/destinations') ? 'text-white' : 'text-neutral-400 hover:text-white'} transition-colors duration-200`}
+              >
+                Destinations
+              </Link>
+              <Link 
+                to="/experts" 
+                className={`text-sm ${isActive('/experts') ? 'text-white' : 'text-neutral-400 hover:text-white'} transition-colors duration-200`}
+              >
+                Experts
+              </Link>
+            </div>
+          </div>
 
           <button
             onClick={() => setOpen(true)}
