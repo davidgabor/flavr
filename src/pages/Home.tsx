@@ -105,7 +105,7 @@ const Home = () => {
         </div>
       </section>
 
-      <div className="mt-48 container px-4 mx-auto space-y-24">
+      <div className="mt-32 container px-4 mx-auto space-y-24">
         {Object.entries(groupedDestinations).map(([region, destinations], regionIndex) => (
           <section key={region} className="space-y-8">
             <div className="flex items-center gap-8 mb-12">
