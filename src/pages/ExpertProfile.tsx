@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import RecommendationCard from "@/components/destination/RecommendationCard";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { Expert } from "@/types/expert";
 import type { Recommendation } from "@/types/recommendation";
 
@@ -24,10 +25,10 @@ const ExpertProfile = () => {
     },
   });
 
-  const { data: recommendations = [], isLoading: isLoadingRecommendations } = useQuery({
+  const { data: recommendationsByDestination = {}, isLoading: isLoadingRecommendations } = useQuery({
     queryKey: ["expert-recommendations", expert?.id],
     queryFn: async () => {
-      if (!expert?.id) return [];
+      if (!expert?.id) return {};
       
       const { data, error } = await supabase
         .from("expert_recommendations")
@@ -35,6 +36,7 @@ const ExpertProfile = () => {
           recommendations (
             *,
             destinations (
+              id,
               name
             )
           )
@@ -42,10 +44,24 @@ const ExpertProfile = () => {
         .eq('expert_id', expert.id);
       
       if (error) throw error;
-      return data.map(item => ({
-        ...item.recommendations,
-        destinationName: item.recommendations.destinations.name
-      })) as (Recommendation & { destinationName: string })[];
+
+      // Group recommendations by destination
+      return data.reduce((acc: Record<string, (Recommendation & { destinationName: string })[]>, item) => {
+        const recommendation = item.recommendations;
+        const destinationId = recommendation.destinations.id;
+        const destinationName = recommendation.destinations.name;
+
+        if (!acc[destinationId]) {
+          acc[destinationId] = [];
+        }
+
+        acc[destinationId].push({
+          ...recommendation,
+          destinationName
+        });
+
+        return acc;
+      }, {});
     },
     enabled: !!expert?.id,
   });
@@ -64,6 +80,12 @@ const ExpertProfile = () => {
     );
   }
 
+  const destinations = Object.entries(recommendationsByDestination).map(([id, recommendations]) => ({
+    id,
+    name: recommendations[0].destinationName,
+    recommendations
+  }));
+
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
       <div className="container mx-auto px-4 py-16">
@@ -81,15 +103,33 @@ const ExpertProfile = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {recommendations.map((recommendation) => (
-            <RecommendationCard
-              key={recommendation.id}
-              {...recommendation}
-              destinationName={recommendation.destinationName}
-            />
+        <Tabs defaultValue={destinations[0]?.id} className="space-y-8">
+          <TabsList className="bg-neutral-800 border-neutral-700">
+            {destinations.map((destination) => (
+              <TabsTrigger
+                key={destination.id}
+                value={destination.id}
+                className="data-[state=active]:bg-neutral-700"
+              >
+                {destination.name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {destinations.map((destination) => (
+            <TabsContent key={destination.id} value={destination.id}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {destination.recommendations.map((recommendation) => (
+                  <RecommendationCard
+                    key={recommendation.id}
+                    {...recommendation}
+                    destinationName={recommendation.destinationName}
+                  />
+                ))}
+              </div>
+            </TabsContent>
           ))}
-        </div>
+        </Tabs>
       </div>
     </div>
   );
