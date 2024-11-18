@@ -37,7 +37,7 @@ const Navbar = () => {
       <div className="container px-4 mx-auto">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
-            <Link to="/" className="text-xl font-judson text-white">
+            <Link to="/" className="text-2xl font-judson text-white">
               Flavr
             </Link>
             
