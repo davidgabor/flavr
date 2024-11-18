@@ -76,7 +76,7 @@ const Home = () => {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src="https://videos.pexels.com/video-files/2620043/2620043-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+            <source src="https://player.vimeo.com/progressive_redirect/playback/858245027/rendition/1080p/file.mp4?loc=external&signature=2d3f5eb86c5c4e4d3e7f85f5e6b2d14e2c12e0d3c3864b54533b8f6b19fef0d1" type="video/mp4" />
           </video>
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
