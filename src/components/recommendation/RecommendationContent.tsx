@@ -10,15 +10,8 @@ const RecommendationContent = ({
   hours,
 }: RecommendationContentProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
       <div className="md:col-span-2 space-y-8">
-        {our_review && (
-          <div>
-            <h2 className="text-2xl font-judson mb-2">Our Review</h2>
-            <p className="text-neutral-300">{our_review}</p>
-          </div>
-        )}
-
         {description && (
           <div>
             <h2 className="text-2xl font-judson mb-2">About</h2>
