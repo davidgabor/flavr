@@ -101,7 +101,7 @@ const Home = () => {
               loading="eager"
             />
           </div>
-          <div className="text-sm text-neutral-400 mb-24">Enjoy,<br />David & Maja</div>
+          <div className="text-sm text-neutral-400 mb-48">Enjoy,<br />David & Maja</div>
         </div>
       </section>
 
