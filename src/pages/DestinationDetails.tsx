@@ -3,7 +3,6 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import DestinationHeader from "@/components/destination/DestinationHeader";
 import RecommendationCard from "@/components/destination/RecommendationCard";
-import BreadcrumbNavigation from "@/components/navigation/Breadcrumb";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination, Recommendation } from "@/types/recommendation";
 
@@ -92,14 +91,8 @@ const DestinationDetails = () => {
   const types = Object.keys(groupedRecommendations);
   const displayedType = selectedType || types[0];
 
-  const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: destinationData.name, href: `/${destinationSlug}`, current: true },
-  ];
-
   return (
     <div className="relative min-h-screen bg-neutral-900">
-      <BreadcrumbNavigation items={breadcrumbItems} />
       <DestinationHeader 
         name={destinationData.name}
         description={destinationData.description}
