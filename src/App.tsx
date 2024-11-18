@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Destinations from "./pages/Destinations";
 import DestinationDetails from "./pages/DestinationDetails";
 import RecommendationDetails from "./pages/RecommendationDetails";
+import ExpertProfile from "./pages/ExpertProfile";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/destinations" element={<Destinations />} />
+              <Route path="/expert/:expertSlug" element={<ExpertProfile />} />
               <Route path="/:destinationSlug" element={<DestinationDetails />} />
               <Route path="/:destinationSlug/:recommendationSlug" element={<RecommendationDetails />} />
             </Routes>
