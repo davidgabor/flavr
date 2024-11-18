@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import RecommendationCard from "@/components/destination/RecommendationCard";
@@ -9,6 +9,7 @@ import type { Recommendation } from "@/types/recommendation";
 
 const ExpertProfile = () => {
   const { expertSlug } = useParams();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -91,6 +92,12 @@ const ExpertProfile = () => {
     recommendations
   }));
 
+  // Find the initial tab value based on the URL query parameter
+  const destinationParam = searchParams.get('destination')?.toLowerCase();
+  const initialTab = destinations.find(
+    dest => dest.name.toLowerCase() === destinationParam
+  )?.id || destinations[0]?.id;
+
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
       <div className="container mx-auto px-4 py-16">
@@ -108,7 +115,7 @@ const ExpertProfile = () => {
           </div>
         </div>
 
-        <Tabs defaultValue={destinations[0]?.id} className="space-y-8">
+        <Tabs defaultValue={initialTab} className="space-y-8">
           <TabsList className="bg-neutral-800 border-neutral-700">
             {destinations.map((destination) => (
               <TabsTrigger
