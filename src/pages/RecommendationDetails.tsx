@@ -20,10 +20,13 @@ const RecommendationDetails = () => {
 
       console.log('Searching with slugs:', { destinationSlug, recommendationSlug });
       
+      const searchDestination = destinationSlug.replace(/-/g, ' ');
+      const searchRecommendation = recommendationSlug.replace(/-/g, ' ');
+      
       const { data: destinations, error: destinationError } = await supabase
         .from("destinations")
         .select("id, name")
-        .or(`name.ilike.${destinationSlug.replace(/-/g, ' ')}`)
+        .ilike('name', searchDestination)
         .single();
 
       if (destinationError) {
@@ -43,7 +46,7 @@ const RecommendationDetails = () => {
           )
         `)
         .eq("destination_id", destinations.id)
-        .or(`name.ilike.${recommendationSlug.replace(/-/g, ' ')}`)
+        .ilike('name', searchRecommendation)
         .single();
       
       if (error) {

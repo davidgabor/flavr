@@ -18,7 +18,7 @@ const BreadcrumbNavigation = ({ items }: BreadcrumbNavigationProps) => {
   return (
     <div className="bg-neutral-800/50 border-b border-white/10">
       <div className="container mx-auto">
-        <Breadcrumb className="px-4 py-3 text-sm">
+        <Breadcrumb className="px-4 py-3 text-sm flex items-center">
           {items.map((item, index) => (
             <BreadcrumbItem key={index} className="flex items-center">
               <BreadcrumbLink asChild>

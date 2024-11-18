@@ -7,13 +7,6 @@ import BreadcrumbNavigation from "@/components/navigation/Breadcrumb";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination, Recommendation } from "@/types/recommendation";
 
-const toTitleCase = (str: string) => {
-  return str
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
-};
-
 const pluralizeType = (type: string, count: number) => {
   if (count <= 1) return type;
   
@@ -34,10 +27,11 @@ const DestinationDetails = () => {
       
       console.log('Searching for destination with slug:', destinationSlug);
       
+      const searchName = destinationSlug.replace(/-/g, ' ');
       const { data, error } = await supabase
         .from("destinations")
         .select("*")
-        .or(`name.ilike.${destinationSlug.replace(/-/g, ' ')}`)
+        .ilike('name', searchName)
         .single();
       
       if (error) {
