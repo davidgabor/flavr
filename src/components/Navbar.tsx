@@ -36,12 +36,15 @@ const Navbar = () => {
     }`}>
       <div className="container px-4 mx-auto">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-8">
-            <Link to="/" className="text-2xl font-judson text-white">
+          <div className="flex items-center">
+            <Link 
+              to="/" 
+              className="text-2xl font-judson text-white pr-12 border-r border-neutral-700"
+            >
               Flavr
             </Link>
             
-            <div className="hidden md:flex items-center gap-6">
+            <div className="hidden md:flex items-center pl-12 space-x-8">
               <Link 
                 to="/destinations" 
                 className={`text-sm ${isActive('/destinations') ? 'text-white' : 'text-neutral-400 hover:text-white'} transition-colors duration-200`}
