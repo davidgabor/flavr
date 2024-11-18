@@ -18,6 +18,7 @@ interface RecommendationHeaderProps {
   instagram?: string;
   phone?: string;
   our_review?: string;
+  description?: string;
 }
 
 const RecommendationHeader = ({
@@ -35,6 +36,7 @@ const RecommendationHeader = ({
   instagram,
   phone,
   our_review,
+  description,
 }: RecommendationHeaderProps) => {
   const handleMapClick = () => {
     if (latitude && longitude) {
@@ -49,7 +51,7 @@ const RecommendationHeader = ({
       <ImageGallery images={allImages} name={name} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="md:col-span-2 space-y-6">
+        <div className="md:col-span-2 space-y-4">
           <div>
             <h1 className="text-5xl md:text-6xl font-judson mb-2">{name}</h1>
             <div className="flex items-center gap-4 text-neutral-400">
@@ -60,6 +62,13 @@ const RecommendationHeader = ({
               <span>{price_level}</span>
             </div>
           </div>
+
+          {description && (
+            <div>
+              <h2 className="text-2xl font-judson mb-2">About</h2>
+              <p className="text-neutral-300">{description}</p>
+            </div>
+          )}
 
           {our_review && (
             <div>
