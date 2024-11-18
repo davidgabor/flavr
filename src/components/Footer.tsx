@@ -28,40 +28,37 @@ const Footer = () => {
     return acc;
   }, {} as Record<string, Destination[]>);
 
+  // Calculate the number of columns needed (number of regions + 1 for About)
+  const numberOfRegions = Object.keys(groupedDestinations).length;
+  const gridColumns = numberOfRegions + 1;
+
   return (
     <footer className="border-t border-white/10 mt-24">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-x-12 gap-y-8">
+        <div className={`grid grid-cols-1 md:grid-cols-${gridColumns} gap-x-6`}>
           <div>
             <h4 className="font-judson text-xl mb-3">About Flavr</h4>
             <p className="text-neutral-400 text-sm leading-relaxed">
               Curating and sharing our favorite dining spots from around the world. Every recommendation is personally tested and thoughtfully selected.
             </p>
           </div>
-          <div className="md:col-span-3">
-            <h4 className="font-judson text-xl mb-4">Our Destinations</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-4">
-              {Object.entries(groupedDestinations).map(([region, destinations]) => (
-                <div key={region}>
-                  <h5 className="text-sm font-medium text-white border-b border-white/5 pb-1 mb-1.5">
-                    {region}
-                  </h5>
-                  <ul className="space-y-0.5">
-                    {destinations.map((destination) => (
-                      <li key={destination.id}>
-                        <a
-                          href={`/${destination.name.toLowerCase().replace(/\s+/g, '-')}`}
-                          className="text-sm text-neutral-400 hover:text-white transition-colors block py-0.5"
-                        >
-                          {destination.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+          {Object.entries(groupedDestinations).map(([region, destinations]) => (
+            <div key={region}>
+              <h4 className="font-judson text-xl mb-3">{region}</h4>
+              <ul className="space-y-0.5">
+                {destinations.map((destination) => (
+                  <li key={destination.id}>
+                    <a
+                      href={`/${destination.name.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="text-sm text-neutral-400 hover:text-white transition-colors block py-0.5"
+                    >
+                      {destination.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
+          ))}
         </div>
         <div className="text-center text-sm text-neutral-500 pt-8 mt-8 border-t border-white/5">
           <div className="mb-2">
