@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,6 +9,10 @@ import type { Recommendation } from "@/types/recommendation";
 
 const ExpertProfile = () => {
   const { expertSlug } = useParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const { data: expert, isLoading: isLoadingExpert } = useQuery({
     queryKey: ["expert", expertSlug],
