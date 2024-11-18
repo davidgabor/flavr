@@ -29,24 +29,24 @@ const Footer = () => {
   }, {} as Record<string, Destination[]>);
 
   return (
-    <footer className="border-t border-white/10 mt-32">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
-          <div className="md:col-span-2">
-            <h4 className="font-judson text-xl mb-4">About Flavr</h4>
+    <footer className="border-t border-white/10 mt-24">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-x-12 gap-y-8">
+          <div>
+            <h4 className="font-judson text-xl mb-3">About Flavr</h4>
             <p className="text-neutral-400 text-sm leading-relaxed">
               Curating and sharing our favorite dining spots from around the world. Every recommendation is personally tested and thoughtfully selected.
             </p>
           </div>
           <div className="md:col-span-3">
-            <h4 className="font-judson text-xl mb-6">Our Destinations</h4>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+            <h4 className="font-judson text-xl mb-4">Our Destinations</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-6">
               {Object.entries(groupedDestinations).map(([region, destinations]) => (
-                <div key={region} className="space-y-3">
-                  <h5 className="text-sm font-medium text-white border-b border-white/10 pb-2 mb-3">
+                <div key={region}>
+                  <h5 className="text-sm font-medium text-white border-b border-white/5 pb-1.5 mb-2">
                     {region}
                   </h5>
-                  <ul className="space-y-2">
+                  <ul className="space-y-1">
                     {destinations.map((destination) => (
                       <li key={destination.id}>
                         <a
@@ -63,8 +63,8 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="text-center text-sm text-neutral-500 pt-12 border-t border-white/10 mt-12">
-          <div className="mb-4">
+        <div className="text-center text-sm text-neutral-500 pt-8 mt-8 border-t border-white/5">
+          <div className="mb-2">
             <a href="mailto:hello@flavr.world" className="text-primary hover:text-primary/90 transition-colors">
               hello@flavr.world
             </a>
