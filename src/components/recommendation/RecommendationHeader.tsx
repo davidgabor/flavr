@@ -78,7 +78,7 @@ const RecommendationHeader = ({
           )}
         </div>
 
-        <div className="space-y-6">
+        <div className="bg-neutral-800/50 backdrop-blur-sm border border-white/10 rounded-xl p-6 space-y-6">
           <div className="space-y-2">
             <h3 className="font-medium">Location</h3>
             {address && (
