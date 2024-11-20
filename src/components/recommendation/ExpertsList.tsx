@@ -1,27 +1,27 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import type { Expert } from "@/types/expert";
+import type { Person } from "@/types/person";
 
 interface ExpertsListProps {
   recommendationId: string;
 }
 
 const ExpertsList = ({ recommendationId }: ExpertsListProps) => {
-  const { data: experts = [], isLoading } = useQuery({
-    queryKey: ["recommendation-experts", recommendationId],
+  const { data: people = [], isLoading } = useQuery({
+    queryKey: ["recommendation-people", recommendationId],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("expert_recommendations")
+        .from("person_recommendations")
         .select(`
-          experts (
+          people (
             *
           )
         `)
         .eq('recommendation_id', recommendationId);
       
       if (error) throw error;
-      return data.map(item => item.experts) as Expert[];
+      return data.map(item => item.people) as Person[];
     },
   });
 
@@ -31,21 +31,21 @@ const ExpertsList = ({ recommendationId }: ExpertsListProps) => {
     <div className="space-y-4">
       <h3 className="font-medium">Recommended by</h3>
       <div className="flex flex-wrap gap-4">
-        {experts.map((expert) => (
+        {people.map((person) => (
           <Link
-            key={expert.id}
-            to={`/expert/${expert.id}`}
+            key={person.id}
+            to={`/person/${person.id}`}
             className="flex items-center gap-3 group"
           >
-            {expert.image && (
+            {person.image && (
               <img
-                src={expert.image}
-                alt={expert.name}
+                src={person.image}
+                alt={person.name}
                 className="w-10 h-10 rounded-full object-cover"
               />
             )}
             <span className="text-neutral-300 group-hover:text-primary transition-colors">
-              {expert.name}
+              {person.name}
             </span>
           </Link>
         ))}

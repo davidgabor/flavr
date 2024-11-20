@@ -1,27 +1,27 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import type { Expert } from "@/types/expert";
+import type { Person } from "@/types/person";
 
 interface RecommendedBySectionProps {
   recommendationId: string;
 }
 
 const RecommendedBySection = ({ recommendationId }: RecommendedBySectionProps) => {
-  const { data: experts = [], isLoading } = useQuery({
-    queryKey: ["recommendation-experts", recommendationId],
+  const { data: people = [], isLoading } = useQuery({
+    queryKey: ["recommendation-people", recommendationId],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("expert_recommendations")
+        .from("person_recommendations")
         .select(`
-          experts (
+          people (
             *
           )
         `)
         .eq('recommendation_id', recommendationId);
       
       if (error) throw error;
-      return data.map(item => item.experts) as Expert[];
+      return data.map(item => item.people) as Person[];
     },
   });
 
@@ -31,26 +31,26 @@ const RecommendedBySection = ({ recommendationId }: RecommendedBySectionProps) =
     <div className="bg-neutral-800/50 backdrop-blur-sm border border-white/10 rounded-xl p-8 space-y-6">
       <h2 className="text-2xl font-judson">Recommended by</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {experts.map((expert) => (
+        {people.map((person) => (
           <Link
-            key={expert.id}
-            to={`/expert/${expert.id}`}
+            key={person.id}
+            to={`/person/${person.id}`}
             className="flex items-center gap-4 p-4 bg-neutral-800/50 rounded-lg border border-white/5 hover:border-white/20 transition-colors group"
           >
-            {expert.image && (
+            {person.image && (
               <img
-                src={expert.image}
-                alt={expert.name}
+                src={person.image}
+                alt={person.name}
                 className="w-16 h-16 rounded-full object-cover border-2 border-white/10 group-hover:border-primary transition-colors"
               />
             )}
             <div>
               <h3 className="font-medium text-lg group-hover:text-primary transition-colors">
-                {expert.name}
+                {person.name}
               </h3>
-              {expert.bio && (
+              {person.bio && (
                 <p className="text-sm text-neutral-400 line-clamp-2">
-                  {expert.bio}
+                  {person.bio}
                 </p>
               )}
             </div>

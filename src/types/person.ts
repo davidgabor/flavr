@@ -1,4 +1,4 @@
-export interface Expert {
+export interface Person {
   id: string;
   name: string;
   bio: string | null;
