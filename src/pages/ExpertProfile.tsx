@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -103,14 +103,17 @@ const ExpertProfile = () => {
     dest => dest.name.toLowerCase() === destinationParam
   )?.id || destinations[0]?.id;
 
+  const [currentTab, setCurrentTab] = useState(initialTab);
+
   const handleTabChange = (value: string) => {
+    setCurrentTab(value);
     const selectedDestination = destinations.find(dest => dest.id === value);
     if (selectedDestination) {
       setSearchParams({ destination: selectedDestination.name.toLowerCase() });
     }
   };
 
-  const selectedDestination = destinations.find(dest => dest.id === initialTab);
+  const selectedDestination = destinations.find(dest => dest.id === currentTab);
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
@@ -129,7 +132,7 @@ const ExpertProfile = () => {
           </div>
         </div>
 
-        <Tabs defaultValue={initialTab} onValueChange={handleTabChange}>
+        <Tabs value={currentTab} onValueChange={handleTabChange}>
           <div className="sticky top-16 bg-neutral-900/80 backdrop-blur-sm z-10 py-4 border-b border-white/10">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
               <div className="flex items-center gap-2">
@@ -139,7 +142,7 @@ const ExpertProfile = () => {
                 </span>
               </div>
               
-              <Select value={initialTab} onValueChange={handleTabChange}>
+              <Select value={currentTab} onValueChange={handleTabChange}>
                 <SelectTrigger className="w-[200px] bg-neutral-800 border-white/10">
                   <SelectValue>
                     {selectedDestination ? (
