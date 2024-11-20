@@ -98,12 +98,12 @@ const ExpertProfile = () => {
     recommendations
   }));
 
-  const destinationParam = searchParams.get('destination')?.toLowerCase();
-  const initialTab = destinations.find(
-    dest => dest.name.toLowerCase() === destinationParam
-  )?.id || destinations[0]?.id;
-
-  const [currentTab, setCurrentTab] = useState(initialTab);
+  const [currentTab, setCurrentTab] = useState(() => {
+    const destinationParam = searchParams.get('destination')?.toLowerCase();
+    return destinations.find(
+      dest => dest.name.toLowerCase() === destinationParam
+    )?.id || destinations[0]?.id;
+  });
 
   const handleTabChange = (value: string) => {
     setCurrentTab(value);
