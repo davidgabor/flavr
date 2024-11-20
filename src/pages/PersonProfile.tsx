@@ -34,13 +34,19 @@ const PersonProfile = () => {
     queryFn: async () => {
       if (!personSlug) throw new Error("No person slug provided");
       
+      console.log('Fetching person with ID:', personSlug);
       const { data, error } = await supabase
         .from("people")
         .select("*")
         .eq('id', personSlug)
-        .single();
+        .maybeSingle();
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching person:', error);
+        throw error;
+      }
+      
+      console.log('Fetched person data:', data);
       return data as Person;
     },
   });
@@ -50,6 +56,7 @@ const PersonProfile = () => {
     queryFn: async () => {
       if (!person?.id) return {};
       
+      console.log('Fetching recommendations for person:', person.id);
       const { data, error } = await supabase
         .from("person_recommendations")
         .select(`
@@ -63,8 +70,13 @@ const PersonProfile = () => {
         `)
         .eq('person_id', person.id);
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching recommendations:', error);
+        throw error;
+      }
 
+      console.log('Raw recommendations data:', data);
+      
       const recommendations = data.reduce((acc: Record<string, RecommendationWithDestination[]>, item) => {
         const recommendation = item.recommendations as RecommendationWithDestination;
         if (!recommendation) return acc;
