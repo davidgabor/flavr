@@ -34,7 +34,7 @@ const RecommendedBySection = ({ recommendationId }: RecommendedBySectionProps) =
         {people.map((person) => (
           <Link
             key={person.id}
-            to={`/person/${person.id}`}
+            to={`/p/${person.id}`}
             className="flex items-center gap-4 p-4 bg-neutral-800/50 rounded-lg border border-white/5 hover:border-white/20 transition-colors group"
           >
             {person.image && (
