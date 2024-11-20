@@ -11,6 +11,8 @@ import DestinationDetails from "./pages/DestinationDetails";
 import RecommendationDetails from "./pages/RecommendationDetails";
 import PersonProfile from "./pages/PersonProfile";
 import People from "./pages/People";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +27,8 @@ const App = () => (
               <Route path="/" element={<Home />} />
               <Route path="/destinations" element={<Destinations />} />
               <Route path="/people" element={<People />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/p/:personSlug" element={<PersonProfile />} />
               <Route path="/:destinationSlug" element={<DestinationDetails />} />
               <Route path="/:destinationSlug/:recommendationSlug" element={<RecommendationDetails />} />

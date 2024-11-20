@@ -59,6 +59,12 @@ const Navbar = () => {
                 >
                   People
                 </Link>
+                <Link 
+                  to="/blog" 
+                  className={`text-sm ${isActive('/blog') ? 'text-white' : 'text-neutral-400 hover:text-white'} transition-colors duration-200`}
+                >
+                  Blog
+                </Link>
               </div>
             </div>
 
@@ -102,6 +108,13 @@ const Navbar = () => {
                   className={`text-sm ${isActive('/people') ? 'text-white' : 'text-neutral-400'} transition-colors duration-200`}
                 >
                   People
+                </Link>
+                <Link 
+                  to="/blog" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`text-sm ${isActive('/blog') ? 'text-white' : 'text-neutral-400'} transition-colors duration-200`}
+                >
+                  Blog
                 </Link>
               </div>
             </div>
