@@ -16,7 +16,7 @@ const RecommendationCard = ({
   cuisine
 }: RecommendationCardProps) => (
   <Link
-    to={`/${destinationName.toLowerCase().replace(/\s+/g, '-')}/${name.toLowerCase().replace(/\s+/g, '-')}`}
+    to={`/${destinationName.toLowerCase().replace(/\s+/g, '-')}/${name.toLowerCase().replace(/[\/\s]+/g, '-')}`}
     className="text-left group"
   >
     <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 group-hover:shadow-2xl transition-all duration-500">
