@@ -1,15 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Recommendation } from "@/types/recommendation";
-import BreadcrumbNavigation from "@/components/navigation/Breadcrumb";
 import RecommendationHeader from "@/components/recommendation/RecommendationHeader";
 import RecommendationContent from "@/components/recommendation/RecommendationContent";
-import MoreRecommendations from "@/components/recommendation/MoreRecommendations";
+import type { Recommendation } from "@/types/recommendation";
 
 const RecommendationDetails = () => {
   const { destinationSlug, recommendationSlug } = useParams();
-  
+
   const { data: recommendation, isLoading } = useQuery({
     queryKey: ["recommendation", destinationSlug, recommendationSlug],
     queryFn: async () => {
@@ -19,14 +17,12 @@ const RecommendationDetails = () => {
 
       console.log('Searching with slugs:', { destinationSlug, recommendationSlug });
       
-      const searchDestination = destinationSlug.replace(/-/g, ' ');
-      const searchRecommendation = recommendationSlug.replace(/-/g, ' ');
-      
       // First, get the destination ID
+      const destinationName = destinationSlug.replace(/-/g, ' ');
       const { data: destination, error: destinationError } = await supabase
         .from("destinations")
-        .select("id, name")
-        .ilike('name', searchDestination)
+        .select("id")
+        .ilike('name', destinationName)
         .single();
 
       if (destinationError) {
@@ -34,9 +30,14 @@ const RecommendationDetails = () => {
         throw destinationError;
       }
 
+      if (!destination) {
+        throw new Error("Destination not found");
+      }
+
       console.log('Found destination:', destination);
 
       // Then, use the destination ID to find the recommendation
+      const recommendationName = recommendationSlug.replace(/-/g, ' ');
       const { data, error } = await supabase
         .from("recommendations")
         .select(`
@@ -47,7 +48,7 @@ const RecommendationDetails = () => {
           )
         `)
         .eq("destination_id", destination.id)
-        .ilike('name', searchRecommendation)
+        .ilike('name', recommendationName)
         .single();
       
       if (error) {
@@ -72,24 +73,12 @@ const RecommendationDetails = () => {
     );
   }
 
-  const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: recommendation.destinations.name, href: `/${destinationSlug}` },
-    { label: recommendation.name, href: `/${destinationSlug}/${recommendationSlug}`, current: true },
-  ];
-
   return (
     <div className="animate-fade-in">
-      <BreadcrumbNavigation items={breadcrumbItems} />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-[1400px] mx-auto space-y-12">
           <RecommendationHeader {...recommendation} />
           <RecommendationContent {...recommendation} />
-          <MoreRecommendations 
-            destinationId={recommendation.destination_id}
-            currentRecommendationId={recommendation.id}
-            destinationName={recommendation.destinations.name}
-          />
         </div>
       </div>
     </div>
