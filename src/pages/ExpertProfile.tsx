@@ -3,8 +3,14 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import RecommendationCard from "@/components/destination/RecommendationCard";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import type { Expert } from "@/types/expert";
 import type { Recommendation } from "@/types/recommendation";
 
@@ -104,6 +110,8 @@ const ExpertProfile = () => {
     }
   };
 
+  const selectedDestination = destinations.find(dest => dest.id === initialTab);
+
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
       <div className="container mx-auto px-4 py-8 md:py-16">
@@ -121,29 +129,41 @@ const ExpertProfile = () => {
           </div>
         </div>
 
-        <Tabs defaultValue={initialTab} className="space-y-8" onValueChange={handleTabChange}>
-          <div className="sticky top-16 bg-neutral-900/80 backdrop-blur-sm z-10 py-4">
-            <div className="flex items-center gap-2 mb-2 px-1">
-              <h2 className="text-sm font-medium text-neutral-400">Recommendations by city</h2>
-              <span className="text-sm text-neutral-500">({destinations.length})</span>
-            </div>
-            <ScrollArea className="w-full">
-              <div className="flex gap-2 pb-2">
-                {destinations.map((destination) => (
-                  <button
-                    key={destination.id}
-                    onClick={() => handleTabChange(destination.id)}
-                    className={`px-4 py-2 rounded-full text-sm whitespace-nowrap transition-colors ${
-                      initialTab === destination.id
-                        ? "bg-white text-neutral-900"
-                        : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
-                    }`}
-                  >
-                    {destination.name} ({destination.recommendations.length})
-                  </button>
-                ))}
+        <Tabs defaultValue={initialTab} onValueChange={handleTabChange}>
+          <div className="sticky top-16 bg-neutral-900/80 backdrop-blur-sm z-10 py-4 border-b border-white/10">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
+              <div className="flex items-center gap-2">
+                <h2 className="text-sm font-medium text-neutral-400">Recommendations</h2>
+                <span className="text-sm text-neutral-500">
+                  {destinations.reduce((acc, dest) => acc + dest.recommendations.length, 0)} places in {destinations.length} cities
+                </span>
               </div>
-            </ScrollArea>
+              
+              <Select value={initialTab} onValueChange={handleTabChange}>
+                <SelectTrigger className="w-[200px] bg-neutral-800 border-white/10">
+                  <SelectValue>
+                    {selectedDestination ? (
+                      <span>
+                        {selectedDestination.name} ({selectedDestination.recommendations.length})
+                      </span>
+                    ) : (
+                      "Select a city"
+                    )}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent className="bg-neutral-800 border-white/10">
+                  {destinations.map((destination) => (
+                    <SelectItem 
+                      key={destination.id} 
+                      value={destination.id}
+                      className="text-white hover:bg-neutral-700 focus:bg-neutral-700"
+                    >
+                      {destination.name} ({destination.recommendations.length})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           {destinations.map((destination) => (
