@@ -65,24 +65,21 @@ const PersonProfile = () => {
       
       if (error) throw error;
 
-      return data.reduce((acc: Record<string, (RecommendationWithDestination)[]>, item) => {
+      const recommendations = data.reduce((acc: Record<string, RecommendationWithDestination[]>, item) => {
         const recommendation = item.recommendations as RecommendationWithDestination;
         if (!recommendation) return acc;
         
         const destinationId = recommendation.destinations.id;
-        const destinationName = recommendation.destinations.name;
-
         if (!acc[destinationId]) {
           acc[destinationId] = [];
         }
 
-        acc[destinationId].push({
-          ...recommendation,
-          destinationName
-        });
-
+        acc[destinationId].push(recommendation);
         return acc;
       }, {});
+
+      console.log('Processed recommendations:', recommendations);
+      return recommendations;
     },
     enabled: !!person?.id,
   });
