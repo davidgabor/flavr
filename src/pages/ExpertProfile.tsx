@@ -107,7 +107,7 @@ const ExpertProfile = () => {
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
       <div className="container mx-auto px-4 py-8 md:py-16">
-        <div className="flex flex-col md:flex-row items-start gap-8 mb-16">
+        <div className="flex flex-col md:flex-row items-start gap-8 mb-12">
           {expert.image && (
             <img
               src={expert.image}
@@ -123,24 +123,32 @@ const ExpertProfile = () => {
 
         <Tabs defaultValue={initialTab} className="space-y-8" onValueChange={handleTabChange}>
           <div className="sticky top-16 bg-neutral-900/80 backdrop-blur-sm z-10 py-4">
+            <div className="flex items-center gap-2 mb-2 px-1">
+              <h2 className="text-sm font-medium text-neutral-400">Recommendations by city</h2>
+              <span className="text-sm text-neutral-500">({destinations.length})</span>
+            </div>
             <ScrollArea className="w-full">
-              <TabsList className="bg-neutral-800 border-neutral-700 h-auto p-1 w-full flex flex-nowrap">
+              <div className="flex gap-2 pb-2">
                 {destinations.map((destination) => (
-                  <TabsTrigger
+                  <button
                     key={destination.id}
-                    value={destination.id}
-                    className="data-[state=active]:bg-neutral-700 whitespace-nowrap px-4 py-2"
+                    onClick={() => handleTabChange(destination.id)}
+                    className={`px-4 py-2 rounded-full text-sm whitespace-nowrap transition-colors ${
+                      initialTab === destination.id
+                        ? "bg-white text-neutral-900"
+                        : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
+                    }`}
                   >
                     {destination.name} ({destination.recommendations.length})
-                  </TabsTrigger>
+                  </button>
                 ))}
-              </TabsList>
+              </div>
             </ScrollArea>
           </div>
 
           {destinations.map((destination) => (
-            <TabsContent key={destination.id} value={destination.id}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <TabsContent key={destination.id} value={destination.id} className="mt-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {destination.recommendations.map((recommendation) => (
                   <RecommendationCard
                     key={recommendation.id}
