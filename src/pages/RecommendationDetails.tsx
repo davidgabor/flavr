@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import RecommendationHeader from "@/components/recommendation/RecommendationHeader";
 import RecommendationContent from "@/components/recommendation/RecommendationContent";
+import MoreRecommendations from "@/components/recommendation/MoreRecommendations";
 import type { Recommendation } from "@/types/recommendation";
 
 const RecommendationDetails = () => {
@@ -62,7 +63,9 @@ const RecommendationDetails = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="min-h-screen bg-neutral-900 animate-pulse" />
+    );
   }
 
   if (!recommendation) {
@@ -79,6 +82,11 @@ const RecommendationDetails = () => {
         <div className="max-w-[1400px] mx-auto space-y-12">
           <RecommendationHeader {...recommendation} />
           <RecommendationContent {...recommendation} />
+          <MoreRecommendations 
+            destinationId={recommendation.destination_id}
+            currentRecommendationId={recommendation.id}
+            destinationName={recommendation.destinations.name}
+          />
         </div>
       </div>
     </div>
