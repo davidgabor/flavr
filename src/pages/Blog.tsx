@@ -21,7 +21,7 @@ const Blog = () => {
       const { data, error } = await supabase
         .from("blog_posts")
         .select("*")
-        .order("published_at", { ascending: false, nullsLast: true });
+        .order("published_at", { ascending: false, nullsFirst: false });
       
       if (error) {
         console.error('Error fetching blog posts:', error);
