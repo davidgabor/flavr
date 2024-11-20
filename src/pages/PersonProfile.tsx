@@ -11,40 +11,47 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { Expert } from "@/types/expert";
+import type { Person } from "@/types/person";
 import type { Recommendation } from "@/types/recommendation";
 
-const ExpertProfile = () => {
-  const { expertSlug } = useParams();
+interface RecommendationWithDestination extends Recommendation {
+  destinations: {
+    id: string;
+    name: string;
+  };
+}
+
+const PersonProfile = () => {
+  const { personSlug } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const { data: expert, isLoading: isLoadingExpert } = useQuery({
-    queryKey: ["expert", expertSlug],
+  const { data: person, isLoading: isLoadingPerson } = useQuery({
+    queryKey: ["person", personSlug],
     queryFn: async () => {
-      if (!expertSlug) throw new Error("No expert slug provided");
+      if (!personSlug) throw new Error("No person slug provided");
       
       const { data, error } = await supabase
-        .from("experts")
+        .from("people")
         .select("*")
-        .eq('id', expertSlug)
+        .eq('id', personSlug)
         .single();
       
       if (error) throw error;
-      return data as Expert;
+      return data as Person;
     },
   });
 
   const { data: recommendationsByDestination = {}, isLoading: isLoadingRecommendations } = useQuery({
-    queryKey: ["expert-recommendations", expert?.id],
+    queryKey: ["person-recommendations", person?.id],
     queryFn: async () => {
-      if (!expert?.id) return {};
+      if (!person?.id) return {};
       
       const { data, error } = await supabase
-        .from("expert_recommendations")
+        .from("person_recommendations")
         .select(`
           recommendations (
             *,
@@ -54,12 +61,14 @@ const ExpertProfile = () => {
             )
           )
         `)
-        .eq('expert_id', expert.id);
+        .eq('person_id', person.id);
       
       if (error) throw error;
 
-      return data.reduce((acc: Record<string, (Recommendation & { destinationName: string })[]>, item) => {
-        const recommendation = item.recommendations;
+      return data.reduce((acc: Record<string, (RecommendationWithDestination)[]>, item) => {
+        const recommendation = item.recommendations as RecommendationWithDestination;
+        if (!recommendation) return acc;
+        
         const destinationId = recommendation.destinations.id;
         const destinationName = recommendation.destinations.name;
 
@@ -75,18 +84,18 @@ const ExpertProfile = () => {
         return acc;
       }, {});
     },
-    enabled: !!expert?.id,
+    enabled: !!person?.id,
   });
 
-  if (isLoadingExpert || isLoadingRecommendations) {
+  if (isLoadingPerson || isLoadingRecommendations) {
     return <div className="min-h-screen bg-neutral-900" />;
   }
 
-  if (!expert) {
+  if (!person) {
     return (
       <div className="min-h-screen bg-neutral-900 flex items-center justify-center">
         <div className="text-center text-white">
-          <h1 className="text-4xl font-judson">Expert not found</h1>
+          <h1 className="text-4xl font-judson">Person not found</h1>
         </div>
       </div>
     );
@@ -94,7 +103,7 @@ const ExpertProfile = () => {
 
   const destinations = Object.entries(recommendationsByDestination).map(([id, recommendations]) => ({
     id,
-    name: recommendations[0].destinationName,
+    name: recommendations[0].destinations.name,
     recommendations
   }));
 
@@ -116,16 +125,16 @@ const ExpertProfile = () => {
     <div className="min-h-screen bg-neutral-900 text-white">
       <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="flex flex-col md:flex-row items-start gap-8 mb-12">
-          {expert.image && (
+          {person.image && (
             <img
-              src={expert.image}
-              alt={expert.name}
+              src={person.image}
+              alt={person.name}
               className="w-32 h-32 rounded-full object-cover border-2 border-white/10"
             />
           )}
           <div className="flex-1">
-            <h1 className="text-4xl font-judson mb-4">{expert.name}</h1>
-            {expert.bio && <p className="text-neutral-400 max-w-2xl">{expert.bio}</p>}
+            <h1 className="text-4xl font-judson mb-4">{person.name}</h1>
+            {person.bio && <p className="text-neutral-400 max-w-2xl">{person.bio}</p>}
           </div>
         </div>
 
@@ -173,7 +182,7 @@ const ExpertProfile = () => {
                   <RecommendationCard
                     key={recommendation.id}
                     {...recommendation}
-                    destinationName={recommendation.destinationName}
+                    destinationName={recommendation.destinations.name}
                   />
                 ))}
               </div>
@@ -185,4 +194,4 @@ const ExpertProfile = () => {
   );
 };
 
-export default ExpertProfile;
+export default PersonProfile;

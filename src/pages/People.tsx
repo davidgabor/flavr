@@ -1,19 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import type { Expert } from "@/types/expert";
+import type { Person } from "@/types/person";
 
-const Experts = () => {
-  const { data: experts = [], isLoading } = useQuery({
-    queryKey: ["experts"],
+const People = () => {
+  const { data: people = [], isLoading } = useQuery({
+    queryKey: ["people"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("experts")
+        .from("people")
         .select("*")
         .order("name");
       
       if (error) throw error;
-      return data as Expert[];
+      return data as Person[];
     },
   });
 
@@ -37,20 +37,20 @@ const Experts = () => {
         </div>
       </section>
 
-      {/* Experts Grid */}
+      {/* People Grid */}
       <div className="container px-4 mx-auto py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {experts.map((expert) => (
+          {people.map((person) => (
             <Link
-              key={expert.id}
-              to={`/expert/${expert.id}`}
+              key={person.id}
+              to={`/person/${person.id}`}
               className="card group"
             >
               <div className="aspect-[4/3] overflow-hidden bg-neutral-800">
-                {expert.image ? (
+                {person.image ? (
                   <img
-                    src={expert.image}
-                    alt={expert.name}
+                    src={person.image}
+                    alt={person.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 ) : (
@@ -61,11 +61,11 @@ const Experts = () => {
               </div>
               <div className="p-6 space-y-4">
                 <h3 className="text-2xl font-judson group-hover:text-primary transition-colors">
-                  {expert.name}
+                  {person.name}
                 </h3>
-                {expert.bio && (
+                {person.bio && (
                   <p className="text-neutral-400 line-clamp-3">
-                    {expert.bio}
+                    {person.bio}
                   </p>
                 )}
               </div>
@@ -77,4 +77,4 @@ const Experts = () => {
   );
 };
 
-export default Experts;
+export default People;
