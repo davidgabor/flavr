@@ -115,14 +115,14 @@ const PersonProfile = () => {
     dest => dest.name.toLowerCase() === destinationParam
   )?.id || destinations[0]?.id;
 
-  const selectedDestination = destinations.find(dest => dest.id === currentTab);
-
   const handleDestinationChange = (value: string) => {
     const selectedDestination = destinations.find(dest => dest.id === value);
     if (selectedDestination) {
       setSearchParams({ destination: selectedDestination.name.toLowerCase() });
     }
   };
+
+  const selectedDestination = destinations.find(dest => dest.id === currentTab);
 
   const totalRecommendations = destinations.reduce((acc, dest) => acc + dest.recommendations.length, 0);
 
@@ -133,11 +133,6 @@ const PersonProfile = () => {
         
         <div className="bg-neutral-900/80 backdrop-blur-sm z-10 py-4 border-b border-white/10">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
-            <PersonRecommendationStats 
-              totalRecommendations={totalRecommendations}
-              totalDestinations={destinations.length}
-            />
-            
             <Select value={currentTab} onValueChange={handleDestinationChange}>
               <SelectTrigger className="w-[200px] bg-neutral-800 border-white/10">
                 <SelectValue>
@@ -162,6 +157,11 @@ const PersonProfile = () => {
                 ))}
               </SelectContent>
             </Select>
+
+            <PersonRecommendationStats 
+              totalRecommendations={totalRecommendations}
+              totalDestinations={destinations.length}
+            />
           </div>
         </div>
 
