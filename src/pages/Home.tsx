@@ -148,22 +148,44 @@ const Home = () => {
 
       {/* Newsletter Section */}
       <section className="container px-4 mx-auto mt-32">
-        <div className="max-w-2xl mx-auto text-center space-y-8 bg-neutral-800/50 p-12 rounded-lg border border-white/10">
-          <h2 className="text-3xl font-judson">Stay Updated</h2>
-          <p className="text-neutral-400">Get notified when we add new destinations and recommendations to our collection.</p>
-          <form className="flex gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 bg-neutral-700 border border-white/10 rounded px-4 py-2 text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <button
-              type="submit"
-              className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded transition-colors"
-            >
-              Subscribe
-            </button>
-          </form>
+        <div className="relative max-w-3xl mx-auto">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 blur-3xl opacity-30" />
+          
+          <div className="relative bg-neutral-800/50 p-12 md:p-16 rounded-2xl border border-white/10 overflow-hidden">
+            {/* Decorative Elements */}
+            <div className="absolute top-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2" />
+            <div className="absolute bottom-0 right-0 w-32 h-32 bg-secondary/20 rounded-full blur-2xl transform translate-x-1/2 translate-y-1/2" />
+            
+            <div className="relative space-y-8">
+              <div className="space-y-4 text-center">
+                <h2 className="text-4xl font-judson bg-gradient-to-r from-white via-white/90 to-white bg-clip-text text-transparent">
+                  Stay Updated
+                </h2>
+                <p className="text-lg text-neutral-300">
+                  Join our community and be the first to discover new destinations and hidden gems.
+                </p>
+              </div>
+              
+              <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1 bg-neutral-700/50 backdrop-blur-sm border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
+                />
+                <button
+                  type="submit"
+                  className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 hover:shadow-lg hover:shadow-primary/20 active:scale-95 transform"
+                >
+                  Subscribe
+                </button>
+              </form>
+              
+              <div className="text-center text-sm text-neutral-400">
+                <p>No spam, unsubscribe at any time.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
