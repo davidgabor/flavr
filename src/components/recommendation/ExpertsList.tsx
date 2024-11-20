@@ -9,8 +9,9 @@ interface ExpertsListProps {
 
 const ExpertsList = ({ recommendationId }: ExpertsListProps) => {
   const { data: people = [], isLoading } = useQuery({
-    queryKey: ["recommendation-people", recommendationId],
+    queryKey: ["experts-list", recommendationId],
     queryFn: async () => {
+      console.log('Fetching experts for recommendation:', recommendationId);
       const { data, error } = await supabase
         .from("person_recommendations")
         .select(`
@@ -20,7 +21,12 @@ const ExpertsList = ({ recommendationId }: ExpertsListProps) => {
         `)
         .eq('recommendation_id', recommendationId);
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching experts:', error);
+        throw error;
+      }
+      
+      console.log('Fetched experts:', data);
       return data.map(item => item.people) as Person[];
     },
   });

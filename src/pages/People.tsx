@@ -7,12 +7,18 @@ const People = () => {
   const { data: people = [], isLoading } = useQuery({
     queryKey: ["people"],
     queryFn: async () => {
+      console.log('Fetching all people');
       const { data, error } = await supabase
         .from("people")
         .select("*")
         .order("name");
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching people:', error);
+        throw error;
+      }
+      
+      console.log('Fetched people:', data);
       return data as Person[];
     },
   });

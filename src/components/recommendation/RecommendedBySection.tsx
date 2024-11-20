@@ -9,8 +9,9 @@ interface RecommendedBySectionProps {
 
 const RecommendedBySection = ({ recommendationId }: RecommendedBySectionProps) => {
   const { data: people = [], isLoading } = useQuery({
-    queryKey: ["recommendation-people", recommendationId],
+    queryKey: ["recommended-by-section", recommendationId],
     queryFn: async () => {
+      console.log('Fetching recommenders for recommendation:', recommendationId);
       const { data, error } = await supabase
         .from("person_recommendations")
         .select(`
@@ -20,7 +21,12 @@ const RecommendedBySection = ({ recommendationId }: RecommendedBySectionProps) =
         `)
         .eq('recommendation_id', recommendationId);
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching recommenders:', error);
+        throw error;
+      }
+      
+      console.log('Fetched recommenders:', data);
       return data.map(item => item.people) as Person[];
     },
   });
