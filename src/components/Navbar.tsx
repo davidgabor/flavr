@@ -54,10 +54,10 @@ const Navbar = () => {
                   Destinations
                 </Link>
                 <Link 
-                  to="/experts" 
-                  className={`text-sm ${isActive('/experts') ? 'text-white' : 'text-neutral-400 hover:text-white'} transition-colors duration-200`}
+                  to="/people" 
+                  className={`text-sm ${isActive('/people') ? 'text-white' : 'text-neutral-400 hover:text-white'} transition-colors duration-200`}
                 >
-                  Experts
+                  People
                 </Link>
               </div>
             </div>
@@ -97,11 +97,11 @@ const Navbar = () => {
                   Destinations
                 </Link>
                 <Link 
-                  to="/experts" 
+                  to="/people" 
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`text-sm ${isActive('/experts') ? 'text-white' : 'text-neutral-400'} transition-colors duration-200`}
+                  className={`text-sm ${isActive('/people') ? 'text-white' : 'text-neutral-400'} transition-colors duration-200`}
                 >
-                  Experts
+                  People
                 </Link>
               </div>
             </div>
