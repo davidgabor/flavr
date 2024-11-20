@@ -30,3 +30,10 @@ export interface Destination {
   country: string;
   region: string;
 }
+
+export interface RecommendationWithDestination extends Recommendation {
+  destinations: {
+    id: string;
+    name: string;
+  };
+}
