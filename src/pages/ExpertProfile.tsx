@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -98,15 +98,12 @@ const ExpertProfile = () => {
     recommendations
   }));
 
-  const [currentTab, setCurrentTab] = useState(() => {
-    const destinationParam = searchParams.get('destination')?.toLowerCase();
-    return destinations.find(
-      dest => dest.name.toLowerCase() === destinationParam
-    )?.id || destinations[0]?.id;
-  });
+  const destinationParam = searchParams.get('destination')?.toLowerCase();
+  const currentTab = destinations.find(
+    dest => dest.name.toLowerCase() === destinationParam
+  )?.id || destinations[0]?.id;
 
   const handleTabChange = (value: string) => {
-    setCurrentTab(value);
     const selectedDestination = destinations.find(dest => dest.id === value);
     if (selectedDestination) {
       setSearchParams({ destination: selectedDestination.name.toLowerCase() });
