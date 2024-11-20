@@ -130,7 +130,7 @@ const ExpertProfile = () => {
         </div>
 
         <Tabs value={currentTab} onValueChange={handleTabChange}>
-          <div className="sticky top-16 bg-neutral-900/80 backdrop-blur-sm z-10 py-4 border-b border-white/10">
+          <div className="bg-neutral-900/80 backdrop-blur-sm z-10 py-4 border-b border-white/10">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
               <div className="flex items-center gap-2">
                 <h2 className="text-sm font-medium text-neutral-400">Recommendations</h2>
