@@ -22,7 +22,8 @@ const RecommendationDetails = () => {
       const searchDestination = destinationSlug.replace(/-/g, ' ');
       const searchRecommendation = recommendationSlug.replace(/-/g, ' ');
       
-      const { data: destinations, error: destinationError } = await supabase
+      // First, get the destination ID
+      const { data: destination, error: destinationError } = await supabase
         .from("destinations")
         .select("id, name")
         .ilike('name', searchDestination)
@@ -33,8 +34,9 @@ const RecommendationDetails = () => {
         throw destinationError;
       }
 
-      console.log('Found destination:', destinations);
+      console.log('Found destination:', destination);
 
+      // Then, use the destination ID to find the recommendation
       const { data, error } = await supabase
         .from("recommendations")
         .select(`
@@ -44,7 +46,7 @@ const RecommendationDetails = () => {
             country
           )
         `)
-        .eq("destination_id", destinations.id)
+        .eq("destination_id", destination.id)
         .ilike('name', searchRecommendation)
         .single();
       
