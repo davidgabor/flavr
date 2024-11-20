@@ -34,7 +34,7 @@ const ExpertsList = ({ recommendationId }: ExpertsListProps) => {
         {people.map((person) => (
           <Link
             key={person.id}
-            to={`/person/${person.id}`}
+            to={`/p/${person.id}`}
             className="flex items-center gap-3 group"
           >
             {person.image && (

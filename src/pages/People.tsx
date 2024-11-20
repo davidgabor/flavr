@@ -43,7 +43,7 @@ const People = () => {
           {people.map((person) => (
             <Link
               key={person.id}
-              to={`/person/${person.id}`}
+              to={`/p/${person.id}`}
               className="card group"
             >
               <div className="aspect-[4/3] overflow-hidden bg-neutral-800">
