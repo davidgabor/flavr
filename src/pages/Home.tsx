@@ -42,7 +42,7 @@ const Home = () => {
       onClick={() => handleDestinationClick(destination.name)}
       className="text-left group"
     >
-      <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 group-hover:shadow-2xl transition-all duration-500">
+      <div className="aspect-[4/5] overflow-hidden mb-4 bg-neutral-800 group-hover:shadow-2xl transition-all duration-500">
         <img
           src={destination.image}
           alt={destination.name}
@@ -171,11 +171,11 @@ const Home = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 bg-neutral-700/50 backdrop-blur-sm border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
+                  className="flex-1 bg-neutral-700/50 backdrop-blur-sm border border-white/10 px-4 py-3 text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
                 />
                 <button
                   type="submit"
-                  className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 hover:shadow-lg hover:shadow-primary/20 active:scale-95 transform"
+                  className="bg-primary hover:bg-primary/90 text-white px-6 py-3 font-medium transition-colors duration-200 hover:shadow-lg hover:shadow-primary/20 active:scale-95 transform"
                 >
                   Subscribe
                 </button>
