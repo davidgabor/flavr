@@ -5,6 +5,7 @@ import DestinationHeader from "@/components/destination/DestinationHeader";
 import RecommendationCard from "@/components/destination/RecommendationCard";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination, Recommendation } from "@/types/recommendation";
+import NewsletterForm from "@/components/common/NewsletterForm";
 
 const pluralizeType = (type: string, count: number) => {
   if (count <= 1) return type;
@@ -93,12 +94,19 @@ const DestinationDetails = () => {
 
   return (
     <div className="relative min-h-screen bg-neutral-900">
-      <DestinationHeader 
-        name={destinationData.name}
-        description={destinationData.description}
-        image={destinationData.image}
-        country={destinationData.country}
-      />
+      <div className="relative">
+        <DestinationHeader 
+          name={destinationData.name}
+          description={destinationData.description}
+          image={destinationData.image}
+          country={destinationData.country}
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="relative max-w-3xl mx-auto text-center">
+            <NewsletterForm />
+          </div>
+        </div>
+      </div>
       
       <div className="px-4 py-8 max-w-7xl mx-auto">
         <div className="flex items-center justify-center gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide">
