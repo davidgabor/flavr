@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Destination } from "@/types/recommendation";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import ProfileImages from "@/components/home/ProfileImages";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -96,20 +97,7 @@ const Home = () => {
             world. From cozy local haunts to standout dining experiences, each pick is a place we've
             tried, loved, and can't wait for you to enjoy.
           </p>
-          <div className="flex items-center justify-center gap-4">
-            <img
-              src="https://media.licdn.com/dms/image/v2/D4D03AQGTbmpMLQualw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1728313961873?e=1736985600&v=beta&t=-qTMspUk11IuzOzs_g4t5VXH0Jtamkd4Bayq4ZvaXQU"
-              alt="David's profile"
-              className="w-12 h-12 rounded-full border-2 border-white/20"
-              loading="eager"
-            />
-            <img
-              src="https://media.licdn.com/dms/image/v2/D4D03AQHA9ZPFYWC8nQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1728372617118?e=1737590400&v=beta&t=_hPUlmpjsO-ksPTeiJt4nROwGfDNlN0Smj6VfyWE7mg"
-              alt="Maja's profile"
-              className="w-12 h-12 rounded-full border-2 border-white/20"
-              loading="eager"
-            />
-          </div>
+          <ProfileImages />
           <div className="text-sm text-neutral-400">Enjoy,<br />David & Maja</div>
           
           {/* Newsletter Section */}
