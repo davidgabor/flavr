@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Person } from "@/types/person";
+import ProfileImages from "@/components/home/ProfileImages";
 
 const People = () => {
   const { data: people = [], isLoading } = useQuery({
@@ -40,6 +41,7 @@ const People = () => {
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
             Discover our curated network of food enthusiasts, critics, and local connoisseurs who bring you the best dining experiences from around the world.
           </p>
+          <ProfileImages />
         </div>
       </section>
 
