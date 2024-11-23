@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination } from "@/types/recommendation";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -36,13 +38,20 @@ const Home = () => {
     navigate(`/${destinationName.toLowerCase().replace(/\s+/g, '-')}`);
   };
 
-  const DestinationCard = ({ destination, index }: { destination: Destination & { recommendations: { count: number }[] }, index: number }) => (
+  const handleNewsletterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value;
+    console.log('Newsletter signup:', email);
+    toast.success("Thanks for subscribing! We'll be in touch soon.");
+    (e.target as HTMLFormElement).reset();
+  };
+
+  const DestinationCard = ({ destination }: { destination: Destination & { recommendations: { count: number }[] } }) => (
     <button
-      key={destination.id}
       onClick={() => handleDestinationClick(destination.name)}
       className="text-left group"
     >
-      <div className="aspect-[4/5] overflow-hidden mb-4 bg-neutral-800 group-hover:shadow-2xl transition-all duration-500">
+      <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 group-hover:shadow-2xl transition-all duration-500">
         <img
           src={destination.image}
           alt={destination.name}
@@ -102,6 +111,28 @@ const Home = () => {
             />
           </div>
           <div className="text-sm text-neutral-400">Enjoy,<br />David & Maja</div>
+          
+          {/* Newsletter Section */}
+          <div className="pt-8">
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto">
+              <div className="relative flex-1 w-full">
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                  className="w-full bg-white/5 border-white/10 text-white placeholder:text-neutral-500 focus:border-primary/50 focus:ring-primary/50"
+                />
+              </div>
+              <button
+                type="submit"
+                className="px-6 py-2 bg-primary hover:bg-primary/90 text-white font-medium transition-colors duration-200 w-full sm:w-auto"
+              >
+                Subscribe
+              </button>
+            </form>
+            <p className="text-xs text-neutral-500 mt-2">Join our newsletter for weekly recommendations</p>
+          </div>
         </div>
       </section>
 
@@ -115,7 +146,7 @@ const Home = () => {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {destinations.map((destination, index) => (
-                <DestinationCard key={destination.id} destination={destination} index={index} />
+                <DestinationCard key={destination.id} destination={destination} />
               ))}
             </div>
           </section>
