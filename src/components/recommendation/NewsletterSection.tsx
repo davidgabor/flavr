@@ -2,14 +2,11 @@ import NewsletterForm from "@/components/common/NewsletterForm";
 
 const NewsletterSection = () => {
   return (
-    <section className="relative max-w-3xl mx-auto">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 blur-3xl opacity-30" />
-      
-      <div className="relative bg-neutral-800/50 p-12 md:p-16 border border-white/10 overflow-hidden">
+    <section className="w-full">
+      <div className="relative bg-neutral-800/50 backdrop-blur-sm border border-white/10 p-12 md:p-16 overflow-hidden">
         {/* Decorative Elements */}
-        <div className="absolute top-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-32 h-32 bg-secondary/20 rounded-full blur-2xl transform translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-0 left-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2" />
         
         <div className="relative space-y-8">
           <div className="space-y-4 text-center">
