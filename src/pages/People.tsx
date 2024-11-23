@@ -30,8 +30,8 @@ const People = () => {
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
-      {/* Hero Section */}
-      <section className="relative h-[50vh] flex items-center justify-center text-center px-4 -mt-16 pt-32">
+      {/* Hero Section - Increased height with h-[70vh] */}
+      <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16 pt-32 mb-24">
         <div className="absolute inset-0">
           <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1581092795360-fd1ca04f0952')] bg-cover bg-center opacity-20" />
         </div>
