@@ -78,7 +78,15 @@ const Destinations = () => {
             Discover our carefully curated collection of cities, each offering unique culinary experiences
             and hidden gems waiting to be explored.
           </p>
-          <NewsletterForm />
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="relative -mt-32 mb-24">
+        <div className="container px-4 mx-auto">
+          <div className="max-w-xl mx-auto">
+            <NewsletterForm />
+          </div>
         </div>
       </section>
 
