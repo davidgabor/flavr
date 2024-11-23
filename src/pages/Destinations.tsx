@@ -66,8 +66,8 @@ const Destinations = () => {
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white pb-32">
-      {/* Hero Section */}
-      <section className="relative h-[50vh] flex items-center justify-center text-center px-4 -mt-16 pt-32">
+      {/* Hero Section - Increased height with h-[70vh] */}
+      <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16 pt-32 mb-24">
         <div className="absolute inset-0">
           <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1528127269322-539801943592')] bg-cover bg-center" />
         </div>
