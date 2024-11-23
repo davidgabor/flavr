@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDistanceToNow } from "date-fns";
 import { BookOpen } from "lucide-react";
+import NewsletterForm from "@/components/common/NewsletterForm";
 
 interface BlogPost {
   id: string;
@@ -51,10 +52,10 @@ const Blog = () => {
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
             Discover our latest travel stories, city guides, and culinary adventures from around the world.
           </p>
+          <NewsletterForm />
         </div>
       </section>
 
-      {/* Blog Posts Grid */}
       <div className="container px-4 mx-auto py-24">
         {posts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
