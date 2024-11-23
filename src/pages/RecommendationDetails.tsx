@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useEffect, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import RecommendationHeader from "@/components/recommendation/RecommendationHeader";
@@ -8,6 +8,10 @@ import type { Recommendation } from "@/types/recommendation";
 
 const RecommendationDetails = () => {
   const { destinationSlug, recommendationSlug } = useParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const { data: recommendation, isLoading } = useQuery({
     queryKey: ["recommendation", destinationSlug, recommendationSlug],
