@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useQuery } from "@tanstack/react-query";
@@ -13,22 +13,14 @@ import {
 } from "@/components/ui/command";
 import { Search } from "lucide-react";
 
-type DestinationResult = {
+type SearchResult = {
   id: string;
   name: string;
-  description: string;
-  resultType: 'destination';
+  description?: string;
+  type?: string;
+  resultType: 'destination' | 'recommendation';
+  destination_name?: string;
 };
-
-type RecommendationResult = {
-  id: string;
-  name: string;
-  type: string;
-  resultType: 'recommendation';
-  destination_name: string;
-};
-
-type SearchResult = DestinationResult | RecommendationResult;
 
 interface SearchDialogProps {
   open: boolean;
@@ -45,7 +37,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
     queryFn: async () => {
       if (!debouncedQuery) return [];
 
-      console.log('Searching for:', debouncedQuery);
+      console.log('Performing search with query:', debouncedQuery);
 
       const [destinationsRes, recommendationsRes] = await Promise.all([
         supabase
@@ -59,9 +51,10 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
         supabase
           .from("recommendations")
           .select(`
-            id, 
-            name, 
+            id,
+            name,
             type,
+            cuisine,
             destinations (
               name
             )
@@ -70,45 +63,55 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
             type: 'websearch',
             config: 'english'
           })
-          .limit(5),
+          .limit(5)
       ]);
 
-      console.log('Destinations results:', destinationsRes);
-      console.log('Recommendations results:', recommendationsRes);
+      console.log('Search results:', {
+        destinations: destinationsRes.data,
+        recommendations: recommendationsRes.data
+      });
 
       if (destinationsRes.error) {
-        console.error('Destinations search error:', destinationsRes.error);
+        console.error('Error searching destinations:', destinationsRes.error);
         return [];
       }
 
       if (recommendationsRes.error) {
-        console.error('Recommendations search error:', recommendationsRes.error);
+        console.error('Error searching recommendations:', recommendationsRes.error);
         return [];
       }
 
-      const destinations: DestinationResult[] = (destinationsRes.data || []).map((d) => ({
-        ...d,
-        resultType: 'destination',
-      }));
+      const results: SearchResult[] = [
+        ...(destinationsRes.data || []).map(d => ({
+          id: d.id,
+          name: d.name,
+          description: d.description,
+          resultType: 'destination' as const
+        })),
+        ...(recommendationsRes.data || []).map(r => ({
+          id: r.id,
+          name: r.name,
+          type: r.type,
+          resultType: 'recommendation' as const,
+          destination_name: r.destinations?.name
+        }))
+      ];
 
-      const recommendations: RecommendationResult[] = (recommendationsRes.data || []).map((r) => ({
-        ...r,
-        resultType: 'recommendation',
-        destination_name: r.destinations?.name || '',
-      }));
-
-      return [...destinations, ...recommendations];
+      return results;
     },
-    enabled: debouncedQuery.length > 0,
+    enabled: debouncedQuery.length > 0
   });
 
   const handleResultClick = (result: SearchResult) => {
     onOpenChange(false);
     setSearchQuery("");
+    
     if (result.resultType === "destination") {
       navigate(`/${result.name.toLowerCase().replace(/\s+/g, '-')}`);
-    } else {
-      navigate(`/${result.destination_name.toLowerCase().replace(/\s+/g, '-')}/${result.name.toLowerCase().replace(/[\/\s]+/g, '-')}`);
+    } else if (result.destination_name) {
+      navigate(
+        `/${result.destination_name.toLowerCase().replace(/\s+/g, '-')}/${result.name.toLowerCase().replace(/[\/\s]+/g, '-')}`
+      );
     }
   };
 
@@ -133,7 +136,9 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
               <>
                 <CommandGroup heading="Destinations">
                   {searchResults
-                    .filter((r): r is DestinationResult => r.resultType === "destination")
+                    .filter((r): r is SearchResult & { resultType: 'destination' } => 
+                      r.resultType === "destination"
+                    )
                     .map((result) => (
                       <CommandItem
                         key={`${result.resultType}-${result.id}`}
@@ -151,7 +156,9 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
                 </CommandGroup>
                 <CommandGroup heading="Recommendations">
                   {searchResults
-                    .filter((r): r is RecommendationResult => r.resultType === "recommendation")
+                    .filter((r): r is SearchResult & { resultType: 'recommendation' } => 
+                      r.resultType === "recommendation"
+                    )
                     .map((result) => (
                       <CommandItem
                         key={`${result.resultType}-${result.id}`}
