@@ -11,6 +11,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { Search } from "lucide-react";
 
 type DestinationResult = {
   id: string;
@@ -44,13 +45,16 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
     queryFn: async () => {
       if (!debouncedQuery) return [];
 
-      const searchTerm = debouncedQuery.toLowerCase();
+      console.log('Searching for:', debouncedQuery);
 
       const [destinationsRes, recommendationsRes] = await Promise.all([
         supabase
           .from("destinations")
           .select("id, name, description")
-          .ilike('name', `%${searchTerm}%`)
+          .textSearch('name_search', debouncedQuery, {
+            type: 'websearch',
+            config: 'english'
+          })
           .limit(5),
         supabase
           .from("recommendations")
@@ -62,9 +66,15 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
               name
             )
           `)
-          .ilike('name', `%${searchTerm}%`)
+          .textSearch('name_search', debouncedQuery, {
+            type: 'websearch',
+            config: 'english'
+          })
           .limit(5),
       ]);
+
+      console.log('Destinations results:', destinationsRes);
+      console.log('Recommendations results:', recommendationsRes);
 
       if (destinationsRes.error) {
         console.error('Destinations search error:', destinationsRes.error);
@@ -90,7 +100,6 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
       return [...destinations, ...recommendations];
     },
     enabled: debouncedQuery.length > 0,
-    staleTime: 1000 * 60 * 5, // Cache results for 5 minutes
   });
 
   const handleResultClick = (result: SearchResult) => {
@@ -99,17 +108,20 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
     if (result.resultType === "destination") {
       navigate(`/${result.name.toLowerCase().replace(/\s+/g, '-')}`);
     } else {
-      navigate(`/${result.destination_name.toLowerCase().replace(/\s+/g, '-')}/${result.name.toLowerCase().replace(/\s+/g, '-')}`);
+      navigate(`/${result.destination_name.toLowerCase().replace(/\s+/g, '-')}/${result.name.toLowerCase().replace(/[\/\s]+/g, '-')}`);
     }
   };
 
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <CommandInput
-        placeholder="Search destinations and recommendations..."
-        value={searchQuery}
-        onValueChange={setSearchQuery}
-      />
+      <div className="flex items-center border-b px-3">
+        <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+        <CommandInput
+          placeholder="Search destinations and recommendations..."
+          value={searchQuery}
+          onValueChange={setSearchQuery}
+        />
+      </div>
       <CommandList>
         {debouncedQuery.length > 0 && (
           <>
