@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination } from "@/types/recommendation";
-import ProfileImages from "@/components/home/ProfileImages";
 
 const Destinations = () => {
   const navigate = useNavigate();
@@ -78,7 +77,6 @@ const Destinations = () => {
             Discover our carefully curated collection of cities, each offering unique culinary experiences
             and hidden gems waiting to be explored.
           </p>
-          <ProfileImages />
         </div>
       </section>
 
