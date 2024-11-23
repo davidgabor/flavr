@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import RecommendationHeader from "@/components/recommendation/RecommendationHeader";
 import RecommendationContent from "@/components/recommendation/RecommendationContent";
 import MoreRecommendations from "@/components/recommendation/MoreRecommendations";
+import NewsletterSection from "@/components/recommendation/NewsletterSection";
 import type { Recommendation } from "@/types/recommendation";
 
 const RecommendationDetails = () => {
@@ -84,9 +85,10 @@ const RecommendationDetails = () => {
   return (
     <div className="animate-fade-in">
       <div className="container mx-auto px-4 py-8">
-        <div className="max-w-[1400px] mx-auto space-y-12">
+        <div className="max-w-[1400px] mx-auto space-y-24">
           <RecommendationHeader {...recommendation} />
           <RecommendationContent {...recommendation} />
+          <NewsletterSection />
           <MoreRecommendations 
             destinationId={recommendation.destination_id}
             currentRecommendationId={recommendation.id}
