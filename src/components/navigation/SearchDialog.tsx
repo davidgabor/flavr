@@ -136,7 +136,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
               <div className="py-6 text-center text-sm text-neutral-400">
                 Searching...
               </div>
-            ) : searchResults.length > 0 ? (
+            ) : searchResults && searchResults.length > 0 ? (
               <>
                 {searchResults.some(r => r.resultType === "destination") && (
                   <CommandGroup heading="Destinations">
