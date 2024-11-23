@@ -134,44 +134,44 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
               </div>
             ) : searchResults.length > 0 ? (
               <>
-                <CommandGroup heading="Destinations">
-                  {searchResults
-                    .filter((r): r is SearchResult & { resultType: 'destination' } => 
-                      r.resultType === "destination"
-                    )
-                    .map((result) => (
-                      <CommandItem
-                        key={`${result.resultType}-${result.id}`}
-                        onSelect={() => handleResultClick(result)}
-                        className="flex flex-col items-start"
-                      >
-                        <span className="font-medium">{result.name}</span>
-                        {result.description && (
-                          <span className="text-sm text-neutral-400 line-clamp-1">
-                            {result.description}
+                {searchResults.some(r => r.resultType === "destination") && (
+                  <CommandGroup heading="Destinations">
+                    {searchResults
+                      .filter(r => r.resultType === "destination")
+                      .map((result) => (
+                        <CommandItem
+                          key={`${result.resultType}-${result.id}`}
+                          onSelect={() => handleResultClick(result)}
+                          className="flex flex-col items-start"
+                        >
+                          <span className="font-medium">{result.name}</span>
+                          {result.description && (
+                            <span className="text-sm text-neutral-400 line-clamp-1">
+                              {result.description}
+                            </span>
+                          )}
+                        </CommandItem>
+                      ))}
+                  </CommandGroup>
+                )}
+                {searchResults.some(r => r.resultType === "recommendation") && (
+                  <CommandGroup heading="Recommendations">
+                    {searchResults
+                      .filter(r => r.resultType === "recommendation")
+                      .map((result) => (
+                        <CommandItem
+                          key={`${result.resultType}-${result.id}`}
+                          onSelect={() => handleResultClick(result)}
+                          className="flex flex-col items-start"
+                        >
+                          <span className="font-medium">{result.name}</span>
+                          <span className="text-sm text-neutral-400">
+                            {result.type} • {result.destination_name}
                           </span>
-                        )}
-                      </CommandItem>
-                    ))}
-                </CommandGroup>
-                <CommandGroup heading="Recommendations">
-                  {searchResults
-                    .filter((r): r is SearchResult & { resultType: 'recommendation' } => 
-                      r.resultType === "recommendation"
-                    )
-                    .map((result) => (
-                      <CommandItem
-                        key={`${result.resultType}-${result.id}`}
-                        onSelect={() => handleResultClick(result)}
-                        className="flex flex-col items-start"
-                      >
-                        <span className="font-medium">{result.name}</span>
-                        <span className="text-sm text-neutral-400">
-                          {result.type} • {result.destination_name}
-                        </span>
-                      </CommandItem>
-                    ))}
-                </CommandGroup>
+                        </CommandItem>
+                      ))}
+                  </CommandGroup>
+                )}
               </>
             ) : (
               <CommandEmpty>No results found.</CommandEmpty>
