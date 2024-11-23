@@ -94,19 +94,21 @@ const DestinationDetails = () => {
 
   return (
     <div className="relative min-h-screen bg-neutral-900">
-      <div className="relative">
-        <DestinationHeader 
-          name={destinationData.name}
-          description={destinationData.description}
-          image={destinationData.image}
-          country={destinationData.country}
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative max-w-3xl mx-auto text-center">
+      <DestinationHeader 
+        name={destinationData.name}
+        description={destinationData.description}
+        image={destinationData.image}
+        country={destinationData.country}
+      />
+
+      {/* Newsletter Section */}
+      <section className="relative z-10 -mt-24 mb-24">
+        <div className="container px-4 mx-auto">
+          <div className="max-w-xl mx-auto">
             <NewsletterForm />
           </div>
         </div>
-      </div>
+      </section>
       
       <div className="px-4 py-8 max-w-7xl mx-auto">
         <div className="flex items-center justify-center gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide">
