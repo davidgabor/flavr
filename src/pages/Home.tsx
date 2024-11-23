@@ -76,7 +76,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-neutral-900 text-white pb-32">
       {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16">
+      <section className="relative h-[80vh] flex items-center justify-center text-center px-4 -mt-16">
         <div className="absolute inset-0">
           <video
             autoPlay
@@ -89,7 +89,7 @@ const Home = () => {
           </video>
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
-        <div className="relative max-w-3xl mx-auto space-y-6 pt-32">
+        <div className="relative max-w-3xl mx-auto space-y-6 pt-40">
           <h1 className="text-4xl md:text-6xl font-judson">Our Favorite Spots, Everywhere</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
             We're David and Maja, two food lovers sharing our favorite spots from cities around the
