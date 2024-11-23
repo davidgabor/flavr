@@ -54,7 +54,6 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
             id,
             name,
             type,
-            cuisine,
             destinations (
               name
             )
@@ -66,7 +65,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
           .limit(5)
       ]);
 
-      console.log('Search results:', {
+      console.log('Raw search results:', {
         destinations: destinationsRes.data,
         recommendations: recommendationsRes.data
       });
@@ -97,21 +96,26 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
         }))
       ];
 
+      console.log('Transformed search results:', results);
       return results;
     },
     enabled: debouncedQuery.length > 0
   });
 
   const handleResultClick = (result: SearchResult) => {
+    console.log('Handling click for result:', result);
     onOpenChange(false);
     setSearchQuery("");
     
     if (result.resultType === "destination") {
-      navigate(`/${result.name.toLowerCase().replace(/\s+/g, '-')}`);
+      const destinationSlug = result.name.toLowerCase().replace(/\s+/g, '-');
+      console.log('Navigating to destination:', destinationSlug);
+      navigate(`/${destinationSlug}`);
     } else if (result.destination_name) {
-      navigate(
-        `/${result.destination_name.toLowerCase().replace(/\s+/g, '-')}/${result.name.toLowerCase().replace(/[\/\s]+/g, '-')}`
-      );
+      const destinationSlug = result.destination_name.toLowerCase().replace(/\s+/g, '-');
+      const recommendationSlug = result.name.toLowerCase().replace(/[\/\s]+/g, '-');
+      console.log('Navigating to recommendation:', `/${destinationSlug}/${recommendationSlug}`);
+      navigate(`/${destinationSlug}/${recommendationSlug}`);
     }
   };
 
