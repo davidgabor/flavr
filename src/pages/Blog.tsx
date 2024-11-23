@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDistanceToNow } from "date-fns";
+import { PenLine } from "lucide-react";
 
 interface BlogPost {
   id: string;
@@ -45,7 +46,7 @@ const Blog = () => {
           <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d')] bg-cover bg-center opacity-20" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
-        <div className="relative max-w-3xl mx-auto space-y-6">
+        <div className="relative max-w-3xl mx-auto space-y-6 animate-fade-in">
           <h1 className="text-4xl md:text-6xl font-judson">Travel Stories & Guides</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
             Discover our latest travel stories, city guides, and culinary adventures from around the world.
@@ -99,8 +100,17 @@ const Blog = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center text-neutral-400">
-            No blog posts available yet.
+          <div className="max-w-2xl mx-auto text-center animate-fade-in">
+            <div className="relative w-64 h-64 mx-auto mb-8">
+              <div className="absolute inset-0 bg-primary/10 rounded-full animate-pulse" />
+              <div className="relative flex items-center justify-center w-full h-full">
+                <PenLine className="w-24 h-24 text-primary/50" />
+              </div>
+            </div>
+            <h2 className="text-3xl font-judson mb-4">Stories Coming Soon</h2>
+            <p className="text-neutral-400 text-lg leading-relaxed">
+              We're crafting amazing travel stories and guides for you. Stay tuned for captivating narratives about hidden gems, local favorites, and unforgettable experiences from around the world.
+            </p>
           </div>
         )}
       </div>
