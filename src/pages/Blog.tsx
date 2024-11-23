@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDistanceToNow } from "date-fns";
-import { PenLine } from "lucide-react";
+import { BookOpen } from "lucide-react";
 
 interface BlogPost {
   id: string;
@@ -100,17 +100,18 @@ const Blog = () => {
             ))}
           </div>
         ) : (
-          <div className="max-w-2xl mx-auto text-center animate-fade-in">
-            <div className="relative w-64 h-64 mx-auto mb-8">
-              <div className="absolute inset-0 bg-primary/10 rounded-full animate-pulse" />
-              <div className="relative flex items-center justify-center w-full h-full">
-                <PenLine className="w-24 h-24 text-primary/50" />
-              </div>
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="relative mx-auto mb-12 w-24">
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 blur-xl" />
+              <BookOpen className="relative w-24 h-24 text-white/80" strokeWidth={1} />
             </div>
-            <h2 className="text-3xl font-judson mb-4">Stories Coming Soon</h2>
-            <p className="text-neutral-400 text-lg leading-relaxed">
-              We're crafting amazing travel stories and guides for you. Stay tuned for captivating narratives about hidden gems, local favorites, and unforgettable experiences from around the world.
-            </p>
+            <div className="space-y-4 animate-fade-in">
+              <h2 className="text-3xl font-judson">Journal Entries Coming Soon</h2>
+              <p className="text-neutral-400 text-lg leading-relaxed">
+                Our team is curating thoughtful stories about extraordinary places and experiences. 
+                Check back soon for insights into the world's most captivating destinations.
+              </p>
+            </div>
           </div>
         )}
       </div>
