@@ -68,13 +68,14 @@ const Footer = () => {
   return (
     <footer className="border-t border-white/10 mt-24">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-x-6">
-          <div className="md:col-span-2">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-6 md:gap-x-6">
+          {/* About section - full width on mobile */}
+          <div className="col-span-full md:col-span-2">
             <h4 className="font-judson text-xl mb-3">About Flavr</h4>
             <p className="text-neutral-400 text-sm leading-relaxed mb-4">
               Curating and sharing our favorite dining spots from around the world. Every recommendation is personally tested and thoughtfully selected.
             </p>
-            <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
+            <form onSubmit={handleNewsletterSubmit} className="flex gap-2 max-w-sm">
               <Input
                 type="email"
                 name="email"
@@ -92,24 +93,32 @@ const Footer = () => {
               </button>
             </form>
           </div>
-          {Object.entries(groupedDestinations).map(([region, destinations]) => (
-            <div key={region}>
-              <h4 className="font-judson text-xl mb-3">{region}</h4>
-              <ul className="space-y-0.5">
-                {destinations.map((destination) => (
-                  <li key={destination.id}>
-                    <a
-                      href={`/${destination.name.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="text-sm text-neutral-400 hover:text-white transition-colors block py-0.5"
-                    >
-                      {destination.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+
+          {/* Destinations grid - 2 columns on mobile */}
+          <div className="col-span-full md:col-span-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+              {Object.entries(groupedDestinations).map(([region, destinations]) => (
+                <div key={region} className="space-y-3">
+                  <h4 className="font-judson text-xl">{region}</h4>
+                  <ul className="space-y-1.5">
+                    {destinations.map((destination) => (
+                      <li key={destination.id}>
+                        <a
+                          href={`/${destination.name.toLowerCase().replace(/\s+/g, '-')}`}
+                          className="text-sm text-neutral-400 hover:text-white transition-colors block py-0.5"
+                        >
+                          {destination.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
+
+        {/* Copyright - centered and padded */}
         <div className="text-center text-sm text-neutral-500 pt-8 mt-8 border-t border-white/5">
           © {currentYear} Flavr. All rights reserved.
         </div>
