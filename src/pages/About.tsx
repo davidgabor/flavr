@@ -1,7 +1,9 @@
 import NewsletterForm from "@/components/common/NewsletterForm";
-import ProfileImages from "@/components/home/ProfileImages";
-import { ArrowRight, Globe, Heart, Users, Utensils, Star, Shield, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import MissionSection from "@/components/about/MissionSection";
+import ValuesSection from "@/components/about/ValuesSection";
+import StorySection from "@/components/about/StorySection";
 
 const About = () => {
   return (
@@ -42,116 +44,9 @@ const About = () => {
             </div>
           </section>
 
-          {/* Our Story Section */}
-          <section className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6">
-              <h2 className="text-4xl md:text-5xl font-judson">Our Story</h2>
-              <div className="prose prose-invert">
-                <p className="text-xl text-neutral-300 leading-relaxed">
-                  We're David and Maja, two food enthusiasts who turned our passion for discovering exceptional dining spots into a mission to help others find their next favorite place.
-                </p>
-                <p className="text-xl text-neutral-300 leading-relaxed">
-                  What started as a personal collection of restaurant recommendations for friends has grown into a curated platform of our favorite dining experiences from around the world. Our journey began in the vibrant streets of Barcelona, where we discovered that every meal could tell a story and create lasting memories.
-                </p>
-              </div>
-            </div>
-            <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                alt="Restaurant interior" 
-                className="rounded-lg shadow-2xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900/20 to-transparent rounded-lg" />
-            </div>
-          </section>
-
-          {/* Our Mission Section */}
-          <section className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
-              <h2 className="text-4xl md:text-5xl font-judson">Our Mission</h2>
-              <div className="space-y-8">
-                <div className="group space-y-4">
-                  <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110">
-                    <Utensils className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-2xl font-judson">Curate Excellence</h3>
-                  <p className="text-neutral-400 leading-relaxed">
-                    We personally visit and review each restaurant to ensure exceptional quality and memorable experiences.
-                  </p>
-                </div>
-                <div className="group space-y-4">
-                  <div className="w-16 h-16 bg-secondary/10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110">
-                    <Globe className="w-8 h-8 text-secondary" />
-                  </div>
-                  <h3 className="text-2xl font-judson">Connect Cultures</h3>
-                  <p className="text-neutral-400 leading-relaxed">
-                    Through food, we bridge cultural gaps and create connections between people and places.
-                  </p>
-                </div>
-                <div className="group space-y-4">
-                  <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110">
-                    <Heart className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-2xl font-judson">Share Passion</h3>
-                  <p className="text-neutral-400 leading-relaxed">
-                    We're dedicated to sharing our love for exceptional dining experiences with food enthusiasts worldwide.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                alt="Restaurant atmosphere" 
-                className="rounded-lg shadow-2xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900/20 to-transparent rounded-lg" />
-            </div>
-          </section>
-
-          {/* Values Section */}
-          <section className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="relative order-2 md:order-1">
-              <img 
-                src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                alt="Food preparation" 
-                className="rounded-lg shadow-2xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900/20 to-transparent rounded-lg" />
-            </div>
-            <div className="space-y-8 order-1 md:order-2">
-              <h2 className="text-4xl md:text-5xl font-judson">Our Values</h2>
-              <div className="space-y-6">
-                <div className="space-y-4 p-6 bg-neutral-800/50 rounded-xl border border-white/10">
-                  <div className="flex items-center gap-3">
-                    <Star className="w-6 h-6 text-primary" />
-                    <div className="text-primary text-2xl font-judson">Authenticity</div>
-                  </div>
-                  <p className="text-neutral-300 leading-relaxed">
-                    Every recommendation comes from our personal experiences. We only share places we've visited and genuinely loved.
-                  </p>
-                </div>
-                <div className="space-y-4 p-6 bg-neutral-800/50 rounded-xl border border-white/10">
-                  <div className="flex items-center gap-3">
-                    <Shield className="w-6 h-6 text-primary" />
-                    <div className="text-primary text-2xl font-judson">Quality First</div>
-                  </div>
-                  <p className="text-neutral-300 leading-relaxed">
-                    We prioritize exceptional food, service, and atmosphere in our recommendations.
-                  </p>
-                </div>
-                <div className="space-y-4 p-6 bg-neutral-800/50 rounded-xl border border-white/10">
-                  <div className="flex items-center gap-3">
-                    <Sparkles className="w-6 h-6 text-primary" />
-                    <div className="text-primary text-2xl font-judson">Innovation</div>
-                  </div>
-                  <p className="text-neutral-300 leading-relaxed">
-                    We continuously explore new ways to enhance your dining discovery experience.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
+          <StorySection />
+          <MissionSection />
+          <ValuesSection />
 
           {/* CTA Section */}
           <section className="grid md:grid-cols-2 gap-16 items-center">
@@ -170,11 +65,11 @@ const About = () => {
                 </Link>
               </div>
             </div>
-            <div className="relative">
+            <div className="relative h-full">
               <img 
                 src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
                 alt="Restaurant interior" 
-                className="rounded-lg shadow-2xl"
+                className="rounded-lg shadow-2xl w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900/20 to-transparent rounded-lg" />
             </div>
