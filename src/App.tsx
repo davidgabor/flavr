@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
+import About from "./pages/About";
 import Destinations from "./pages/Destinations";
 import DestinationDetails from "./pages/DestinationDetails";
 import RecommendationDetails from "./pages/RecommendationDetails";
@@ -25,6 +26,7 @@ const App = () => (
           <main className="pt-16">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
               <Route path="/destinations" element={<Destinations />} />
               <Route path="/people" element={<People />} />
               <Route path="/blog" element={<Blog />} />

@@ -48,6 +48,12 @@ const Navbar = () => {
               
               <div className="hidden md:flex items-center pl-12 space-x-8">
                 <Link 
+                  to="/about" 
+                  className={`text-sm ${isActive('/about') ? 'text-white' : 'text-neutral-400 hover:text-white'} transition-colors duration-200`}
+                >
+                  About
+                </Link>
+                <Link 
                   to="/destinations" 
                   className={`text-sm ${isActive('/destinations') ? 'text-white' : 'text-neutral-400 hover:text-white'} transition-colors duration-200`}
                 >
@@ -95,6 +101,13 @@ const Navbar = () => {
           <div className="md:hidden bg-neutral-900/95 backdrop-blur-sm border-t border-neutral-800">
             <div className="container px-4 py-4">
               <div className="flex flex-col space-y-4">
+                <Link 
+                  to="/about" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`text-sm ${isActive('/about') ? 'text-white' : 'text-neutral-400'} transition-colors duration-200`}
+                >
+                  About
+                </Link>
                 <Link 
                   to="/destinations" 
                   onClick={() => setIsMobileMenuOpen(false)}
