@@ -1,12 +1,12 @@
 import NewsletterForm from "@/components/common/NewsletterForm";
 import ProfileImages from "@/components/home/ProfileImages";
-import { ArrowRight, Globe, Users, Utensils } from "lucide-react";
+import { ArrowRight, Globe, Heart, Users, Utensils, Star, Shield, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const About = () => {
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
-      {/* Hero Section with Parallax Effect */}
+      {/* Hero Section */}
       <section className="relative h-[80vh] flex items-center justify-center text-center px-4 -mt-16">
         <div className="absolute inset-0">
           <div className="w-full h-full bg-[url('https://i.ibb.co/KzFXhgZ/pexels-cottonbro-3298637-min.jpg')] bg-cover bg-fixed bg-center opacity-20" />
@@ -65,45 +65,47 @@ const About = () => {
             </div>
           </section>
 
-          {/* Mission Section */}
-          <section className="relative overflow-hidden bg-neutral-800/50 rounded-3xl">
-            <div className="absolute inset-0">
-              <div className="absolute top-0 left-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
-              <div className="absolute bottom-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2" />
-            </div>
-            
-            <div className="relative grid md:grid-cols-2 gap-16 p-12 md:p-16 items-center">
+          {/* Our Mission Section */}
+          <section className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <h2 className="text-4xl md:text-5xl font-judson">Our Mission</h2>
               <div className="space-y-8">
-                <h2 className="text-4xl md:text-5xl font-judson">Our Mission</h2>
-                <div className="space-y-8">
-                  <div className="group space-y-4">
-                    <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110">
-                      <Utensils className="w-8 h-8 text-primary" />
-                    </div>
-                    <h3 className="text-2xl font-judson">Curate Excellence</h3>
-                    <p className="text-neutral-400 leading-relaxed">
-                      We personally visit and review each restaurant to ensure exceptional quality and memorable experiences.
-                    </p>
+                <div className="group space-y-4">
+                  <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110">
+                    <Utensils className="w-8 h-8 text-primary" />
                   </div>
-                  <div className="group space-y-4">
-                    <div className="w-16 h-16 bg-secondary/10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110">
-                      <Globe className="w-8 h-8 text-secondary" />
-                    </div>
-                    <h3 className="text-2xl font-judson">Connect Cultures</h3>
-                    <p className="text-neutral-400 leading-relaxed">
-                      Through food, we bridge cultural gaps and create connections between people and places.
-                    </p>
+                  <h3 className="text-2xl font-judson">Curate Excellence</h3>
+                  <p className="text-neutral-400 leading-relaxed">
+                    We personally visit and review each restaurant to ensure exceptional quality and memorable experiences.
+                  </p>
+                </div>
+                <div className="group space-y-4">
+                  <div className="w-16 h-16 bg-secondary/10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110">
+                    <Globe className="w-8 h-8 text-secondary" />
                   </div>
+                  <h3 className="text-2xl font-judson">Connect Cultures</h3>
+                  <p className="text-neutral-400 leading-relaxed">
+                    Through food, we bridge cultural gaps and create connections between people and places.
+                  </p>
+                </div>
+                <div className="group space-y-4">
+                  <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110">
+                    <Heart className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-judson">Share Passion</h3>
+                  <p className="text-neutral-400 leading-relaxed">
+                    We're dedicated to sharing our love for exceptional dining experiences with food enthusiasts worldwide.
+                  </p>
                 </div>
               </div>
-              <div className="relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                  alt="Restaurant atmosphere" 
-                  className="rounded-lg shadow-2xl"
-                />
-                <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900/20 to-transparent rounded-lg" />
-              </div>
+            </div>
+            <div className="relative">
+              <img 
+                src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                alt="Restaurant atmosphere" 
+                className="rounded-lg shadow-2xl"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900/20 to-transparent rounded-lg" />
             </div>
           </section>
 
@@ -121,15 +123,30 @@ const About = () => {
               <h2 className="text-4xl md:text-5xl font-judson">Our Values</h2>
               <div className="space-y-6">
                 <div className="space-y-4 p-6 bg-neutral-800/50 rounded-xl border border-white/10">
-                  <div className="text-primary text-2xl font-judson">01 — Authenticity</div>
+                  <div className="flex items-center gap-3">
+                    <Star className="w-6 h-6 text-primary" />
+                    <div className="text-primary text-2xl font-judson">Authenticity</div>
+                  </div>
                   <p className="text-neutral-300 leading-relaxed">
                     Every recommendation comes from our personal experiences. We only share places we've visited and genuinely loved.
                   </p>
                 </div>
                 <div className="space-y-4 p-6 bg-neutral-800/50 rounded-xl border border-white/10">
-                  <div className="text-primary text-2xl font-judson">02 — Quality First</div>
+                  <div className="flex items-center gap-3">
+                    <Shield className="w-6 h-6 text-primary" />
+                    <div className="text-primary text-2xl font-judson">Quality First</div>
+                  </div>
                   <p className="text-neutral-300 leading-relaxed">
                     We prioritize exceptional food, service, and atmosphere in our recommendations.
+                  </p>
+                </div>
+                <div className="space-y-4 p-6 bg-neutral-800/50 rounded-xl border border-white/10">
+                  <div className="flex items-center gap-3">
+                    <Sparkles className="w-6 h-6 text-primary" />
+                    <div className="text-primary text-2xl font-judson">Innovation</div>
+                  </div>
+                  <p className="text-neutral-300 leading-relaxed">
+                    We continuously explore new ways to enhance your dining discovery experience.
                   </p>
                 </div>
               </div>
