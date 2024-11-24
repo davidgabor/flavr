@@ -120,7 +120,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
   };
 
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange} className="max-w-2xl mx-auto">
+    <CommandDialog open={open} onOpenChange={onOpenChange}>
       <div className="flex items-center border-b border-neutral-700/50 px-3">
         <Search className="mr-2 h-4 w-4 shrink-0 text-neutral-400" />
         <CommandInput
