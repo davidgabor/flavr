@@ -9,7 +9,7 @@ const About = () => {
       {/* Hero Section with Parallax Effect */}
       <section className="relative h-[80vh] flex items-center justify-center text-center px-4 -mt-16">
         <div className="absolute inset-0">
-          <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')] bg-cover bg-fixed bg-center opacity-20" />
+          <div className="w-full h-full bg-[url('https://i.ibb.co/KzFXhgZ/pexels-cottonbro-3298637-min.jpg')] bg-cover bg-fixed bg-center opacity-20" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
         <div className="relative max-w-3xl mx-auto space-y-8">
@@ -46,36 +46,25 @@ const About = () => {
           <section className="space-y-12">
             <div className="text-center space-y-6">
               <h2 className="text-4xl md:text-5xl font-judson">Our Story</h2>
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="relative h-[400px] rounded-xl overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
-                    alt="Our journey"
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 to-transparent" />
+              <div className="prose prose-invert mx-auto">
+                <p className="text-xl text-neutral-300 leading-relaxed">
+                  We're David and Maja, two food enthusiasts who turned our passion for discovering exceptional dining spots into a mission to help others find their next favorite place.
+                </p>
+                <div className="my-16">
+                  <ProfileImages />
                 </div>
-                <div className="prose prose-invert">
-                  <p className="text-xl text-neutral-300 leading-relaxed">
-                    We're David and Maja, two food enthusiasts who turned our passion for discovering exceptional dining spots into a mission to help others find their next favorite place.
-                  </p>
-                  <div className="my-8">
-                    <ProfileImages />
-                  </div>
-                  <p className="text-xl text-neutral-300 leading-relaxed">
-                    What started as a personal collection of restaurant recommendations for friends has grown into a curated platform of our favorite dining experiences from around the world. Our journey began in the vibrant streets of Barcelona, where we discovered that every meal could tell a story and create lasting memories.
-                  </p>
-                </div>
+                <p className="text-xl text-neutral-300 leading-relaxed">
+                  What started as a personal collection of restaurant recommendations for friends has grown into a curated platform of our favorite dining experiences from around the world. Our journey began in the vibrant streets of Barcelona, where we discovered that every meal could tell a story and create lasting memories.
+                </p>
               </div>
             </div>
           </section>
 
-          {/* Mission Section - Full Width Background */}
-          <section className="relative -mx-4 sm:-mx-8 md:-mx-16 lg:-mx-32 px-4 sm:px-8 md:px-16 lg:px-32 py-24 overflow-hidden">
-            <div className="absolute inset-0">
-              <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1501854140801-50d01698950b')] bg-cover bg-fixed bg-center opacity-10" />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/90 via-neutral-900/95 to-neutral-900" />
+          {/* Mission Section */}
+          <section className="relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
+            <div className="absolute bottom-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2" />
+            
             <div className="relative space-y-12">
               <h2 className="text-4xl md:text-5xl font-judson text-center">Our Mission</h2>
               <div className="grid md:grid-cols-3 gap-12">
@@ -114,41 +103,29 @@ const About = () => {
           <section className="space-y-16">
             <h2 className="text-4xl md:text-5xl font-judson text-center">Our Values</h2>
             <div className="grid md:grid-cols-2 gap-12">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b')] bg-cover bg-center opacity-20 rounded-xl transition-opacity group-hover:opacity-30" />
-                <div className="relative space-y-4 p-8 bg-neutral-800/50 backdrop-blur-sm rounded-xl border border-white/10">
-                  <div className="text-primary text-2xl font-judson">01 — Authenticity</div>
-                  <p className="text-neutral-300 leading-relaxed">
-                    Every recommendation comes from our personal experiences. We only share places we've visited and genuinely loved, ensuring that each suggestion is authentic and trustworthy.
-                  </p>
-                </div>
+              <div className="space-y-4 p-8 bg-neutral-800/50 rounded-xl border border-white/10">
+                <div className="text-primary text-2xl font-judson">01 — Authenticity</div>
+                <p className="text-neutral-300 leading-relaxed">
+                  Every recommendation comes from our personal experiences. We only share places we've visited and genuinely loved, ensuring that each suggestion is authentic and trustworthy.
+                </p>
               </div>
-              <div className="relative group">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1721322800607-8c38375eef04')] bg-cover bg-center opacity-20 rounded-xl transition-opacity group-hover:opacity-30" />
-                <div className="relative space-y-4 p-8 bg-neutral-800/50 backdrop-blur-sm rounded-xl border border-white/10">
-                  <div className="text-primary text-2xl font-judson">02 — Quality First</div>
-                  <p className="text-neutral-300 leading-relaxed">
-                    We prioritize exceptional food, service, and atmosphere in our recommendations, ensuring that each dining experience meets our high standards for quality and enjoyment.
-                  </p>
-                </div>
+              <div className="space-y-4 p-8 bg-neutral-800/50 rounded-xl border border-white/10">
+                <div className="text-primary text-2xl font-judson">02 — Quality First</div>
+                <p className="text-neutral-300 leading-relaxed">
+                  We prioritize exceptional food, service, and atmosphere in our recommendations, ensuring that each dining experience meets our high standards for quality and enjoyment.
+                </p>
               </div>
-              <div className="relative group">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1649972904349-6e44c42644a7')] bg-cover bg-center opacity-20 rounded-xl transition-opacity group-hover:opacity-30" />
-                <div className="relative space-y-4 p-8 bg-neutral-800/50 backdrop-blur-sm rounded-xl border border-white/10">
-                  <div className="text-primary text-2xl font-judson">03 — Local Perspective</div>
-                  <p className="text-neutral-300 leading-relaxed">
-                    We seek out both hidden gems and standout establishments, offering a mix of local favorites and destination dining that captures the true essence of each location.
-                  </p>
-                </div>
+              <div className="space-y-4 p-8 bg-neutral-800/50 rounded-xl border border-white/10">
+                <div className="text-primary text-2xl font-judson">03 — Local Perspective</div>
+                <p className="text-neutral-300 leading-relaxed">
+                  We seek out both hidden gems and standout establishments, offering a mix of local favorites and destination dining that captures the true essence of each location.
+                </p>
               </div>
-              <div className="relative group">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')] bg-cover bg-center opacity-20 rounded-xl transition-opacity group-hover:opacity-30" />
-                <div className="relative space-y-4 p-8 bg-neutral-800/50 backdrop-blur-sm rounded-xl border border-white/10">
-                  <div className="text-primary text-2xl font-judson">04 — Community Focus</div>
-                  <p className="text-neutral-300 leading-relaxed">
-                    We believe in the power of community and sharing experiences. Our platform is built on the collective wisdom of food lovers who appreciate quality dining experiences.
-                  </p>
-                </div>
+              <div className="space-y-4 p-8 bg-neutral-800/50 rounded-xl border border-white/10">
+                <div className="text-primary text-2xl font-judson">04 — Community Focus</div>
+                <p className="text-neutral-300 leading-relaxed">
+                  We believe in the power of community and sharing experiences. Our platform is built on the collective wisdom of food lovers who appreciate quality dining experiences.
+                </p>
               </div>
             </div>
           </section>
