@@ -5,12 +5,22 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import {
   CommandDialog,
+  CommandEmpty,
+  CommandGroup,
   CommandInput,
+  CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Search } from "lucide-react";
-import { SearchResults } from "../search/SearchResults";
-import type { SearchResult } from "../search/types";
+import { Search, MapPin, Utensils } from "lucide-react";
+
+type SearchResult = {
+  id: string;
+  name: string;
+  description?: string;
+  type?: string;
+  resultType: 'destination' | 'recommendation';
+  destination_name?: string;
+};
 
 interface SearchDialogProps {
   open: boolean;
@@ -111,27 +121,77 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
 
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <div className="fixed inset-0 z-50 flex items-start justify-center pt-16">
-        <div className="relative w-full max-w-lg rounded-lg border border-neutral-700 bg-neutral-900 shadow-lg">
-          <div className="flex items-center border-b border-neutral-700 px-3">
-            <Search className="mr-2 h-4 w-4 shrink-0 text-neutral-400" />
-            <CommandInput
-              placeholder="Search destinations and recommendations..."
-              value={searchQuery}
-              onValueChange={setSearchQuery}
-              className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-neutral-400 disabled:cursor-not-allowed disabled:opacity-50"
-            />
-          </div>
-          <CommandList className="max-h-[300px] overflow-y-auto p-2">
-            <SearchResults
-              searchResults={searchResults}
-              isLoading={isLoading}
-              debouncedQuery={debouncedQuery}
-              onResultClick={handleResultClick}
-            />
-          </CommandList>
-        </div>
+      <div className="flex items-center border-b border-neutral-700/50 px-3">
+        <Search className="mr-2 h-4 w-4 shrink-0 text-neutral-400" />
+        <CommandInput
+          placeholder="Search destinations and recommendations..."
+          value={searchQuery}
+          onValueChange={setSearchQuery}
+          className="h-14"
+        />
       </div>
+      <CommandList className="max-h-[400px] overflow-y-auto p-2">
+        {debouncedQuery.length > 0 ? (
+          <>
+            {isLoading ? (
+              <div className="py-6 text-center text-sm text-neutral-400">
+                Searching...
+              </div>
+            ) : searchResults && searchResults.length > 0 ? (
+              <>
+                {searchResults.some(r => r.resultType === "destination") && (
+                  <CommandGroup heading="Destinations" className="pb-4">
+                    {searchResults
+                      .filter(r => r.resultType === "destination")
+                      .map((result) => (
+                        <CommandItem
+                          key={`${result.resultType}-${result.id}`}
+                          onSelect={() => handleResultClick(result)}
+                          className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-neutral-800/50 rounded-lg transition-colors"
+                        >
+                          <MapPin className="h-4 w-4 text-primary shrink-0" />
+                          <div className="flex flex-col gap-1">
+                            <span className="font-medium text-white">{result.name}</span>
+                            {result.description && (
+                              <span className="text-sm text-neutral-400 line-clamp-1">
+                                {result.description}
+                              </span>
+                            )}
+                          </div>
+                        </CommandItem>
+                      ))}
+                  </CommandGroup>
+                )}
+                {searchResults.some(r => r.resultType === "recommendation") && (
+                  <CommandGroup heading="Recommendations" className="pt-2 border-t border-neutral-700/50">
+                    {searchResults
+                      .filter(r => r.resultType === "recommendation")
+                      .map((result) => (
+                        <CommandItem
+                          key={`${result.resultType}-${result.id}`}
+                          onSelect={() => handleResultClick(result)}
+                          className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-neutral-800/50 rounded-lg transition-colors"
+                        >
+                          <Utensils className="h-4 w-4 text-primary shrink-0" />
+                          <div className="flex flex-col gap-1">
+                            <span className="font-medium text-white">{result.name}</span>
+                            <span className="text-sm text-neutral-400">
+                              {result.type} • {result.destination_name}
+                            </span>
+                          </div>
+                        </CommandItem>
+                      ))}
+                  </CommandGroup>
+                )}
+              </>
+            ) : (
+              <CommandEmpty className="py-6 text-center text-sm text-neutral-400">
+                No results found.
+              </CommandEmpty>
+            )}
+          </>
+        ) : null}
+      </CommandList>
     </CommandDialog>
   );
 };
