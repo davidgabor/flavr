@@ -69,7 +69,7 @@ const Destinations = () => {
       {/* Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16 pt-32 mb-24">
         <div className="absolute inset-0">
-          <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1528127269322-539801943592')] bg-cover bg-center" />
+          <div className="w-full h-full bg-[url('https://i.ibb.co/KzFXhgZ/pexels-cottonbro-3298637-min.jpg')] bg-cover bg-center" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
         <div className="relative max-w-3xl mx-auto space-y-6">
