@@ -30,8 +30,8 @@ const People = () => {
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
-      {/* Hero Section - Increased height with h-[70vh] */}
-      <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16 pt-32 mb-24">
+      {/* Hero Section - Reduced bottom margin from mb-24 to mb-16 */}
+      <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16 pt-32 mb-16">
         <div className="absolute inset-0">
           <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1581092795360-fd1ca04f0952')] bg-cover bg-center opacity-20" />
         </div>
@@ -45,8 +45,8 @@ const People = () => {
         </div>
       </section>
 
-      {/* People Grid */}
-      <div className="container px-4 mx-auto py-24">
+      {/* People Grid - Reduced top padding from py-24 to py-16 */}
+      <div className="container px-4 mx-auto py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {people.map((person) => (
             <Link
