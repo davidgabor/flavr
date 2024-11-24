@@ -33,7 +33,7 @@ const People = () => {
       {/* Hero Section - Reduced bottom margin from mb-24 to mb-16 */}
       <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16 pt-32 mb-16">
         <div className="absolute inset-0">
-          <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1581092795360-fd1ca04f0952')] bg-cover bg-center opacity-20" />
+          <div className="w-full h-full bg-[url('https://i.ibb.co/6YN33Lj/pexels-anntarazevich-6937451-min.jpg')] bg-cover bg-center opacity-20" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
         <div className="relative max-w-3xl mx-auto space-y-6">
