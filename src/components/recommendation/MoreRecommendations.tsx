@@ -1,4 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Recommendation } from "@/types/recommendation";
 import RecommendationCard from "../destination/RecommendationCard";
@@ -35,9 +37,20 @@ const MoreRecommendations = ({
 
   if (moreRecommendations.length === 0) return null;
 
+  const destinationSlug = destinationName.toLowerCase().replace(/\s+/g, '-');
+
   return (
     <div className="mt-16 pt-16 border-t border-neutral-800">
-      <h2 className="heading-2 mb-8">Explore more in {destinationName}</h2>
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="heading-2">Explore more in {destinationName}</h2>
+        <Link 
+          to={`/${destinationSlug}`}
+          className="text-sm text-neutral-400 hover:text-white flex items-center gap-1 transition-colors"
+        >
+          See all
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {moreRecommendations.map((recommendation) => (
           <RecommendationCard
