@@ -111,18 +111,18 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
 
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <div className="fixed inset-0 z-50 bg-neutral-900/80 backdrop-blur-sm">
-        <div className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-neutral-700 bg-neutral-900 p-6 shadow-lg duration-200 sm:rounded-lg">
-          <div className="flex items-center border-b border-neutral-700/50 px-3">
+      <div className="fixed inset-0 z-50 flex items-start justify-center pt-16">
+        <div className="relative w-full max-w-lg rounded-lg border border-neutral-700 bg-neutral-900 shadow-lg">
+          <div className="flex items-center border-b border-neutral-700 px-3">
             <Search className="mr-2 h-4 w-4 shrink-0 text-neutral-400" />
             <CommandInput
               placeholder="Search destinations and recommendations..."
               value={searchQuery}
               onValueChange={setSearchQuery}
-              className="h-14 bg-transparent"
+              className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-neutral-400 disabled:cursor-not-allowed disabled:opacity-50"
             />
           </div>
-          <CommandList className="max-h-[300px] overflow-y-auto px-3">
+          <CommandList className="max-h-[300px] overflow-y-auto p-2">
             <SearchResults
               searchResults={searchResults}
               isLoading={isLoading}
