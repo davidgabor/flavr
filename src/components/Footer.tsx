@@ -1,9 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination } from "@/types/recommendation";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { data: destinations = [] } = useQuery({
     queryKey: ["destinations"],
@@ -17,6 +21,39 @@ const Footer = () => {
       return data as Destination[];
     },
   });
+
+  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value;
+    
+    try {
+      console.log('Subscribing email to newsletter:', email);
+      
+      const { error } = await supabase
+        .from('newsletter_subscribers')
+        .insert([{ email }]);
+      
+      if (error) {
+        console.error('Error subscribing to newsletter:', error);
+        if (error.code === '23505') {
+          toast.error("This email is already subscribed to our newsletter!");
+        } else {
+          toast.error("Failed to subscribe to newsletter. Please try again.");
+        }
+        return;
+      }
+
+      toast.success("Thanks for subscribing!");
+      (e.target as HTMLFormElement).reset();
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      toast.error("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Group destinations by region
   const groupedDestinations = destinations.reduce((acc, destination) => {
@@ -34,9 +71,26 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-6 gap-x-6">
           <div className="md:col-span-2">
             <h4 className="font-judson text-xl mb-3">About Flavr</h4>
-            <p className="text-neutral-400 text-sm leading-relaxed">
+            <p className="text-neutral-400 text-sm leading-relaxed mb-4">
               Curating and sharing our favorite dining spots from around the world. Every recommendation is personally tested and thoughtfully selected.
             </p>
+            <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
+              <Input
+                type="email"
+                name="email"
+                placeholder="Subscribe to newsletter"
+                required
+                disabled={isLoading}
+                className="flex-1 h-8 text-sm bg-white/5 border-white/10 text-white placeholder:text-neutral-500 focus:border-primary/50 focus:ring-primary/50"
+              />
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="h-8 px-3 text-sm bg-primary hover:bg-primary/90 text-white font-medium transition-colors duration-200 whitespace-nowrap disabled:opacity-50"
+              >
+                {isLoading ? '...' : 'Join'}
+              </button>
+            </form>
           </div>
           {Object.entries(groupedDestinations).map(([region, destinations]) => (
             <div key={region}>
@@ -57,11 +111,6 @@ const Footer = () => {
           ))}
         </div>
         <div className="text-center text-sm text-neutral-500 pt-8 mt-8 border-t border-white/5">
-          <div className="mb-2">
-            <a href="mailto:hello@flavr.world" className="text-primary hover:text-primary/90 transition-colors">
-              hello@flavr.world
-            </a>
-          </div>
           © {currentYear} Flavr. All rights reserved.
         </div>
       </div>
