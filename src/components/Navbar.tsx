@@ -41,7 +41,7 @@ const Navbar = () => {
             <div className="flex items-center">
               <Link 
                 to="/" 
-                className="text-2xl font-judson text-white pr-6 md:pr-12 border-r border-neutral-700"
+                className="text-2xl font-judson text-white pr-6 md:pr-12 md:border-r md:border-neutral-700"
               >
                 Flavr
               </Link>
