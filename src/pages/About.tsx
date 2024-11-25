@@ -60,7 +60,7 @@ const About = () => {
           {/* CTA Section */}
           <section className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <h2 className="text-4xl font-judson">Start Exploring</h2>
+              <h2 className="text-4xl md:text-5xl font-judson">Start Exploring</h2>
               <p className="text-lg text-neutral-300">
                 Ready to discover your next favorite restaurant? Browse our curated collection of exceptional dining experiences.
               </p>
