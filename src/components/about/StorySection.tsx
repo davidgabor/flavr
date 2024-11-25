@@ -19,7 +19,7 @@ const StorySection = () => {
           <div className="h-1 w-12 bg-primary mt-2" />
         </div>
         <div className="prose prose-invert space-y-6">
-          <p className="text-xl text-neutral-300 leading-relaxed">
+          <p className="text-lg text-neutral-300 leading-relaxed">
             We're David and Maja, two food enthusiasts who turned our passion for discovering exceptional dining spots into a mission to help others find their next favorite place.
           </p>
           <p className="text-lg text-neutral-300 leading-relaxed mb-8">
