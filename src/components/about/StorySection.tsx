@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+
 const StorySection = () => {
   return (
     <section className="grid md:grid-cols-2 gap-16 items-center">
