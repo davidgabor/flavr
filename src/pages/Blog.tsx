@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDistanceToNow } from "date-fns";
-import { BookOpen } from "lucide-react";
 import NewsletterForm from "@/components/common/NewsletterForm";
+import EmptyBlog from "@/components/blog/EmptyBlog";
 
 interface BlogPost {
   id: string;
@@ -39,6 +39,10 @@ const Blog = () => {
     return <div className="min-h-screen bg-neutral-900" />;
   }
 
+  if (posts.length === 0) {
+    return <EmptyBlog />;
+  }
+
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
       {/* Hero Section */}
@@ -57,64 +61,48 @@ const Blog = () => {
       </section>
 
       <div className="container px-4 mx-auto py-24">
-        {posts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
-              <Link
-                key={post.id}
-                to={`/blog/${post.slug}`}
-                className="card group"
-              >
-                <div className="aspect-[16/9] overflow-hidden bg-neutral-800">
-                  {post.cover_image ? (
-                    <img
-                      src={post.cover_image}
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-neutral-800 text-neutral-600">
-                      No image available
-                    </div>
-                  )}
-                </div>
-                <div className="p-6 space-y-4">
-                  <h3 className="text-2xl font-judson group-hover:text-primary transition-colors">
-                    {post.title}
-                  </h3>
-                  {post.excerpt && (
-                    <p className="text-neutral-400 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                  )}
-                  <div className="text-sm text-neutral-500">
-                    {post.published_at ? (
-                      <time dateTime={post.published_at}>
-                        {formatDistanceToNow(new Date(post.published_at), { addSuffix: true })}
-                      </time>
-                    ) : (
-                      "Draft"
-                    )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post) => (
+            <Link
+              key={post.id}
+              to={`/blog/${post.slug}`}
+              className="card group"
+            >
+              <div className="aspect-[16/9] overflow-hidden bg-neutral-800">
+                {post.cover_image ? (
+                  <img
+                    src={post.cover_image}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-neutral-800 text-neutral-600">
+                    No image available
                   </div>
+                )}
+              </div>
+              <div className="p-6 space-y-4">
+                <h3 className="text-2xl font-judson group-hover:text-primary transition-colors">
+                  {post.title}
+                </h3>
+                {post.excerpt && (
+                  <p className="text-neutral-400 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                )}
+                <div className="text-sm text-neutral-500">
+                  {post.published_at ? (
+                    <time dateTime={post.published_at}>
+                      {formatDistanceToNow(new Date(post.published_at), { addSuffix: true })}
+                    </time>
+                  ) : (
+                    "Draft"
+                  )}
                 </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="relative mx-auto mb-12 w-24">
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 blur-xl" />
-              <BookOpen className="relative w-24 h-24 text-white/80" strokeWidth={1} />
-            </div>
-            <div className="space-y-4 animate-fade-in">
-              <h2 className="text-3xl font-judson">Journal Entries Coming Soon</h2>
-              <p className="text-neutral-400 text-lg leading-relaxed">
-                Our team is curating thoughtful stories about extraordinary places and experiences. 
-                Check back soon for insights into the world's most captivating destinations.
-              </p>
-            </div>
-          </div>
-        )}
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
