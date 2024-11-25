@@ -4,6 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Destination } from "@/types/recommendation";
 import NewsletterForm from "@/components/common/NewsletterForm";
 import ProfileImages from "@/components/home/ProfileImages";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -135,6 +137,15 @@ const Home = () => {
               <h3 className="text-xl font-judson">Regular Updates</h3>
               <p className="text-neutral-400">We continuously revisit and update our recommendations to ensure they maintain our standards.</p>
             </div>
+          </div>
+          <div className="pt-8">
+            <Link 
+              to="/about" 
+              className="inline-flex items-center gap-2 text-primary hover:text-primary/90 transition-colors"
+            >
+              Learn more about us
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
