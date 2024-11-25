@@ -9,16 +9,25 @@ const About = () => {
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center text-center px-4 -mt-16">
+      <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16 pt-32 mb-24">
         <div className="absolute inset-0">
-          <div className="w-full h-full bg-[url('https://i.ibb.co/KzFXhgZ/pexels-cottonbro-3298637-min.jpg')] bg-cover bg-fixed bg-center opacity-20" />
+          <div className="w-full h-full bg-[url('https://i.ibb.co/KzFXhgZ/pexels-cottonbro-3298637-min.jpg')] bg-cover bg-center" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
-        <div className="relative max-w-3xl mx-auto space-y-8">
-          <h1 className="text-5xl md:text-7xl font-judson">About Flavr</h1>
-          <p className="text-xl md:text-2xl text-neutral-200 max-w-2xl mx-auto leading-relaxed">
+        <div className="relative max-w-3xl mx-auto space-y-6">
+          <h1 className="text-4xl md:text-6xl font-judson">About Flavr</h1>
+          <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
             Discover the story behind our mission to share the world's most memorable dining experiences.
           </p>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="relative -mt-32 mb-24">
+        <div className="container px-4 mx-auto">
+          <div className="max-w-xl mx-auto">
+            <NewsletterForm />
+          </div>
         </div>
       </section>
 
