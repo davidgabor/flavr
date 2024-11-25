@@ -36,7 +36,7 @@ const About = () => {
         <div className="max-w-7xl mx-auto space-y-32 py-16">
           {/* Stats Section */}
           <section className="relative">
-            <div className="absolute inset-0 bg-neutral-800/50 blur-3xl rounded-full transform -translate-y-1/2" />
+            <div className="absolute inset-0 bg-neutral-800/50 blur-3xl transform -translate-y-1/2" />
             <div className="relative grid md:grid-cols-3 gap-8 text-center">
               <div className="space-y-2">
                 <div className="text-4xl md:text-5xl font-judson text-primary">150+</div>
@@ -67,7 +67,7 @@ const About = () => {
               <div className="flex">
                 <Link 
                   to="/destinations" 
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white hover:bg-primary/90 transition-colors"
                 >
                   View Destinations
                   <ArrowRight className="w-4 h-4" />
@@ -78,17 +78,17 @@ const About = () => {
               <img 
                 src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
                 alt="Restaurant interior" 
-                className="rounded-lg shadow-2xl w-full h-full object-cover"
+                className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900/20 to-transparent rounded-lg" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900/20 to-transparent" />
             </div>
           </section>
 
           {/* Newsletter Section */}
           <section className="relative">
-            <div className="relative bg-neutral-800/50 p-12 md:p-16 rounded-xl border border-white/10 overflow-hidden">
-              <div className="absolute top-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2" />
-              <div className="absolute bottom-0 right-0 w-32 h-32 bg-secondary/20 rounded-full blur-2xl transform translate-x-1/2 translate-y-1/2" />
+            <div className="relative bg-neutral-800/50 p-12 md:p-16 border border-white/10 overflow-hidden">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-primary/20 blur-2xl transform -translate-x-1/2 -translate-y-1/2" />
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-secondary/20 blur-2xl transform translate-x-1/2 translate-y-1/2" />
               
               <div className="relative grid md:grid-cols-2 gap-16 items-center">
                 <div className="space-y-8">

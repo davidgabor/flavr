@@ -14,7 +14,7 @@ const ValuesSection = () => {
       <div className="space-y-8 order-1 md:order-2">
         <h2 className="text-4xl md:text-5xl font-judson">Our Values</h2>
         <div className="h-full flex flex-col justify-between space-y-12">
-          <div className="space-y-4 p-6 bg-neutral-800/50 rounded-xl border border-white/10">
+          <div className="space-y-4 p-6 bg-neutral-800/50 border border-white/10">
             <div className="flex items-center gap-3">
               <Star className="w-6 h-6 text-primary" />
               <div className="text-primary text-2xl font-judson">Authenticity</div>
@@ -23,7 +23,7 @@ const ValuesSection = () => {
               Every recommendation comes from our personal experiences. We only share places we've visited and genuinely loved.
             </p>
           </div>
-          <div className="space-y-4 p-6 bg-neutral-800/50 rounded-xl border border-white/10">
+          <div className="space-y-4 p-6 bg-neutral-800/50 border border-white/10">
             <div className="flex items-center gap-3">
               <Shield className="w-6 h-6 text-primary" />
               <div className="text-primary text-2xl font-judson">Quality First</div>
@@ -32,7 +32,7 @@ const ValuesSection = () => {
               We prioritize exceptional food, service, and atmosphere in our recommendations.
             </p>
           </div>
-          <div className="space-y-4 p-6 bg-neutral-800/50 rounded-xl border border-white/10">
+          <div className="space-y-4 p-6 bg-neutral-800/50 border border-white/10">
             <div className="flex items-center gap-3">
               <Sparkles className="w-6 h-6 text-primary" />
               <div className="text-primary text-2xl font-judson">Innovation</div>
