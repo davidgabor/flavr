@@ -1,14 +1,14 @@
 const StorySection = () => {
   return (
     <section className="grid md:grid-cols-2 gap-16 items-center">
-      <div className="relative aspect-[3/2] md:aspect-[4/3] order-2 md:order-1">
-        <div className="absolute -inset-4 bg-primary/5 rounded-3xl -z-10" />
+      <div className="relative aspect-[4/3] md:aspect-square order-2 md:order-1">
+        <div className="absolute -inset-4 bg-primary/5 -z-10" />
         <img 
           src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
           alt="Restaurant interior" 
-          className="rounded-2xl shadow-2xl w-full h-full object-cover"
+          className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900/20 to-transparent rounded-2xl" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900/20 to-transparent" />
       </div>
       <div className="space-y-6 order-1 md:order-2">
         <div className="inline-block">

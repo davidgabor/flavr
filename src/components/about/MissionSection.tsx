@@ -35,13 +35,13 @@ const MissionSection = () => {
           </div>
         </div>
       </div>
-      <div className="relative aspect-[3/2] md:aspect-[4/3]">
+      <div className="relative aspect-[4/3] md:aspect-square">
         <img 
           src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
           alt="Restaurant atmosphere" 
-          className="rounded-lg shadow-2xl w-full h-full object-cover"
+          className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900/20 to-transparent rounded-lg" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-neutral-900/20 to-transparent" />
       </div>
     </section>
   );
