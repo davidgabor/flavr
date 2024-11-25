@@ -1,6 +1,5 @@
 import { Compass, MapPin, Utensils } from "lucide-react";
 import { Link } from "react-router-dom";
-import NewsletterForm from "@/components/common/NewsletterForm";
 
 const EmptyDestination = ({ destinationName }: { destinationName: string }) => {
   return (
@@ -51,18 +50,6 @@ const EmptyDestination = ({ destinationName }: { destinationName: string }) => {
           <p className="text-base md:text-lg text-neutral-300 max-w-xl mx-auto leading-relaxed px-4">
             We're currently exploring the best dining spots in {destinationName}. Our team is carefully curating a selection of exceptional restaurants, cafes, and hidden gems for you.
           </p>
-        </div>
-
-        {/* Newsletter Form */}
-        <div className="relative max-w-xl mx-auto px-4">
-          <div className="absolute inset-0 bg-white/5 blur-xl rounded-lg" />
-          <div className="relative bg-black/20 backdrop-blur-sm border border-white/10 p-6 rounded-lg">
-            <div className="mb-4 text-center">
-              <p className="text-lg font-medium text-white">Get Notified</p>
-              <p className="text-sm text-neutral-300">Be the first to know when we add new recommendations</p>
-            </div>
-            <NewsletterForm />
-          </div>
         </div>
 
         {/* CTA Button */}
