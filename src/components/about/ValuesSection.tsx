@@ -3,7 +3,7 @@ import { Shield, Sparkles, Star } from "lucide-react";
 const ValuesSection = () => {
   return (
     <section className="grid md:grid-cols-2 gap-16 items-center">
-      <div className="relative h-full order-2 md:order-1">
+      <div className="relative aspect-[3/2] md:aspect-[4/3] order-2 md:order-1">
         <img 
           src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
           alt="Food preparation" 

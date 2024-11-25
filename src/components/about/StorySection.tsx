@@ -1,7 +1,7 @@
 const StorySection = () => {
   return (
     <section className="grid md:grid-cols-2 gap-16 items-center">
-      <div className="relative aspect-[4/5] md:aspect-[3/4] order-2 md:order-1">
+      <div className="relative aspect-[3/2] md:aspect-[4/3] order-2 md:order-1">
         <div className="absolute -inset-4 bg-primary/5 rounded-3xl -z-10" />
         <img 
           src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 

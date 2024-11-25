@@ -35,7 +35,7 @@ const MissionSection = () => {
           </div>
         </div>
       </div>
-      <div className="relative aspect-[4/5] md:aspect-[3/4]">
+      <div className="relative aspect-[3/2] md:aspect-[4/3]">
         <img 
           src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
           alt="Restaurant atmosphere" 
