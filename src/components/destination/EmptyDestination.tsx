@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const EmptyDestination = ({ destinationName }: { destinationName: string }) => {
   return (
-    <div className="relative min-h-[60vh] flex items-center justify-center px-4 overflow-hidden">
+    <div className="relative min-h-[80vh] flex items-center justify-center px-4 overflow-hidden">
       {/* Background Image with Gradient Overlay */}
       <div className="absolute inset-0 -z-10">
         <img
@@ -14,6 +14,9 @@ const EmptyDestination = ({ destinationName }: { destinationName: string }) => {
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/80 via-neutral-900/90 to-neutral-900" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10" />
       </div>
+
+      {/* Extended gradient fade at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-neutral-900 to-transparent" />
 
       {/* Content */}
       <div className="max-w-2xl mx-auto text-center space-y-12 animate-fade-in relative">
