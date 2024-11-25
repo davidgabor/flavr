@@ -15,13 +15,22 @@ const StorySection = () => {
           <h2 className="text-4xl md:text-5xl font-judson">Our Story</h2>
           <div className="h-1 w-12 bg-primary mt-2" />
         </div>
-        <div className="prose prose-invert">
+        <div className="prose prose-invert space-y-6">
           <p className="text-xl text-neutral-300 leading-relaxed">
             We're David and Maja, two food enthusiasts who turned our passion for discovering exceptional dining spots into a mission to help others find their next favorite place.
           </p>
-          <p className="text-xl text-neutral-300 leading-relaxed">
+          <p className="text-xl text-neutral-300 leading-relaxed mb-8">
             What started as a personal collection of restaurant recommendations for friends has grown into a curated platform of our favorite dining experiences from around the world. Our journey began in the vibrant streets of Barcelona, where we discovered that every meal could tell a story and create lasting memories.
           </p>
+          <div>
+            <Link 
+              to="/destinations" 
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white hover:bg-primary/90 transition-colors"
+            >
+              Explore Destinations
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>
