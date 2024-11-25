@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import DestinationHeader from "@/components/destination/DestinationHeader";
 import RecommendationCard from "@/components/destination/RecommendationCard";
+import EmptyDestination from "@/components/destination/EmptyDestination";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination, Recommendation } from "@/types/recommendation";
 import NewsletterForm from "@/components/common/NewsletterForm";
@@ -85,6 +86,21 @@ const DestinationDetails = () => {
             Back to Home
           </Link>
         </div>
+      </div>
+    );
+  }
+
+  // If there are no recommendations, show the empty state
+  if (recommendations.length === 0) {
+    return (
+      <div className="relative min-h-screen bg-neutral-900">
+        <DestinationHeader 
+          name={destinationData.name}
+          description={destinationData.description}
+          image={destinationData.image}
+          country={destinationData.country}
+        />
+        <EmptyDestination destinationName={destinationData.name} />
       </div>
     );
   }
