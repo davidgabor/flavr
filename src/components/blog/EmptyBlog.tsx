@@ -1,5 +1,6 @@
 import { BookOpen, Edit, Newspaper } from "lucide-react";
 import { Link } from "react-router-dom";
+import NewsletterForm from "@/components/common/NewsletterForm";
 
 const EmptyBlog = () => {
   return (
@@ -47,6 +48,18 @@ const EmptyBlog = () => {
           <p className="text-base md:text-lg text-neutral-300 max-w-xl mx-auto leading-relaxed px-4">
             We're currently crafting thoughtful stories about extraordinary places and experiences. Check back soon for insights into the world's most captivating destinations.
           </p>
+        </div>
+
+        {/* Newsletter Form */}
+        <div className="relative max-w-xl mx-auto px-4">
+          <div className="absolute inset-0 bg-white/5 blur-xl rounded-lg" />
+          <div className="relative bg-black/20 backdrop-blur-sm border border-white/10 p-6 rounded-lg">
+            <div className="mb-4 text-center">
+              <p className="text-lg font-medium text-white">Stay Updated</p>
+              <p className="text-sm text-neutral-300">Get notified when we publish new stories</p>
+            </div>
+            <NewsletterForm />
+          </div>
         </div>
 
         {/* CTA Button */}
