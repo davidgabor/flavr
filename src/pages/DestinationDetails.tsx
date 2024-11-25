@@ -90,16 +90,10 @@ const DestinationDetails = () => {
     );
   }
 
-  // If there are no recommendations, show the empty state
+  // If there are no recommendations, show the empty state without the hero
   if (recommendations.length === 0) {
     return (
       <div className="relative min-h-screen bg-neutral-900">
-        <DestinationHeader 
-          name={destinationData.name}
-          description={destinationData.description}
-          image={destinationData.image}
-          country={destinationData.country}
-        />
         <EmptyDestination destinationName={destinationData.name} />
       </div>
     );
