@@ -22,7 +22,7 @@ const StorySection = () => {
           <p className="text-xl text-neutral-300 leading-relaxed">
             We're David and Maja, two food enthusiasts who turned our passion for discovering exceptional dining spots into a mission to help others find their next favorite place.
           </p>
-          <p className="text-xl text-neutral-300 leading-relaxed mb-8">
+          <p className="text-lg text-neutral-300 leading-relaxed mb-8">
             What started as a personal collection of restaurant recommendations for friends has grown into a curated platform of our favorite dining experiences from around the world. Our journey began in the vibrant streets of Barcelona, where we discovered that every meal could tell a story and create lasting memories.
           </p>
           <div>
