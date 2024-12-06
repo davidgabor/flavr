@@ -44,7 +44,7 @@ const PersonFilters = ({
   const selectedDestination = destinations.find(dest => dest.id === currentTab);
 
   return (
-    <div className="sticky top-16 z-10 bg-neutral-900/95 backdrop-blur-sm border-b border-white/10">
+    <div className="bg-neutral-900/95 backdrop-blur-sm border-b border-white/10">
       <div className="container mx-auto px-4">
         <div className="py-6 flex flex-col md:flex-row md:items-center gap-6">
           <Select value={currentTab} onValueChange={onDestinationChange}>
