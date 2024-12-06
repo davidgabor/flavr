@@ -2,19 +2,9 @@ import { useEffect } from 'react';
 import { useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/components/ui/radio-group";
 import PersonHeader from "@/components/person/PersonHeader";
-import PersonRecommendationStats from "@/components/person/PersonRecommendationStats";
+import PersonFilters from "@/components/person/PersonFilters";
+import PersonStats from "@/components/person/PersonStats";
 import PersonRecommendationGrid from "@/components/person/PersonRecommendationGrid";
 import type { Person } from "@/types/person";
 import type { RecommendationWithDestination } from "@/types/recommendation";
@@ -120,21 +110,16 @@ const PersonProfile = () => {
   )?.id || destinations[0]?.id;
 
   const selectedDestination = destinations.find(dest => dest.id === currentTab);
-  
-  // Get unique types for the selected destination
   const types = selectedDestination ? 
     Array.from(new Set(selectedDestination.recommendations.map(r => r.type)))
     : [];
 
-  const currentType = searchParams.get('type') || types[0];
+  const currentType = searchParams.get('type') || null;
 
   const handleDestinationChange = (value: string) => {
     const selectedDestination = destinations.find(dest => dest.id === value);
     if (selectedDestination) {
-      setSearchParams({ 
-        destination: selectedDestination.name.toLowerCase(),
-        ...(types[0] && { type: types[0] })
-      });
+      setSearchParams({ destination: selectedDestination.name.toLowerCase() });
     }
   };
 
@@ -147,82 +132,36 @@ const PersonProfile = () => {
   };
 
   const totalRecommendations = destinations.reduce((acc, dest) => acc + dest.recommendations.length, 0);
-
-  // Filter recommendations by type if selected
   const filteredRecommendations = selectedDestination?.recommendations.filter(
     rec => !currentType || rec.type === currentType
   ) || [];
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
-      <div className="container mx-auto px-4 py-8 md:py-16">
-        <PersonHeader person={person} />
+      <PersonHeader person={person} />
+      
+      <div className="mb-8">
+        <PersonFilters
+          destinations={destinations}
+          currentTab={currentTab}
+          currentType={currentType}
+          types={types}
+          onDestinationChange={handleDestinationChange}
+          onTypeChange={handleTypeChange}
+        />
         
-        <div className="bg-neutral-900/80 backdrop-blur-sm z-10 py-4 border-b border-white/10">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Select value={currentTab} onValueChange={handleDestinationChange}>
-                <SelectTrigger className="w-[200px] bg-neutral-800 border-white/10">
-                  <SelectValue>
-                    {selectedDestination ? (
-                      <span>
-                        {selectedDestination.name} ({selectedDestination.recommendations.length})
-                      </span>
-                    ) : (
-                      "Select a city"
-                    )}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent className="bg-neutral-800 border-white/10">
-                  {destinations.map((destination) => (
-                    <SelectItem 
-                      key={destination.id} 
-                      value={destination.id}
-                      className="text-white hover:bg-neutral-700 focus:bg-neutral-700"
-                    >
-                      {destination.name} ({destination.recommendations.length})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              {types.length > 0 && (
-                <RadioGroup 
-                  value={currentType} 
-                  onValueChange={handleTypeChange}
-                  className="flex gap-3"
-                >
-                  {types.map((type) => (
-                    <div key={type} className="flex items-center space-x-2">
-                      <RadioGroupItem 
-                        value={type} 
-                        id={type}
-                        className="border-primary text-primary"
-                      />
-                      <label 
-                        htmlFor={type}
-                        className="text-sm cursor-pointer"
-                      >
-                        {type}
-                      </label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              )}
+        <div className="container mx-auto px-4 mt-8">
+          <PersonStats
+            totalRecommendations={totalRecommendations}
+            totalDestinations={destinations.length}
+          />
+          
+          {selectedDestination && (
+            <div className="mt-6">
+              <PersonRecommendationGrid recommendations={filteredRecommendations} />
             </div>
-
-            <PersonRecommendationStats 
-              totalRecommendations={totalRecommendations}
-              totalDestinations={destinations.length}
-            />
-          </div>
+          )}
         </div>
-
-        {selectedDestination && (
-          <div className="mt-6">
-            <PersonRecommendationGrid recommendations={filteredRecommendations} />
-          </div>
-        )}
       </div>
     </div>
   );
