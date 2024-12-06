@@ -24,6 +24,15 @@ type PersonFiltersProps = {
   onTypeChange: (value: string) => void;
 };
 
+const pluralizeType = (type: string, count: number) => {
+  if (count <= 1) return type;
+  
+  if (type.toLowerCase() === "cafe") return "Cafes";
+  if (type.toLowerCase() === "pub") return "Pubs";
+  
+  return `${type}s`;
+};
+
 const PersonFilters = ({
   destinations,
   currentTab,
@@ -69,28 +78,34 @@ const PersonFilters = ({
               onValueChange={onTypeChange}
               className="flex flex-wrap gap-3"
             >
-              {types.map((type) => (
-                <div key={type} className="flex items-center">
-                  <label 
-                    htmlFor={type}
-                    className={`px-3 py-1.5 rounded-full border cursor-pointer text-sm transition-colors ${
-                      currentType === type 
-                        ? 'bg-primary text-white border-primary' 
-                        : 'border-white/20 text-white/80 hover:border-white/40'
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      id={type}
-                      value={type}
-                      className="hidden"
-                      onChange={(e) => onTypeChange(e.target.value)}
-                      checked={currentType === type}
-                    />
-                    {type}
-                  </label>
-                </div>
-              ))}
+              {types.map((type) => {
+                const typeCount = selectedDestination?.recommendations.filter(
+                  rec => rec.type === type
+                ).length || 0;
+                
+                return (
+                  <div key={type} className="flex items-center">
+                    <label 
+                      htmlFor={type}
+                      className={`px-3 py-1.5 rounded-full border cursor-pointer text-sm transition-colors ${
+                        currentType === type 
+                          ? 'bg-primary text-white border-primary' 
+                          : 'border-white/20 text-white/80 hover:border-white/40'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        id={type}
+                        value={type}
+                        className="hidden"
+                        onChange={(e) => onTypeChange(e.target.value)}
+                        checked={currentType === type}
+                      />
+                      {pluralizeType(type, typeCount)} ({typeCount})
+                    </label>
+                  </div>
+                );
+              })}
             </RadioGroup>
           )}
         </div>
