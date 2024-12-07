@@ -8,13 +8,21 @@ import PersonRecommendationGrid from "@/components/person/PersonRecommendationGr
 import NewsletterForm from "@/components/common/NewsletterForm";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
+import type { Person } from "@/types/person";
+import type { RecommendationWithDestination } from "@/types/recommendation";
+
+interface DestinationGroup {
+  id: string;
+  name: string;
+  recommendations: RecommendationWithDestination[];
+}
 
 const PersonProfile = () => {
   const { personSlug } = useParams();
   const [currentTab, setCurrentTab] = useState("");
   const [currentType, setCurrentType] = useState<string | null>(null);
 
-  const { data: person } = useQuery({
+  const { data: person } = useQuery<Person>({
     queryKey: ["person", personSlug],
     queryFn: async () => {
       if (!personSlug) throw new Error("No person slug provided");
@@ -30,10 +38,12 @@ const PersonProfile = () => {
     },
   });
 
-  const { data: destinations = [] } = useQuery({
+  const { data: destinations = [] } = useQuery<DestinationGroup[]>({
     queryKey: ["person-destinations", personSlug],
     queryFn: async () => {
       if (!personSlug) return [];
+      
+      console.log('Fetching destinations for person:', personSlug);
       
       const { data, error } = await supabase
         .from("person_recommendations")
@@ -48,14 +58,21 @@ const PersonProfile = () => {
         `)
         .eq("person_id", personSlug);
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching destinations:', error);
+        throw error;
+      }
 
+      console.log('Raw destinations data:', data);
+      
       const recommendations = data.map(item => ({
         ...item.recommendations,
         destinations: item.recommendations.destinations
-      }));
+      })) as RecommendationWithDestination[];
 
-      const groupedByDestination = recommendations.reduce((acc, rec) => {
+      console.log('Processed recommendations:', recommendations);
+
+      const groupedByDestination = recommendations.reduce<Record<string, DestinationGroup>>((acc, rec) => {
         const destId = rec.destinations.id;
         if (!acc[destId]) {
           acc[destId] = {
@@ -67,6 +84,8 @@ const PersonProfile = () => {
         acc[destId].recommendations.push(rec);
         return acc;
       }, {});
+
+      console.log('Grouped destinations:', groupedByDestination);
 
       return Object.values(groupedByDestination);
     },
@@ -108,7 +127,11 @@ const PersonProfile = () => {
         />
       </Helmet>
 
-      <PersonHeader person={person} />
+      <PersonHeader 
+        person={person} 
+        totalRecommendations={totalRecommendations}
+        totalDestinations={destinations.length}
+      />
 
       <div className="space-y-12 pb-24">
         <PersonStats
