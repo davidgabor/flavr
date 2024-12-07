@@ -30,22 +30,20 @@ const People = () => {
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
-      {/* Hero Section - Reduced bottom margin from mb-24 to mb-16 */}
       <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16 pt-32 mb-16">
         <div className="absolute inset-0">
           <div className="w-full h-full bg-[url('https://i.ibb.co/6YN33Lj/pexels-anntarazevich-6937451-min.jpg')] bg-cover bg-center opacity-20" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
         <div className="relative max-w-3xl mx-auto space-y-6">
-          <h1 className="text-4xl md:text-6xl font-judson">Meet Our Food Experts</h1>
+          <h1 className="text-4xl md:text-6xl font-judson">Meet Our Food Lovers</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
-            Discover our curated network of food enthusiasts, critics, and local connoisseurs who bring you the best dining experiences from around the world.
+            Get to know the passionate food enthusiasts and locals behind our recommendations, sharing the best dining experiences from around the world.
           </p>
           <NewsletterForm />
         </div>
       </section>
 
-      {/* People Grid - Reduced top padding from py-24 to py-16 */}
       <div className="container px-4 mx-auto py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {people.map((person) => (
