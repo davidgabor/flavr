@@ -77,13 +77,13 @@ const About = () => {
               </div>
               <div className="space-y-2">
                 <div className="text-4xl md:text-5xl font-judson text-primary">
-                  {stats?.destinations || 0}
+                  {stats?.destinations || 0}+
                 </div>
                 <div className="text-neutral-400">Global Destinations</div>
               </div>
               <div className="space-y-2">
                 <div className="text-4xl md:text-5xl font-judson text-primary">
-                  {stats?.cuisines || 0}
+                  {stats?.cuisines || 0}+
                 </div>
                 <div className="text-neutral-400">Unique Cuisines</div>
               </div>
