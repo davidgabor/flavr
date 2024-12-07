@@ -7,7 +7,7 @@ interface PersonHeaderProps {
 }
 
 const PersonHeader = ({ person, totalRecommendations = 0, totalDestinations = 0 }: PersonHeaderProps) => (
-  <div className="container mx-auto px-4">
+  <div className="container mx-auto px-4 pt-24">
     <div className="flex flex-col lg:flex-row gap-8 mb-8">
       {/* Left column with profile info */}
       <div className="flex-1">
