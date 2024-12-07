@@ -31,16 +31,6 @@ const PersonHeader = ({ person, totalRecommendations = 0, totalDestinations = 0 
             {person.bio && (
               <p className="text-neutral-400 max-w-2xl leading-relaxed">{person.bio}</p>
             )}
-            <div className="flex items-center gap-6 text-sm">
-              <div className="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/></svg>
-                <span className="text-neutral-300">Italian, Japanese</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                <span className="text-neutral-300">Barcelona, London</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
