@@ -78,7 +78,6 @@ const Home = () => {
         />
       </Helmet>
 
-      {/* Rest of the component */}
       <section className="relative h-[80vh] flex items-center justify-center text-center px-4 -mt-16">
         <div className="absolute inset-0">
           <video
@@ -91,7 +90,7 @@ const Home = () => {
             <source src="https://files-space.ams3.digitaloceanspaces.com/2894881-uhd_3840_2160_24fps.mp4" type="video/mp4" />
           </video>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/70 via-neutral-900/60 to-neutral-900" />
         <div className="relative max-w-3xl mx-auto space-y-6 pt-40">
           <h1 className="text-4xl md:text-6xl font-judson">Our Favorite Spots, Everywhere</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
