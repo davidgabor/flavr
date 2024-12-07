@@ -137,32 +137,28 @@ const PersonProfile = () => {
   ) || [];
 
   return (
-    <div className="min-h-screen bg-neutral-900 text-white">
+    <div className="min-h-screen bg-neutral-900 text-white pt-12">
       <PersonHeader person={person} />
       
-      <div className="mb-8">
-        <PersonFilters
-          destinations={destinations}
-          currentTab={currentTab}
-          currentType={currentType}
-          types={types}
-          onDestinationChange={handleDestinationChange}
-          onTypeChange={handleTypeChange}
-        />
-        
+      <PersonStats
+        totalRecommendations={totalRecommendations}
+        totalDestinations={destinations.length}
+      />
+
+      <PersonFilters
+        destinations={destinations}
+        currentTab={currentTab}
+        currentType={currentType}
+        types={types}
+        onDestinationChange={handleDestinationChange}
+        onTypeChange={handleTypeChange}
+      />
+      
+      {selectedDestination && (
         <div className="container mx-auto px-4 mt-8">
-          <PersonStats
-            totalRecommendations={totalRecommendations}
-            totalDestinations={destinations.length}
-          />
-          
-          {selectedDestination && (
-            <div className="mt-6">
-              <PersonRecommendationGrid recommendations={filteredRecommendations} />
-            </div>
-          )}
+          <PersonRecommendationGrid recommendations={filteredRecommendations} />
         </div>
-      </div>
+      )}
     </div>
   );
 };

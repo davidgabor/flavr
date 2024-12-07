@@ -4,9 +4,11 @@ type PersonStatsProps = {
 };
 
 const PersonStats = ({ totalRecommendations, totalDestinations }: PersonStatsProps) => (
-  <div className="flex gap-4 text-sm text-neutral-400">
-    <div>{totalRecommendations} recommendations</div>
-    <div>{totalDestinations} destinations</div>
+  <div className="container mx-auto px-4 mb-8">
+    <div className="flex gap-8 text-neutral-400">
+      <div>{totalRecommendations} recommendations</div>
+      <div>{totalDestinations} destinations</div>
+    </div>
   </div>
 );
 
