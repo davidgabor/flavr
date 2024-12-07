@@ -86,9 +86,7 @@ const Home = () => {
         <div className="relative max-w-3xl mx-auto space-y-6 pt-40">
           <h1 className="text-4xl md:text-6xl font-judson">Our Favorite Spots, Everywhere</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
-            We're David and Maja, two food lovers sharing our favorite spots from cities around the
-            world. From cozy local haunts to standout dining experiences, each pick is a place we've
-            tried, loved, and can't wait for you to enjoy.
+            We're David and Maja, sharing our favorite spots from around the world—places we've tried, loved, and trust. As Flavr grows, we'll bring friends and family onboard to expand this guide with even more recommendations you can count on.
           </p>
           <ProfileImages />
           <div className="text-sm text-neutral-400">Enjoy,<br />David & Maja</div>
