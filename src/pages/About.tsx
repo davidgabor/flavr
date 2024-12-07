@@ -20,7 +20,7 @@ const About = () => {
       ] = await Promise.all([
         supabase.from('recommendations').select('*', { count: 'exact', head: true }),
         supabase.from('destinations').select('*', { count: 'exact', head: true }),
-        supabase.from('recommendations').select('cuisine', { count: 'exact', head: true }).select('cuisine')
+        supabase.from('recommendations').select('cuisine')
       ]);
 
       // Get unique cuisines by filtering out duplicates
