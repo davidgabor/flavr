@@ -48,7 +48,7 @@ const About = () => {
         <div className="relative max-w-3xl mx-auto space-y-6">
           <h1 className="text-4xl md:text-6xl font-judson">About Flavr</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
-            Discover the story behind our mission to share the world's most memorable dining experiences.
+            Learn more about our journey and why we're passionate about sharing dining experiences we truly love.
           </p>
         </div>
       </section>
