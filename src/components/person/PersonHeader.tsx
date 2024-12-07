@@ -2,9 +2,11 @@ import { Person } from "@/types/person";
 
 interface PersonHeaderProps {
   person: Person;
+  totalRecommendations?: number;
+  totalDestinations?: number;
 }
 
-const PersonHeader = ({ person }: PersonHeaderProps) => (
+const PersonHeader = ({ person, totalRecommendations = 0, totalDestinations = 0 }: PersonHeaderProps) => (
   <div className="container mx-auto px-4">
     <div className="flex flex-col lg:flex-row gap-8 mb-8">
       {/* Left column with profile info */}
@@ -44,32 +46,25 @@ const PersonHeader = ({ person }: PersonHeaderProps) => (
       </div>
 
       {/* Right column with stats card */}
-      <div className="lg:w-80 bg-neutral-800/50 rounded-xl border border-white/10 p-6 self-start">
-        <div className="space-y-4">
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-neutral-400">Profile completion</span>
-              <span className="text-sm text-neutral-300">85%</span>
+      <div className="lg:w-72 bg-neutral-800/50 rounded-xl border border-white/10 p-6 self-start">
+        <div className="space-y-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
             </div>
-            <div className="h-1.5 bg-neutral-700 rounded-full overflow-hidden">
-              <div className="h-full w-[85%] bg-primary rounded-full" />
+            <div>
+              <p className="text-2xl font-judson text-white">{totalRecommendations}</p>
+              <p className="text-sm text-neutral-400">Recommendations</p>
             </div>
           </div>
 
-          <div className="h-px bg-white/10" />
-
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-neutral-400">Favorite spots</span>
-              <span className="text-sm text-neutral-300">Restaurants, Bars</span>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-neutral-400">Reviews written</span>
-              <span className="text-sm text-neutral-300">124</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-neutral-400">Member since</span>
-              <span className="text-sm text-neutral-300">2023</span>
+            <div>
+              <p className="text-2xl font-judson text-white">{totalDestinations}</p>
+              <p className="text-sm text-neutral-400">Destinations</p>
             </div>
           </div>
         </div>

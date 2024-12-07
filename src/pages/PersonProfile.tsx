@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import PersonHeader from "@/components/person/PersonHeader";
 import PersonFilters from "@/components/person/PersonFilters";
-import PersonStats from "@/components/person/PersonStats";
 import PersonRecommendationGrid from "@/components/person/PersonRecommendationGrid";
 import type { Person } from "@/types/person";
 import type { RecommendationWithDestination } from "@/types/recommendation";
@@ -138,13 +137,12 @@ const PersonProfile = () => {
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white pt-12">
-      <PersonHeader person={person} />
-      
-      <PersonStats
+      <PersonHeader 
+        person={person} 
         totalRecommendations={totalRecommendations}
         totalDestinations={destinations.length}
       />
-
+      
       <PersonFilters
         destinations={destinations}
         currentTab={currentTab}
