@@ -45,7 +45,7 @@ const EmptyBlog = () => {
             Stories Coming Soon
           </h2>
           <p className="text-base md:text-lg text-neutral-300 max-w-xl mx-auto leading-relaxed px-4">
-            We're working on sharing our personal stories about the places we've loved. Please check back soon for our insights into some of our favorite destinations.
+            We're working on sharing our personal stories about the places we've loved. Please check back soon for our insights, guides and stories into some of our favorite destinations.
           </p>
         </div>
 
