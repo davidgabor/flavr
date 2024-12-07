@@ -6,17 +6,30 @@ const DestinationsShowcase = () => {
   const { data: destinations = [] } = useQuery({
     queryKey: ["featured-destinations"],
     queryFn: async () => {
+      console.log('Fetching featured destinations...');
+      
       const { data, error } = await supabase
-        .from("destinations")
+        .from('destinations')
         .select(`
           *,
-          recommendations:recommendations(count)
+          recommendations!inner (id)
         `)
-        .order('recommendations(count)', { ascending: false })
         .limit(6);
       
-      if (error) throw error;
-      return data;
+      if (error) {
+        console.error('Error fetching destinations:', error);
+        throw error;
+      }
+
+      // Process the data to count recommendations
+      const processedData = data.map(destination => ({
+        ...destination,
+        recommendationCount: destination.recommendations?.length || 0
+      }))
+      .sort((a, b) => b.recommendationCount - a.recommendationCount);
+
+      console.log('Processed destinations:', processedData);
+      return processedData;
     },
   });
 
@@ -46,7 +59,7 @@ const DestinationsShowcase = () => {
               <div className="absolute bottom-0 left-0 right-0 p-4">
                 <h3 className="text-xl font-judson text-white">{destination.name}</h3>
                 <p className="text-sm text-neutral-200">
-                  {destination.recommendations[0]?.count || 0} recommendations
+                  {destination.recommendationCount} recommendations
                 </p>
               </div>
             </Link>
