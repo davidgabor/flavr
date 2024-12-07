@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Person } from "@/types/person";
 import NewsletterForm from "@/components/common/NewsletterForm";
+import { Helmet } from "react-helmet";
 
 const People = () => {
   const { data: people = [], isLoading } = useQuery({
@@ -30,6 +31,14 @@ const People = () => {
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
+      <Helmet>
+        <title>People</title>
+        <meta 
+          name="description" 
+          content="Get to know the passionate food enthusiasts and locals behind our recommendations, sharing the best dining experiences from around the world."
+        />
+      </Helmet>
+
       <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16 pt-32 mb-16">
         <div className="absolute inset-0">
           <div className="w-full h-full bg-[url('https://i.ibb.co/6YN33Lj/pexels-anntarazevich-6937451-min.jpg')] bg-cover bg-center opacity-20" />
