@@ -4,8 +4,34 @@ import { Link } from "react-router-dom";
 import MissionSection from "@/components/about/MissionSection";
 import StorySection from "@/components/about/StorySection";
 import DestinationsShowcase from "@/components/about/DestinationsShowcase";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 const About = () => {
+  const { data: stats } = useQuery({
+    queryKey: ["site-stats"],
+    queryFn: async () => {
+      console.log('Fetching site statistics...');
+      
+      const [
+        { count: recommendationsCount },
+        { count: destinationsCount },
+        { count: subscribersCount }
+      ] = await Promise.all([
+        supabase.from('recommendations').select('*', { count: 'exact', head: true }),
+        supabase.from('destinations').select('*', { count: 'exact', head: true }),
+        supabase.from('newsletter_subscribers').select('*', { count: 'exact', head: true })
+      ]);
+
+      console.log('Stats fetched:', { recommendationsCount, destinationsCount, subscribersCount });
+      return {
+        recommendations: recommendationsCount || 0,
+        destinations: destinationsCount || 0,
+        subscribers: subscribersCount || 0
+      };
+    }
+  });
+
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
       {/* Hero Section */}
@@ -39,16 +65,22 @@ const About = () => {
             <div className="absolute inset-0 bg-neutral-800/50 blur-3xl transform -translate-y-1/2" />
             <div className="relative grid md:grid-cols-3 gap-8 text-center">
               <div className="space-y-2">
-                <div className="text-4xl md:text-5xl font-judson text-primary">150+</div>
-                <div className="text-neutral-400">Curated Restaurants</div>
+                <div className="text-4xl md:text-5xl font-judson text-primary">
+                  {stats?.recommendations || 0}+
+                </div>
+                <div className="text-neutral-400">Curated Recommendations</div>
               </div>
               <div className="space-y-2">
-                <div className="text-4xl md:text-5xl font-judson text-primary">12</div>
-                <div className="text-neutral-400">Global Cities</div>
+                <div className="text-4xl md:text-5xl font-judson text-primary">
+                  {stats?.destinations || 0}
+                </div>
+                <div className="text-neutral-400">Global Destinations</div>
               </div>
               <div className="space-y-2">
-                <div className="text-4xl md:text-5xl font-judson text-primary">1000+</div>
-                <div className="text-neutral-400">Happy Food Lovers</div>
+                <div className="text-4xl md:text-5xl font-judson text-primary">
+                  {stats?.subscribers || 0}+
+                </div>
+                <div className="text-neutral-400">Newsletter Subscribers</div>
               </div>
             </div>
           </section>
