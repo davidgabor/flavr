@@ -106,7 +106,7 @@ const DestinationDetails = () => {
   return (
     <div className="relative min-h-screen bg-neutral-900">
       <Helmet>
-        <title>{destinationData.name} - Flavr</title>
+        <title>{destinationData.name}</title>
         <meta 
           name="description" 
           content={destinationData.description}

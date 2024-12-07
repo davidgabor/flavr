@@ -35,10 +35,10 @@ const Destinations = () => {
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
       <Helmet>
-        <title>Destinations - Flavr</title>
+        <title>Destinations</title>
         <meta 
           name="description" 
-          content="Browse our curated collection of cities and uncover unique culinary experiences, hidden gems, and unforgettable dining spots worldwide."
+          content="Explore our handpicked selection of cities, each filled with unique culinary experiences and hidden gems to discover."
         />
       </Helmet>
 
