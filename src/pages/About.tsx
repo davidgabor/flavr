@@ -20,10 +20,13 @@ const About = () => {
       ] = await Promise.all([
         supabase.from('recommendations').select('*', { count: 'exact', head: true }),
         supabase.from('destinations').select('*', { count: 'exact', head: true }),
-        supabase.from('recommendations').select('cuisine').distinct()
+        supabase.from('recommendations').select('cuisine', { count: 'exact', head: true }).select('cuisine')
       ]);
 
-      const uniqueCuisinesCount = cuisines?.length || 0;
+      // Get unique cuisines by filtering out duplicates
+      const uniqueCuisines = cuisines ? [...new Set(cuisines.map(item => item.cuisine))] : [];
+      const uniqueCuisinesCount = uniqueCuisines.length;
+      
       console.log('Stats fetched:', { recommendationsCount, destinationsCount, uniqueCuisinesCount });
       
       return {
