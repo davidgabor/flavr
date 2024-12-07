@@ -24,7 +24,7 @@ const PersonHeader = ({ person, totalRecommendations = 0, totalDestinations = 0 
               <h1 className="text-4xl font-judson">{person.name}</h1>
               <div className="flex items-center gap-2 mt-2">
                 <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
-                  Expert Curator
+                  Food Lover
                 </span>
               </div>
             </div>
