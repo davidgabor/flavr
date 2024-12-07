@@ -1,110 +1,58 @@
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination } from "@/types/recommendation";
 import NewsletterForm from "@/components/common/NewsletterForm";
+import { Helmet } from "react-helmet";
 
 const Destinations = () => {
-  const navigate = useNavigate();
   const { data: destinations = [], isLoading } = useQuery({
     queryKey: ["destinations"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("destinations")
-        .select(`
-          *,
-          recommendations:recommendations(count)
-        `)
-        .order('region');
-      
+        .select("*");
+
       if (error) throw error;
-      return data as (Destination & { recommendations: { count: number }[] })[];
+      return data as Destination[];
     },
   });
 
-  // Group destinations by region
-  const groupedDestinations = destinations.reduce((acc, destination) => {
-    const region = destination.region || 'Other';
-    if (!acc[region]) {
-      acc[region] = [];
-    }
-    acc[region].push(destination);
-    return acc;
-  }, {} as Record<string, (Destination & { recommendations: { count: number }[] })[]>);
-
-  const handleDestinationClick = (destinationName: string) => {
-    window.scrollTo(0, 0);
-    navigate(`/${destinationName.toLowerCase().replace(/\s+/g, '-')}`);
-  };
-
-  const DestinationCard = ({ destination }: { destination: Destination & { recommendations: { count: number }[] } }) => (
-    <button
-      onClick={() => handleDestinationClick(destination.name)}
-      className="text-left group"
-    >
-      <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 group-hover:shadow-2xl transition-all duration-500">
-        <img
-          src={destination.image}
-          alt={destination.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          loading="lazy"
-        />
-      </div>
-      <div className="space-y-1">
-        <p className="text-xs uppercase tracking-wider text-neutral-500">{destination.country}</p>
-        <h3 className="text-2xl font-judson transition-colors duration-300 group-hover:text-primary">{destination.name}</h3>
-        <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
-      </div>
-    </button>
-  );
-
   if (isLoading) {
-    return <div className="min-h-screen bg-neutral-900 flex items-center justify-center">
-      <div className="text-neutral-400">Loading...</div>
-    </div>;
+    return <div className="min-h-screen bg-neutral-900 flex items-center justify-center">Loading...</div>;
   }
 
   return (
-    <div className="min-h-screen bg-neutral-900 text-white pb-32">
-      {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16 pt-32 mb-24">
-        <div className="absolute inset-0">
-          <div className="w-full h-full bg-[url('https://i.ibb.co/KzFXhgZ/pexels-cottonbro-3298637-min.jpg')] bg-cover bg-center" />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
-        <div className="relative max-w-3xl mx-auto space-y-6">
-          <h1 className="text-4xl md:text-6xl font-judson">Explore Our Destinations</h1>
-          <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
-            Explore our handpicked selection of cities, each filled with unique culinary experiences and hidden gems to discover.
-          </p>
+    <div className="min-h-screen bg-neutral-900 text-white">
+      <Helmet>
+        <title>Explore Culinary Destinations with Flavr</title>
+        <meta 
+          name="description" 
+          content="Browse our curated collection of cities and uncover unique culinary experiences, hidden gems, and unforgettable dining spots worldwide."
+        />
+      </Helmet>
+
+      <section className="container px-4 mx-auto py-24">
+        <h1 className="text-4xl font-judson mb-8">Destinations</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {destinations.map((destination) => (
+            <Link key={destination.id} to={`/${destination.name.toLowerCase().replace(/\s+/g, '-')}`} className="card group">
+              <div className="aspect-[16/9] overflow-hidden bg-neutral-800">
+                <img
+                  src={destination.image}
+                  alt={destination.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="p-6 space-y-4">
+                <h3 className="text-2xl font-judson group-hover:text-primary transition-colors">
+                  {destination.name}
+                </h3>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
-
-      {/* Newsletter Section */}
-      <section className="relative -mt-32 mb-24">
-        <div className="container px-4 mx-auto">
-          <div className="max-w-xl mx-auto">
-            <NewsletterForm />
-          </div>
-        </div>
-      </section>
-
-      <div className="container px-4 mx-auto space-y-24">
-        {Object.entries(groupedDestinations).map(([region, destinations]) => (
-          <section key={region} className="space-y-8">
-            <div className="flex items-center gap-8 mb-12">
-              <div className="h-px bg-white/20 flex-1" />
-              <h2 className="text-3xl font-judson text-center">{region}</h2>
-              <div className="h-px bg-white/20 flex-1" />
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {destinations.map((destination) => (
-                <DestinationCard key={destination.id} destination={destination} />
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
     </div>
   );
 };

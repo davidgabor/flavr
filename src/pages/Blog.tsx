@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatDistanceToNow } from "date-fns";
 import NewsletterForm from "@/components/common/NewsletterForm";
 import EmptyBlog from "@/components/blog/EmptyBlog";
+import { Helmet } from "react-helmet";
 
 interface BlogPost {
   id: string;
@@ -45,6 +46,14 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
+      <Helmet>
+        <title>Flavr Blog - Stories Behind the Plates</title>
+        <meta 
+          name="description" 
+          content="Dive into stories, insights, and tips from our favorite food and drink experiences around the globe, written by food lovers for food lovers."
+        />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="relative h-[50vh] flex items-center justify-center text-center px-4 -mt-16 pt-32">
         <div className="absolute inset-0">

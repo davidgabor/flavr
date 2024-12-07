@@ -6,6 +6,7 @@ import StorySection from "@/components/about/StorySection";
 import DestinationsShowcase from "@/components/about/DestinationsShowcase";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { Helmet } from "react-helmet";
 
 const About = () => {
   const { data: stats } = useQuery({
@@ -39,6 +40,14 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
+      <Helmet>
+        <title>About Flavr - Meet the Foodies Behind the Guide</title>
+        <meta 
+          name="description" 
+          content="Learn more about David and Maja, the food enthusiasts who started Flavr to share their favorite dining spots, and their mission to connect people through great food."
+        />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16 pt-32 mb-24">
         <div className="absolute inset-0">

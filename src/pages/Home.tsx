@@ -6,6 +6,7 @@ import NewsletterForm from "@/components/common/NewsletterForm";
 import ProfileImages from "@/components/home/ProfileImages";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -69,7 +70,15 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white pb-32">
-      {/* Hero Section */}
+      <Helmet>
+        <title>Flavr - Trusted Dining Recommendations</title>
+        <meta 
+          name="description" 
+          content="Discover our favorite restaurants and bars across the world, handpicked by passionate food lovers. Every spot is personally tried and trusted."
+        />
+      </Helmet>
+
+      {/* Rest of the component */}
       <section className="relative h-[80vh] flex items-center justify-center text-center px-4 -mt-16">
         <div className="absolute inset-0">
           <video
