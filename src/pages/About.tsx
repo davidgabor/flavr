@@ -16,18 +16,18 @@ const About = () => {
       const [
         { count: recommendationsCount },
         { count: destinationsCount },
-        { count: subscribersCount }
+        { count: peopleCount }
       ] = await Promise.all([
         supabase.from('recommendations').select('*', { count: 'exact', head: true }),
         supabase.from('destinations').select('*', { count: 'exact', head: true }),
-        supabase.from('newsletter_subscribers').select('*', { count: 'exact', head: true })
+        supabase.from('people').select('*', { count: 'exact', head: true })
       ]);
 
-      console.log('Stats fetched:', { recommendationsCount, destinationsCount, subscribersCount });
+      console.log('Stats fetched:', { recommendationsCount, destinationsCount, peopleCount });
       return {
         recommendations: recommendationsCount || 0,
         destinations: destinationsCount || 0,
-        subscribers: subscribersCount || 0
+        experts: peopleCount || 0
       };
     }
   });
@@ -78,9 +78,9 @@ const About = () => {
               </div>
               <div className="space-y-2">
                 <div className="text-4xl md:text-5xl font-judson text-primary">
-                  {stats?.subscribers || 0}+
+                  {stats?.experts || 0}+
                 </div>
-                <div className="text-neutral-400">Newsletter Subscribers</div>
+                <div className="text-neutral-400">Food Experts</div>
               </div>
             </div>
           </section>
