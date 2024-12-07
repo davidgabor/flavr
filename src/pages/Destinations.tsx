@@ -42,31 +42,31 @@ const Destinations = () => {
         />
       </Helmet>
 
-      {/* Hero Section with Newsletter */}
-      <section className="relative h-[60vh] flex items-center justify-center text-center px-4">
+      {/* Hero Section */}
+      <section className="relative h-[70vh] flex items-center justify-center text-center px-4 -mt-16 pt-32 mb-24">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
-          <img
-            src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=3270&auto=format&fit=crop"
-            alt="Destinations"
-            className="w-full h-full object-cover"
-          />
+          <div className="w-full h-full bg-[url('https://i.ibb.co/KzFXhgZ/pexels-cottonbro-3298637-min.jpg')] bg-cover bg-center" />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/40 to-neutral-900" />
         <div className="relative max-w-3xl mx-auto space-y-6">
           <h1 className="text-4xl md:text-6xl font-judson">Our Destinations</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
             Explore our curated collection of exceptional dining experiences from around the world.
           </p>
-          
-          {/* Newsletter Section */}
-          <div className="pt-8">
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="relative -mt-32 mb-24">
+        <div className="container px-4 mx-auto">
+          <div className="max-w-xl mx-auto">
             <NewsletterForm />
           </div>
         </div>
       </section>
 
       {/* Destinations Grid */}
-      <section className="container px-4 mx-auto py-24">
+      <section className="container px-4 mx-auto">
         <div className="mt-32 space-y-24">
           {Object.entries(destinationsByRegion).map(([region, regionDestinations]) => (
             <section key={region} className="space-y-8">
