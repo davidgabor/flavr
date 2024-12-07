@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import MissionSection from "@/components/about/MissionSection";
 import StorySection from "@/components/about/StorySection";
+import DestinationsShowcase from "@/components/about/DestinationsShowcase";
 
 const About = () => {
   return (
@@ -54,6 +55,7 @@ const About = () => {
 
           <StorySection />
           <MissionSection />
+          <DestinationsShowcase />
 
           {/* CTA Section */}
           <section className="grid md:grid-cols-2 gap-16 items-center">
