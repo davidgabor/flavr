@@ -7,6 +7,7 @@ import RecommendationContent from "@/components/recommendation/RecommendationCon
 import MoreRecommendations from "@/components/recommendation/MoreRecommendations";
 import NewsletterSection from "@/components/recommendation/NewsletterSection";
 import type { Recommendation } from "@/types/recommendation";
+import { Helmet } from "react-helmet";
 
 const RecommendationDetails = () => {
   const { destinationSlug, recommendationSlug } = useParams();
@@ -84,6 +85,15 @@ const RecommendationDetails = () => {
 
   return (
     <div className="animate-fade-in">
+      {recommendation && (
+        <Helmet>
+          <title>{recommendation.name} - Flavr</title>
+          <meta 
+            name="description" 
+            content={recommendation.description || `${recommendation.name} in ${recommendation.destinations.name}, ${recommendation.destinations.country}`}
+          />
+        </Helmet>
+      )}
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-[1400px] mx-auto space-y-24">
           <RecommendationHeader {...recommendation} />

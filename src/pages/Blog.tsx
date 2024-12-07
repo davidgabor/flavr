@@ -47,7 +47,7 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
       <Helmet>
-        <title>Flavr Blog - Stories Behind the Plates</title>
+        <title>Blog - Flavr</title>
         <meta 
           name="description" 
           content="Dive into stories, insights, and tips from our favorite food and drink experiences around the globe, written by food lovers for food lovers."

@@ -35,7 +35,7 @@ const Destinations = () => {
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
       <Helmet>
-        <title>Explore Culinary Destinations with Flavr</title>
+        <title>Destinations - Flavr</title>
         <meta 
           name="description" 
           content="Browse our curated collection of cities and uncover unique culinary experiences, hidden gems, and unforgettable dining spots worldwide."

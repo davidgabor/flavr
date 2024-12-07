@@ -41,10 +41,10 @@ const About = () => {
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
       <Helmet>
-        <title>About Flavr - Meet the Foodies Behind the Guide</title>
+        <title>About Flavr</title>
         <meta 
           name="description" 
-          content="Learn more about David and Maja, the food enthusiasts who started Flavr to share their favorite dining spots, and their mission to connect people through great food."
+          content="Learn more about Flavr and our mission to connect people through great food."
         />
       </Helmet>
 

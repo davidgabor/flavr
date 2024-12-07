@@ -7,6 +7,7 @@ import EmptyDestination from "@/components/destination/EmptyDestination";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination, Recommendation } from "@/types/recommendation";
 import NewsletterForm from "@/components/common/NewsletterForm";
+import { Helmet } from "react-helmet";
 
 const pluralizeType = (type: string, count: number) => {
   if (count <= 1) return type;
@@ -104,6 +105,13 @@ const DestinationDetails = () => {
 
   return (
     <div className="relative min-h-screen bg-neutral-900">
+      <Helmet>
+        <title>{destinationData.name} - Flavr</title>
+        <meta 
+          name="description" 
+          content={destinationData.description}
+        />
+      </Helmet>
       <DestinationHeader 
         name={destinationData.name}
         description={destinationData.description}
