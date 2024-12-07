@@ -16,18 +16,20 @@ const About = () => {
       const [
         { count: recommendationsCount },
         { count: destinationsCount },
-        { count: peopleCount }
+        { data: cuisines }
       ] = await Promise.all([
         supabase.from('recommendations').select('*', { count: 'exact', head: true }),
         supabase.from('destinations').select('*', { count: 'exact', head: true }),
-        supabase.from('people').select('*', { count: 'exact', head: true })
+        supabase.from('recommendations').select('cuisine').distinct()
       ]);
 
-      console.log('Stats fetched:', { recommendationsCount, destinationsCount, peopleCount });
+      const uniqueCuisinesCount = cuisines?.length || 0;
+      console.log('Stats fetched:', { recommendationsCount, destinationsCount, uniqueCuisinesCount });
+      
       return {
         recommendations: recommendationsCount || 0,
         destinations: destinationsCount || 0,
-        experts: peopleCount || 0
+        cuisines: uniqueCuisinesCount
       };
     }
   });
@@ -78,13 +80,14 @@ const About = () => {
               </div>
               <div className="space-y-2">
                 <div className="text-4xl md:text-5xl font-judson text-primary">
-                  {stats?.experts || 0}+
+                  {stats?.cuisines || 0}
                 </div>
-                <div className="text-neutral-400">Food Experts</div>
+                <div className="text-neutral-400">Unique Cuisines</div>
               </div>
             </div>
           </section>
 
+          {/* Rest of the sections */}
           <StorySection />
           <MissionSection />
           <DestinationsShowcase />
