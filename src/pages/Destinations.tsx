@@ -51,7 +51,7 @@ const Destinations = () => {
         <div className="relative max-w-3xl mx-auto space-y-6">
           <h1 className="text-4xl md:text-6xl font-judson">Our Destinations</h1>
           <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto">
-            Explore our curated collection of exceptional dining experiences from around the world.
+            Explore our handpicked selection of cities, each filled with unique culinary experiences and hidden gems to discover.
           </p>
         </div>
       </section>
