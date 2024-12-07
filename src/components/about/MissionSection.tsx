@@ -10,27 +10,27 @@ const MissionSection = () => {
             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110">
               <Utensils className="w-6 h-6 text-primary" />
             </div>
-            <h3 className="text-xl font-judson">Curate Excellence</h3>
+            <h3 className="text-xl font-judson">Discover and Share</h3>
             <p className="text-neutral-400 leading-relaxed">
-              We personally visit and review each restaurant to ensure exceptional quality and memorable experiences.
+              We're passionate about finding amazing places to eat and drink and sharing them with others who love food as much as we do.
             </p>
           </div>
           <div className="group space-y-3">
             <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110">
               <Globe className="w-6 h-6 text-secondary" />
             </div>
-            <h3 className="text-xl font-judson">Connect Cultures</h3>
+            <h3 className="text-xl font-judson">Celebrate Connections</h3>
             <p className="text-neutral-400 leading-relaxed">
-              Through food, we bridge cultural gaps and create connections between people and places.
+              We believe food is a universal language that brings people and cultures together, creating memorable experiences.
             </p>
           </div>
           <div className="group space-y-3">
             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110">
               <Heart className="w-6 h-6 text-primary" />
             </div>
-            <h3 className="text-xl font-judson">Share Passion</h3>
+            <h3 className="text-xl font-judson">Inspire Trust</h3>
             <p className="text-neutral-400 leading-relaxed">
-              We're dedicated to sharing our love for exceptional dining experiences with food enthusiasts worldwide.
+              Every recommendation is a place we've personally tried and loved, so you can explore with confidence.
             </p>
           </div>
         </div>
