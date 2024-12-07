@@ -5,7 +5,6 @@ import PersonHeader from "@/components/person/PersonHeader";
 import PersonStats from "@/components/person/PersonStats";
 import PersonFilters from "@/components/person/PersonFilters";
 import PersonRecommendationGrid from "@/components/person/PersonRecommendationGrid";
-import NewsletterForm from "@/components/common/NewsletterForm";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import type { Person } from "@/types/person";
@@ -151,12 +150,6 @@ const PersonProfile = () => {
 
         <div className="container mx-auto px-4">
           <PersonRecommendationGrid recommendations={filteredRecommendations} />
-        </div>
-
-        <div className="container mx-auto px-4">
-          <div className="max-w-xl mx-auto">
-            <NewsletterForm />
-          </div>
         </div>
       </div>
     </div>
