@@ -20,10 +20,10 @@ const StorySection = () => {
         </div>
         <div className="prose prose-invert space-y-6">
           <p className="text-lg text-neutral-300 leading-relaxed">
-            We're David and Maja, two food enthusiasts who turned our passion for discovering exceptional dining spots into a mission to help others find their next favorite place.
+            We're David and Maja, two food enthusiasts who love discovering great places to eat and drink. What started as a personal list of our favorite spots has grown into a way to share recommendations with others.
           </p>
           <p className="text-lg text-neutral-300 leading-relaxed mb-8">
-            What started as a personal collection of restaurant recommendations for friends has grown into a curated platform of our favorite dining experiences from around the world. Our journey began in the vibrant streets of Barcelona, where we discovered that every meal could tell a story and create lasting memories.
+            Each place we share is one we've tried, loved, and truly believe you'll enjoy too. We hope Flavr helps you find your next favorite meal or drink, whether it's a hidden gem or a standout destination.
           </p>
           <div>
             <Link 
