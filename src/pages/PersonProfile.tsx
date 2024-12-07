@@ -6,7 +6,7 @@ import PersonStats from "@/components/person/PersonStats";
 import PersonFilters from "@/components/person/PersonFilters";
 import PersonRecommendationGrid from "@/components/person/PersonRecommendationGrid";
 import NewsletterForm from "@/components/common/NewsletterForm";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import type { Person } from "@/types/person";
 import type { RecommendationWithDestination } from "@/types/recommendation";
@@ -92,12 +92,13 @@ const PersonProfile = () => {
     enabled: !!personSlug,
   });
 
-  // Set initial tab
-  useState(() => {
+  // Set initial destination when data is loaded
+  useEffect(() => {
     if (destinations.length > 0 && !currentTab) {
+      console.log('Setting initial destination:', destinations[0].id);
       setCurrentTab(destinations[0].id);
     }
-  });
+  }, [destinations]);
 
   const selectedDestination = destinations.find(d => d.id === currentTab);
   const recommendations = selectedDestination?.recommendations || [];
@@ -120,7 +121,7 @@ const PersonProfile = () => {
   return (
     <div className="min-h-screen bg-neutral-900">
       <Helmet>
-        <title>{person.name} - Flavr</title>
+        <title>{person.name}</title>
         <meta 
           name="description" 
           content={person.bio || `Discover ${person.name}'s favorite restaurants and bars on Flavr`}
