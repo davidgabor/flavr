@@ -44,31 +44,37 @@ const Destinations = () => {
 
       <section className="container px-4 mx-auto py-24">
         <h1 className="heading-1">Destinations</h1>
-        <div className="space-y-16">
+        <div className="mt-32 space-y-24">
           {Object.entries(destinationsByRegion).map(([region, regionDestinations]) => (
-            <div key={region} className="space-y-8">
-              <h2 className="heading-2 text-neutral-200">{region}</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <section key={region} className="space-y-8">
+              <div className="flex items-center gap-8 mb-12">
+                <div className="h-px bg-white/20 flex-1" />
+                <h2 className="text-3xl font-judson text-center">{region}</h2>
+                <div className="h-px bg-white/20 flex-1" />
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {regionDestinations.map((destination) => (
                   <Link 
                     key={destination.id} 
                     to={`/${destination.name.toLowerCase().replace(/\s+/g, '-')}`} 
-                    className="group"
+                    className="text-left group"
                   >
-                    <div className="aspect-[16/9] overflow-hidden rounded-lg mb-4">
+                    <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 group-hover:shadow-2xl transition-all duration-500">
                       <img
                         src={destination.image}
                         alt={destination.name}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        loading="lazy"
                       />
                     </div>
-                    <h3 className="text-2xl font-judson group-hover:text-primary transition-colors">
-                      {destination.name}
-                    </h3>
+                    <div className="space-y-1">
+                      <p className="text-xs uppercase tracking-wider text-neutral-500">{destination.country}</p>
+                      <h3 className="text-2xl font-judson transition-colors duration-300 group-hover:text-primary">{destination.name}</h3>
+                    </div>
                   </Link>
                 ))}
               </div>
-            </div>
+            </section>
           ))}
         </div>
       </section>
