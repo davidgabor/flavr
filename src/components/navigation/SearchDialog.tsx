@@ -43,10 +43,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
         supabase
           .from("destinations")
           .select("id, name, description")
-          .textSearch('name_search', debouncedQuery, {
-            type: 'websearch',
-            config: 'english'
-          })
+          .ilike('name', `%${debouncedQuery}%`)
           .limit(5),
         supabase
           .from("recommendations")
@@ -58,10 +55,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
               name
             )
           `)
-          .textSearch('name_search', debouncedQuery, {
-            type: 'websearch',
-            config: 'english'
-          })
+          .ilike('name', `%${debouncedQuery}%`)
           .limit(5)
       ]);
 
@@ -121,16 +115,12 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
 
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <div className="flex items-center border-b border-neutral-700/50 px-3">
-        <Search className="mr-2 h-4 w-4 shrink-0 text-neutral-400" />
-        <CommandInput
-          placeholder="Search destinations and recommendations..."
-          value={searchQuery}
-          onValueChange={setSearchQuery}
-          className="h-14"
-        />
-      </div>
-      <CommandList className="max-h-[400px] overflow-y-auto p-2">
+      <CommandInput
+        placeholder="Search destinations and recommendations..."
+        value={searchQuery}
+        onValueChange={setSearchQuery}
+      />
+      <CommandList>
         {debouncedQuery.length > 0 ? (
           <>
             {isLoading ? (
@@ -140,18 +130,18 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
             ) : searchResults && searchResults.length > 0 ? (
               <>
                 {searchResults.some(r => r.resultType === "destination") && (
-                  <CommandGroup heading="Destinations" className="pb-4">
+                  <CommandGroup heading="Destinations">
                     {searchResults
                       .filter(r => r.resultType === "destination")
                       .map((result) => (
                         <CommandItem
                           key={`${result.resultType}-${result.id}`}
                           onSelect={() => handleResultClick(result)}
-                          className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-neutral-800/50 rounded-lg transition-colors"
+                          className="flex items-center gap-3 px-4 py-3"
                         >
                           <MapPin className="h-4 w-4 text-primary shrink-0" />
                           <div className="flex flex-col gap-1">
-                            <span className="font-medium text-white">{result.name}</span>
+                            <span className="font-medium">{result.name}</span>
                             {result.description && (
                               <span className="text-sm text-neutral-400 line-clamp-1">
                                 {result.description}
@@ -163,18 +153,18 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
                   </CommandGroup>
                 )}
                 {searchResults.some(r => r.resultType === "recommendation") && (
-                  <CommandGroup heading="Recommendations" className="pt-2 border-t border-neutral-700/50">
+                  <CommandGroup heading="Recommendations">
                     {searchResults
                       .filter(r => r.resultType === "recommendation")
                       .map((result) => (
                         <CommandItem
                           key={`${result.resultType}-${result.id}`}
                           onSelect={() => handleResultClick(result)}
-                          className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-neutral-800/50 rounded-lg transition-colors"
+                          className="flex items-center gap-3 px-4 py-3"
                         >
                           <Utensils className="h-4 w-4 text-primary shrink-0" />
                           <div className="flex flex-col gap-1">
-                            <span className="font-medium text-white">{result.name}</span>
+                            <span className="font-medium">{result.name}</span>
                             <span className="text-sm text-neutral-400">
                               {result.type} • {result.destination_name}
                             </span>
@@ -185,7 +175,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
                 )}
               </>
             ) : (
-              <CommandEmpty className="py-6 text-center text-sm text-neutral-400">
+              <CommandEmpty>
                 No results found.
               </CommandEmpty>
             )}
