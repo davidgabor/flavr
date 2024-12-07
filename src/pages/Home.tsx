@@ -11,18 +11,33 @@ import { Helmet } from "react-helmet";
 const Home = () => {
   const navigate = useNavigate();
   const { data: destinations = [], isLoading } = useQuery({
-    queryKey: ["destinations"],
+    queryKey: ["destinations-with-counts"],
     queryFn: async () => {
-      const { data, error } = await supabase
+      console.log('Fetching destinations with recommendation counts...');
+      
+      const { data: destinationsData, error } = await supabase
         .from("destinations")
         .select(`
           *,
-          recommendations:recommendations(count)
+          recommendations!left (
+            id
+          )
         `)
         .order('region');
       
-      if (error) throw error;
-      return data as (Destination & { recommendations: { count: number }[] })[];
+      if (error) {
+        console.error('Error fetching destinations:', error);
+        throw error;
+      }
+
+      // Process the data to include recommendation counts
+      const processedData = destinationsData.map(destination => ({
+        ...destination,
+        recommendationCount: destination.recommendations?.length || 0
+      }));
+
+      console.log('Processed destinations data:', processedData);
+      return processedData;
     },
   });
 
@@ -34,14 +49,14 @@ const Home = () => {
     }
     acc[region].push(destination);
     return acc;
-  }, {} as Record<string, (Destination & { recommendations: { count: number }[] })[]>);
+  }, {} as Record<string, typeof destinations[0][]>);
 
   const handleDestinationClick = (destinationName: string) => {
     window.scrollTo(0, 0);
     navigate(`/${destinationName.toLowerCase().replace(/\s+/g, '-')}`);
   };
 
-  const DestinationCard = ({ destination }: { destination: Destination & { recommendations: { count: number }[] } }) => (
+  const DestinationCard = ({ destination }: { destination: typeof destinations[0] }) => (
     <button
       onClick={() => handleDestinationClick(destination.name)}
       className="text-left group"
@@ -57,7 +72,7 @@ const Home = () => {
       <div className="space-y-1">
         <p className="text-xs uppercase tracking-wider text-neutral-500">{destination.country}</p>
         <h3 className="text-2xl font-judson transition-colors duration-300 group-hover:text-primary">{destination.name}</h3>
-        <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
+        <p className="text-sm text-neutral-400">{destination.recommendationCount} spots</p>
       </div>
     </button>
   );
@@ -67,6 +82,8 @@ const Home = () => {
       <div className="text-neutral-400">Loading...</div>
     </div>;
   }
+
+  // ... keep existing code (Hero section, Newsletter section, About Our Process section)
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white pb-32">
@@ -99,7 +116,6 @@ const Home = () => {
           <ProfileImages />
           <div className="text-sm text-neutral-400">Enjoy,<br />David & Maja</div>
           
-          {/* Newsletter Section */}
           <div className="pt-8">
             <NewsletterForm />
           </div>
@@ -107,7 +123,7 @@ const Home = () => {
       </section>
 
       <div className="mt-32 container px-4 mx-auto space-y-24">
-        {Object.entries(groupedDestinations).map(([region, destinations], regionIndex) => (
+        {Object.entries(groupedDestinations).map(([region, destinations]) => (
           <section key={region} className="space-y-8">
             <div className="flex items-center gap-8 mb-12">
               <div className="h-px bg-white/20 flex-1" />
@@ -115,7 +131,7 @@ const Home = () => {
               <div className="h-px bg-white/20 flex-1" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {destinations.map((destination, index) => (
+              {destinations.map((destination) => (
                 <DestinationCard key={destination.id} destination={destination} />
               ))}
             </div>
@@ -160,7 +176,6 @@ const Home = () => {
       <section className="container px-4 mx-auto mt-32">
         <div className="max-w-3xl mx-auto">
           <div className="relative bg-neutral-800/50 p-12 md:p-16 border border-white/10 overflow-hidden">
-            {/* Decorative Elements */}
             <div className="absolute top-0 left-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2" />
             <div className="absolute bottom-0 right-0 w-32 h-32 bg-secondary/20 rounded-full blur-2xl transform translate-x-1/2 translate-y-1/2" />
             
