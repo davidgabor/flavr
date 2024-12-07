@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import PersonHeader from "@/components/person/PersonHeader";
-import PersonStats from "@/components/person/PersonStats";
 import PersonFilters from "@/components/person/PersonFilters";
 import PersonRecommendationGrid from "@/components/person/PersonRecommendationGrid";
 import { useState, useEffect } from "react";
@@ -134,11 +133,6 @@ const PersonProfile = () => {
       />
 
       <div className="space-y-12 pb-24">
-        <PersonStats
-          totalRecommendations={totalRecommendations}
-          totalDestinations={destinations.length}
-        />
-
         <PersonFilters
           destinations={destinations}
           currentTab={currentTab}
