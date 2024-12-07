@@ -11,11 +11,14 @@ const Destinations = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("destinations")
-        .select("*")
-        .order('region', { ascending: true });
-
+        .select(`
+          *,
+          recommendations:recommendations(count)
+        `)
+        .order('region');
+      
       if (error) throw error;
-      return data as Destination[];
+      return data as (Destination & { recommendations: { count: number }[] })[];
     },
   });
 
@@ -25,12 +28,13 @@ const Destinations = () => {
 
   // Group destinations by region
   const destinationsByRegion = destinations.reduce((acc, destination) => {
-    if (!acc[destination.region]) {
-      acc[destination.region] = [];
+    const region = destination.region || 'Other';
+    if (!acc[region]) {
+      acc[region] = [];
     }
-    acc[destination.region].push(destination);
+    acc[region].push(destination);
     return acc;
-  }, {} as Record<string, Destination[]>);
+  }, {} as Record<string, (Destination & { recommendations: { count: number }[] })[]>);
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white">
@@ -93,6 +97,7 @@ const Destinations = () => {
                     <div className="space-y-1">
                       <p className="text-xs uppercase tracking-wider text-neutral-500">{destination.country}</p>
                       <h3 className="text-2xl font-judson transition-colors duration-300 group-hover:text-primary">{destination.name}</h3>
+                      <p className="text-sm text-neutral-400">{destination.recommendations?.[0]?.count || 0} spots</p>
                     </div>
                   </Link>
                 ))}
