@@ -2,7 +2,6 @@ import NewsletterForm from "@/components/common/NewsletterForm";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import MissionSection from "@/components/about/MissionSection";
-import ValuesSection from "@/components/about/ValuesSection";
 import StorySection from "@/components/about/StorySection";
 
 const About = () => {
@@ -55,7 +54,6 @@ const About = () => {
 
           <StorySection />
           <MissionSection />
-          <ValuesSection />
 
           {/* CTA Section */}
           <section className="grid md:grid-cols-2 gap-16 items-center">
