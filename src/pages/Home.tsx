@@ -7,6 +7,7 @@ import ProfileImages from "@/components/home/ProfileImages";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Helmet } from "react-helmet";
+import SubscriptionPopup from "@/components/common/SubscriptionPopup";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -82,10 +83,10 @@ const Home = () => {
     </div>;
   }
 
-  // ... keep existing code (Hero section, Newsletter section, About Our Process section)
-
   return (
     <div className="min-h-screen bg-neutral-900 text-white pb-32">
+      <SubscriptionPopup delay={30000} /> {/* Will show after 30 seconds */}
+      
       <Helmet>
         <title>Flavr - Trusted Dining Recommendations</title>
         <meta 

@@ -10,21 +10,28 @@ const SubscriptionPopup = ({ delay = 30000 }: SubscriptionPopupProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    console.log('SubscriptionPopup mounted');
+    
     // Check if user has already seen the popup
     const hasSeenPopup = localStorage.getItem('hasSeenSubscriptionPopup');
+    console.log('Has seen popup:', hasSeenPopup);
     
     if (!hasSeenPopup) {
-      console.log('Setting up subscription popup timer...');
+      console.log(`Setting up subscription popup timer for ${delay}ms`);
       const timer = setTimeout(() => {
-        console.log('Showing subscription popup');
+        console.log('Timer completed, showing popup');
         setIsOpen(true);
       }, delay);
 
-      return () => clearTimeout(timer);
+      return () => {
+        console.log('Cleaning up timer');
+        clearTimeout(timer);
+      };
     }
   }, [delay]);
 
   const handleClose = () => {
+    console.log('Closing popup');
     setIsOpen(false);
     // Mark popup as seen
     localStorage.setItem('hasSeenSubscriptionPopup', 'true');
