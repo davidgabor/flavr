@@ -7,7 +7,6 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { 
       headers: corsHeaders,
@@ -19,22 +18,30 @@ serve(async (req) => {
     console.log('Initializing Supabase client...');
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     )
 
+    // Fetch all destinations with their recommendations
     console.log('Fetching destinations...');
-    // Fetch all destinations
     const { data: destinations, error: destinationsError } = await supabaseClient
       .from('destinations')
-      .select('name')
+      .select(`
+        id,
+        name,
+        recommendations (
+          id,
+          name
+        )
+      `)
     
     if (destinationsError) {
       console.error('Error fetching destinations:', destinationsError);
       throw destinationsError;
     }
+    console.log('Fetched destinations:', destinations?.length);
 
-    console.log('Fetching blog posts...');
     // Fetch all published blog posts
+    console.log('Fetching blog posts...');
     const { data: blogPosts, error: blogError } = await supabaseClient
       .from('blog_posts')
       .select('slug')
@@ -44,25 +51,10 @@ serve(async (req) => {
       console.error('Error fetching blog posts:', blogError);
       throw blogError;
     }
+    console.log('Fetched blog posts:', blogPosts?.length);
 
-    console.log('Fetching recommendations...');
-    // Fetch all recommendations with their destinations
-    const { data: recommendations, error: recommendationsError } = await supabaseClient
-      .from('recommendations')
-      .select(`
-        name,
-        destinations (
-          name
-        )
-      `)
-    
-    if (recommendationsError) {
-      console.error('Error fetching recommendations:', recommendationsError);
-      throw recommendationsError;
-    }
-
-    console.log('Fetching people...');
     // Fetch all people
+    console.log('Fetching people...');
     const { data: people, error: peopleError } = await supabaseClient
       .from('people')
       .select('id')
@@ -71,9 +63,10 @@ serve(async (req) => {
       console.error('Error fetching people:', peopleError);
       throw peopleError;
     }
+    console.log('Fetched people:', people?.length);
 
-    console.log('Generating XML sitemap...');
     // Generate XML
+    console.log('Generating XML sitemap...');
     const baseUrl = 'https://flavr.world'
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -88,19 +81,31 @@ serve(async (req) => {
   </url>\n`
     })
 
-    // Destinations
-    console.log('Adding destinations to sitemap:', destinations?.length);
+    // Add destinations and their recommendations
+    console.log('Adding destinations and recommendations to sitemap...');
     destinations?.forEach(destination => {
-      const slug = destination.name.toLowerCase().replace(/\s+/g, '-')
+      const destinationSlug = destination.name.toLowerCase().replace(/\s+/g, '-')
+      
+      // Add destination URL
       xml += `  <url>
-    <loc>${baseUrl}/${slug}</loc>
+    <loc>${baseUrl}/${destinationSlug}</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>\n`
+
+      // Add recommendation URLs for this destination
+      destination.recommendations?.forEach(recommendation => {
+        const recommendationSlug = recommendation.name.toLowerCase().replace(/[\/\s]+/g, '-')
+        xml += `  <url>
+    <loc>${baseUrl}/${destinationSlug}/${recommendationSlug}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>\n`
+      })
     })
 
-    // Blog posts
-    console.log('Adding blog posts to sitemap:', blogPosts?.length);
+    // Add blog posts
+    console.log('Adding blog posts to sitemap...');
     blogPosts?.forEach(post => {
       xml += `  <url>
     <loc>${baseUrl}/blog/${post.slug}</loc>
@@ -109,8 +114,8 @@ serve(async (req) => {
   </url>\n`
     })
 
-    // People profiles
-    console.log('Adding people profiles to sitemap:', people?.length);
+    // Add people profiles
+    console.log('Adding people profiles to sitemap...');
     people?.forEach(person => {
       xml += `  <url>
     <loc>${baseUrl}/p/${person.id}</loc>
@@ -119,23 +124,9 @@ serve(async (req) => {
   </url>\n`
     })
 
-    // Recommendations
-    console.log('Adding recommendations to sitemap:', recommendations?.length);
-    recommendations?.forEach(recommendation => {
-      if (recommendation.destinations) {
-        const destinationSlug = recommendation.destinations.name.toLowerCase().replace(/\s+/g, '-')
-        const recommendationSlug = recommendation.name.toLowerCase().replace(/[\/\s]+/g, '-')
-        xml += `  <url>
-    <loc>${baseUrl}/${destinationSlug}/${recommendationSlug}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>\n`
-      }
-    })
-
     xml += '</urlset>'
 
-    console.log('Returning XML response...');
+    console.log('Sitemap generation complete.');
     return new Response(xml, {
       headers: {
         ...corsHeaders,
