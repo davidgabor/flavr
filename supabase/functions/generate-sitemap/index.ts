@@ -56,9 +56,20 @@ serve(async (req) => {
       throw recommendationsError;
     }
 
+    console.log('Fetching people...');
+    // Fetch all people
+    const { data: people, error: peopleError } = await supabaseClient
+      .from('people')
+      .select('id')
+    
+    if (peopleError) {
+      console.error('Error fetching people:', peopleError);
+      throw peopleError;
+    }
+
     console.log('Generating XML sitemap...');
     // Generate XML
-    const baseUrl = 'https://flavr.vercel.app'
+    const baseUrl = 'https://flavr.world'
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 
@@ -86,6 +97,15 @@ serve(async (req) => {
     blogPosts?.forEach(post => {
       xml += `  <url>
     <loc>${baseUrl}/blog/${post.slug}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>\n`
+    })
+
+    // People profiles
+    people?.forEach(person => {
+      xml += `  <url>
+    <loc>${baseUrl}/p/${person.id}</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>\n`
