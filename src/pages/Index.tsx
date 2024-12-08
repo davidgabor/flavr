@@ -1,11 +1,12 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import SubscriptionPopup from "@/components/common/SubscriptionPopup";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-neutral-900">
+      <SubscriptionPopup delay={15000} /> {/* Will show after 15 seconds */}
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+        <h1 className="text-4xl font-bold mb-4 text-white">Welcome to Flavr</h1>
+        <p className="text-xl text-neutral-300">Start exploring amazing food spots!</p>
       </div>
     </div>
   );
