@@ -1,5 +1,5 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { serve } from "https://deno.land/std@0.208.0/http/server.ts"
+import { createClient } from '@supabase/supabase-js'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -7,38 +7,56 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
+  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+    return new Response(null, { 
+      headers: corsHeaders,
+      status: 204
+    })
   }
 
   try {
+    console.log('Initializing Supabase client...');
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_ANON_KEY') ?? ''
     )
 
+    console.log('Fetching destinations...');
     // Fetch all destinations
     const { data: destinations, error: destinationsError } = await supabaseClient
       .from('destinations')
       .select('name')
     
-    if (destinationsError) throw destinationsError
+    if (destinationsError) {
+      console.error('Error fetching destinations:', destinationsError);
+      throw destinationsError;
+    }
 
+    console.log('Fetching blog posts...');
     // Fetch all blog posts
     const { data: blogPosts, error: blogError } = await supabaseClient
       .from('blog_posts')
       .select('slug')
       .not('published_at', 'is', null)
     
-    if (blogError) throw blogError
+    if (blogError) {
+      console.error('Error fetching blog posts:', blogError);
+      throw blogError;
+    }
 
+    console.log('Fetching recommendations...');
     // Fetch all recommendations with their destinations
     const { data: recommendations, error: recommendationsError } = await supabaseClient
       .from('recommendations')
       .select('name, destinations(name)')
     
-    if (recommendationsError) throw recommendationsError
+    if (recommendationsError) {
+      console.error('Error fetching recommendations:', recommendationsError);
+      throw recommendationsError;
+    }
 
+    console.log('Generating XML sitemap...');
     // Generate XML
     const baseUrl = 'https://flavr.vercel.app'
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -88,6 +106,7 @@ serve(async (req) => {
 
     xml += '</urlset>'
 
+    console.log('Returning XML response...');
     return new Response(xml, {
       headers: {
         ...corsHeaders,
@@ -101,7 +120,7 @@ serve(async (req) => {
         ...corsHeaders,
         'Content-Type': 'application/json',
       },
-      status: 400,
+      status: 500,
     })
   }
 })
