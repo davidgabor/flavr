@@ -30,7 +30,6 @@ const Home = () => {
         throw error;
       }
 
-      // Process the data to include recommendation counts
       const processedData = destinationsData.map(destination => ({
         ...destination,
         recommendationCount: destination.recommendations?.length || 0
@@ -41,7 +40,6 @@ const Home = () => {
     },
   });
 
-  // Group destinations by region
   const groupedDestinations = destinations.reduce((acc, destination) => {
     const region = destination.region || 'Other';
     if (!acc[region]) {
@@ -52,8 +50,9 @@ const Home = () => {
   }, {} as Record<string, typeof destinations[0][]>);
 
   const handleDestinationClick = (destinationName: string) => {
+    const path = `/${destinationName.toLowerCase().replace(/\s+/g, '-')}`;
     window.scrollTo(0, 0);
-    navigate(`/${destinationName.toLowerCase().replace(/\s+/g, '-')}`);
+    navigate(path);
   };
 
   const DestinationCard = ({ destination }: { destination: typeof destinations[0] }) => (

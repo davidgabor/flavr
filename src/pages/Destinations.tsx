@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Destination } from "@/types/recommendation";
 import NewsletterForm from "@/components/common/NewsletterForm";
 import { Helmet } from "react-helmet";
 
 const Destinations = () => {
+  const navigate = useNavigate();
   const { data: destinations = [], isLoading } = useQuery({
     queryKey: ["destinations-with-counts-page"],
     queryFn: async () => {
@@ -26,7 +27,6 @@ const Destinations = () => {
         throw error;
       }
 
-      // Process the data to include recommendation counts
       const processedData = destinationsData.map(destination => ({
         ...destination,
         recommendationCount: destination.recommendations?.length || 0
@@ -36,6 +36,12 @@ const Destinations = () => {
       return processedData;
     },
   });
+
+  const handleDestinationClick = (destinationName: string) => {
+    const path = `/${destinationName.toLowerCase().replace(/\s+/g, '-')}`;
+    window.scrollTo(0, 0);
+    navigate(path);
+  };
 
   if (isLoading) {
     return <div className="min-h-screen bg-neutral-900 flex items-center justify-center">Loading...</div>;
@@ -96,9 +102,9 @@ const Destinations = () => {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {regionDestinations.map((destination) => (
-                  <Link 
-                    key={destination.id} 
-                    to={`/${destination.name.toLowerCase().replace(/\s+/g, '-')}`} 
+                  <button
+                    key={destination.id}
+                    onClick={() => handleDestinationClick(destination.name)}
                     className="text-left group"
                   >
                     <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800 group-hover:shadow-2xl transition-all duration-500">
@@ -114,7 +120,7 @@ const Destinations = () => {
                       <h3 className="text-2xl font-judson transition-colors duration-300 group-hover:text-primary">{destination.name}</h3>
                       <p className="text-sm text-neutral-400">{destination.recommendationCount} spots</p>
                     </div>
-                  </Link>
+                  </button>
                 ))}
               </div>
             </section>
