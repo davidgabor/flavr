@@ -49,7 +49,12 @@ serve(async (req) => {
     // Fetch all recommendations with their destinations
     const { data: recommendations, error: recommendationsError } = await supabaseClient
       .from('recommendations')
-      .select('name, destinations(name)')
+      .select(`
+        name,
+        destinations (
+          name
+        )
+      `)
     
     if (recommendationsError) {
       console.error('Error fetching recommendations:', recommendationsError);
