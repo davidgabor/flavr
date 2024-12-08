@@ -34,7 +34,7 @@ serve(async (req) => {
     }
 
     console.log('Fetching blog posts...');
-    // Fetch all blog posts
+    // Fetch all published blog posts
     const { data: blogPosts, error: blogError } = await supabaseClient
       .from('blog_posts')
       .select('slug')
@@ -89,6 +89,7 @@ serve(async (req) => {
     })
 
     // Destinations
+    console.log('Adding destinations to sitemap:', destinations?.length);
     destinations?.forEach(destination => {
       const slug = destination.name.toLowerCase().replace(/\s+/g, '-')
       xml += `  <url>
@@ -99,6 +100,7 @@ serve(async (req) => {
     })
 
     // Blog posts
+    console.log('Adding blog posts to sitemap:', blogPosts?.length);
     blogPosts?.forEach(post => {
       xml += `  <url>
     <loc>${baseUrl}/blog/${post.slug}</loc>
@@ -108,6 +110,7 @@ serve(async (req) => {
     })
 
     // People profiles
+    console.log('Adding people profiles to sitemap:', people?.length);
     people?.forEach(person => {
       xml += `  <url>
     <loc>${baseUrl}/p/${person.id}</loc>
@@ -117,6 +120,7 @@ serve(async (req) => {
     })
 
     // Recommendations
+    console.log('Adding recommendations to sitemap:', recommendations?.length);
     recommendations?.forEach(recommendation => {
       if (recommendation.destinations) {
         const destinationSlug = recommendation.destinations.name.toLowerCase().replace(/\s+/g, '-')
