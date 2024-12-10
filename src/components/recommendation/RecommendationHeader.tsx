@@ -49,7 +49,7 @@ const RecommendationHeader = ({
       <ImageGallery images={allImages} name={name} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="md:col-span-2 space-y-4">
+        <div className="md:col-span-2 space-y-8">
           <div>
             <h1 className="text-5xl md:text-6xl font-judson mb-2">{name}</h1>
             <div className="flex items-center gap-4 text-neutral-400">
@@ -62,16 +62,26 @@ const RecommendationHeader = ({
           </div>
 
           {description && (
-            <div>
-              <h2 className="text-2xl font-judson mb-2">About</h2>
-              <p className="text-neutral-300">{description}</p>
+            <div className="relative">
+              <div className="absolute -left-4 top-0 bottom-0 w-1 bg-primary/20 rounded-full" />
+              <div className="space-y-3">
+                <h2 className="text-2xl font-judson text-white">About</h2>
+                <p className="text-lg leading-relaxed text-neutral-300 pl-4">
+                  {description}
+                </p>
+              </div>
             </div>
           )}
 
           {our_review && (
-            <div>
-              <h2 className="text-2xl font-judson mb-2">Our Review</h2>
-              <p className="text-neutral-300">{our_review}</p>
+            <div className="relative">
+              <div className="absolute -left-4 top-0 bottom-0 w-1 bg-secondary/20 rounded-full" />
+              <div className="space-y-3">
+                <h2 className="text-2xl font-judson text-white">Our Review</h2>
+                <p className="text-lg leading-relaxed text-neutral-300 pl-4">
+                  {our_review}
+                </p>
+              </div>
             </div>
           )}
         </div>
