@@ -84,56 +84,73 @@ const RecommendationHeader = ({
           )}
         </div>
 
-        <div className="bg-neutral-800/50 backdrop-blur-sm border border-white/10 p-6 space-y-6">
-          <div className="space-y-2">
-            <h3 className="font-medium">Location</h3>
-            {address && (
-              <p className="text-neutral-300">{address}</p>
-            )}
-            {latitude && longitude && (
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm" onClick={handleMapClick}>
-                  <Map className="h-4 w-4 mr-2" />
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-neutral-800/80 to-neutral-900/80 backdrop-blur-sm border border-white/10">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none" />
+          
+          <div className="relative p-6 space-y-8">
+            {/* Location Section */}
+            <div className="space-y-4">
+              <h3 className="font-medium text-lg text-white/90 flex items-center gap-2">
+                <Map className="h-4 w-4 text-primary" />
+                Location
+              </h3>
+              {address && (
+                <p className="text-neutral-300 leading-relaxed">{address}</p>
+              )}
+              {latitude && longitude && (
+                <Button 
+                  variant="secondary" 
+                  size="sm" 
+                  onClick={handleMapClick}
+                  className="w-full justify-center hover:bg-white/15 transition-colors"
+                >
                   Open in Maps
                 </Button>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
 
-          <div className="space-y-2">
-            <h3 className="font-medium">Contact & Social</h3>
-            <div className="space-y-2">
-              {website && (
-                <a
-                  href={website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-neutral-300 hover:text-primary"
-                >
-                  <Globe className="h-4 w-4" />
-                  Website
-                </a>
-              )}
-              {instagram && (
-                <a
-                  href={`https://instagram.com/${instagram.replace('@', '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-neutral-300 hover:text-primary"
-                >
-                  <Instagram className="h-4 w-4" />
-                  {instagram}
-                </a>
-              )}
-              {phone && (
-                <a
-                  href={`tel:${phone}`}
-                  className="flex items-center gap-2 text-neutral-300 hover:text-primary"
-                >
-                  <Phone className="h-4 w-4" />
-                  {phone}
-                </a>
-              )}
+            {/* Contact & Social Section */}
+            <div className="space-y-4">
+              <h3 className="font-medium text-lg text-white/90">Contact & Social</h3>
+              <div className="grid gap-3">
+                {website && (
+                  <a
+                    href={website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-neutral-300 hover:text-primary transition-colors group"
+                  >
+                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-primary/10 transition-colors">
+                      <Globe className="h-4 w-4" />
+                    </div>
+                    <span>Visit Website</span>
+                  </a>
+                )}
+                {instagram && (
+                  <a
+                    href={`https://instagram.com/${instagram.replace('@', '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-neutral-300 hover:text-primary transition-colors group"
+                  >
+                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-primary/10 transition-colors">
+                      <Instagram className="h-4 w-4" />
+                    </div>
+                    <span>{instagram}</span>
+                  </a>
+                )}
+                {phone && (
+                  <a
+                    href={`tel:${phone}`}
+                    className="flex items-center gap-3 text-neutral-300 hover:text-primary transition-colors group"
+                  >
+                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-primary/10 transition-colors">
+                      <Phone className="h-4 w-4" />
+                    </div>
+                    <span>{phone}</span>
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
