@@ -1,12 +1,9 @@
-import RecommendedBySection from "./RecommendedBySection";
-
 interface RecommendationContentProps {
   id: string;
   hours?: string;
 }
 
 const RecommendationContent = ({
-  id,
   hours,
 }: RecommendationContentProps) => {
   return (
@@ -20,8 +17,6 @@ const RecommendationContent = ({
           </div>
         </div>
       )}
-      
-      <RecommendedBySection recommendationId={id} />
     </div>
   );
 };
