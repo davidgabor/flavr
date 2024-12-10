@@ -22,24 +22,9 @@ const PersonHeader = ({ person, totalRecommendations = 0, totalDestinations = 0 
           <div className="flex-1 space-y-4">
             <div>
               <h1 className="text-4xl font-judson">{person.name}</h1>
-              <div className="flex flex-wrap items-center gap-2 mt-2">
+              <div className="flex items-center gap-2 mt-2">
                 <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
                   Food Lover
-                </span>
-                <span style={{ backgroundColor: '#F2FCE2' }} className="px-3 py-1 rounded-full text-neutral-700 text-sm">
-                  Denmark
-                </span>
-                <span style={{ backgroundColor: '#FEF7CD' }} className="px-3 py-1 rounded-full text-neutral-700 text-sm">
-                  Spain
-                </span>
-                <span style={{ backgroundColor: '#FEC6A1' }} className="px-3 py-1 rounded-full text-neutral-700 text-sm">
-                  Italy
-                </span>
-                <span style={{ backgroundColor: '#E5DEFF' }} className="px-3 py-1 rounded-full text-neutral-700 text-sm">
-                  France
-                </span>
-                <span style={{ backgroundColor: '#FFDEE2' }} className="px-3 py-1 rounded-full text-neutral-700 text-sm">
-                  USA
                 </span>
               </div>
             </div>
