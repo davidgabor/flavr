@@ -138,7 +138,7 @@ const RecommendationHeader = ({
                     <div className="p-2 bg-white/5 rounded-lg group-hover:bg-primary/10 transition-colors">
                       <Instagram className="h-4 w-4" />
                     </div>
-                    <span>{instagram}</span>
+                    <span>View on Instagram</span>
                   </a>
                 )}
                 {phone && (
