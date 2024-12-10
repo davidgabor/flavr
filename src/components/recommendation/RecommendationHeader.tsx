@@ -62,8 +62,8 @@ const RecommendationHeader = ({
           </div>
 
           {description && (
-            <div className="relative bg-neutral-800/30 rounded-lg p-6 border border-white/5">
-              <div className="absolute -left-px top-6 bottom-6 w-1 bg-primary rounded-r-full" />
+            <div className="relative bg-neutral-800/30 p-6 border border-white/5">
+              <div className="absolute -left-px top-6 bottom-6 w-1 bg-primary" />
               <div className="space-y-4">
                 <h2 className="text-2xl font-judson text-white pl-4">About</h2>
                 <p className="text-lg leading-relaxed text-neutral-300 pl-4">
@@ -74,8 +74,8 @@ const RecommendationHeader = ({
           )}
 
           {our_review && (
-            <div className="relative bg-neutral-800/30 rounded-lg p-6 border border-white/5">
-              <div className="absolute -left-px top-6 bottom-6 w-1 bg-secondary rounded-r-full" />
+            <div className="relative bg-neutral-800/30 p-6 border border-white/5">
+              <div className="absolute -left-px top-6 bottom-6 w-1 bg-secondary" />
               <div className="space-y-4">
                 <h2 className="text-2xl font-judson text-white pl-4">Our Review</h2>
                 <p className="text-lg leading-relaxed text-neutral-300 pl-4">
@@ -86,7 +86,7 @@ const RecommendationHeader = ({
           )}
         </div>
 
-        <div className="bg-neutral-800/50 backdrop-blur-sm border border-white/10 rounded-xl p-6 space-y-6">
+        <div className="bg-neutral-800/50 backdrop-blur-sm border border-white/10 p-6 space-y-6">
           <div className="space-y-2">
             <h3 className="font-medium">Location</h3>
             {address && (
