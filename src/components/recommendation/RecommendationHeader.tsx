@@ -1,6 +1,7 @@
 import { Globe, Instagram, Phone, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ImageGallery from "./ImageGallery";
+import ExpertsList from "./ExpertsList";
 
 interface RecommendationHeaderProps {
   id: string;
@@ -8,6 +9,7 @@ interface RecommendationHeaderProps {
   type: string;
   cuisine: string;
   price_level: string;
+  rating: number;
   images?: string[];
   image: string;
   address?: string;
@@ -21,10 +23,12 @@ interface RecommendationHeaderProps {
 }
 
 const RecommendationHeader = ({
+  id,
   name,
   type,
   cuisine,
   price_level,
+  rating,
   images,
   image,
   address,
@@ -33,7 +37,6 @@ const RecommendationHeader = ({
   website,
   instagram,
   phone,
-  our_review,
   description,
 }: RecommendationHeaderProps) => {
   const handleMapClick = () => {
@@ -58,29 +61,24 @@ const RecommendationHeader = ({
               <span>{cuisine}</span>
               <span>•</span>
               <span>{price_level}</span>
+              <span>•</span>
+              <span>{rating} ★</span>
             </div>
           </div>
 
           {description && (
             <div className="relative bg-neutral-800/30 p-6 border border-white/5">
               <div className="absolute -left-px top-6 bottom-6 w-1 bg-primary" />
-              <div className="space-y-4">
-                <h2 className="text-2xl font-judson text-white pl-4">About</h2>
-                <p className="text-lg leading-relaxed text-neutral-300 pl-4">
-                  {description}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {our_review && (
-            <div className="relative bg-neutral-800/30 p-6 border border-white/5">
-              <div className="absolute -left-px top-6 bottom-6 w-1 bg-secondary" />
-              <div className="space-y-4">
-                <h2 className="text-2xl font-judson text-white pl-4">Our Review</h2>
-                <p className="text-lg leading-relaxed text-neutral-300 pl-4">
-                  {our_review}
-                </p>
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <h2 className="text-2xl font-judson text-white pl-4">About</h2>
+                  <p className="text-lg leading-relaxed text-neutral-300 pl-4">
+                    {description}
+                  </p>
+                </div>
+                <div className="pl-4 pt-4 border-t border-white/5">
+                  <ExpertsList recommendationId={id} />
+                </div>
               </div>
             </div>
           )}
