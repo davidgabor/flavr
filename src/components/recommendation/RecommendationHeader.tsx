@@ -130,7 +130,7 @@ const RecommendationHeader = ({
                 )}
                 {instagram && (
                   <a
-                    href={`https://instagram.com/${instagram.replace('@', '')}`}
+                    href={`https://instagram.com/${instagram.replace('@', '').replace('https://www.instagram.com/', '')}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 text-neutral-300 hover:text-primary transition-colors group"
