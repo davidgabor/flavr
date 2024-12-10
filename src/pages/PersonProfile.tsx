@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Person } from "@/types/person";
+import type { RecommendationWithDestination } from "@/types/recommendation";
 import PersonHeader from "@/components/person/PersonHeader";
 import PersonFilters from "@/components/person/PersonFilters";
 import PersonRecommendationGrid from "@/components/person/PersonRecommendationGrid";
