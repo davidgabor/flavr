@@ -42,6 +42,8 @@ const RecommendationHeader = ({
   const handleMapClick = () => {
     if (latitude && longitude) {
       window.open(`https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`, '_blank');
+    } else if (address) {
+      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank');
     }
   };
 
@@ -97,7 +99,7 @@ const RecommendationHeader = ({
               {address && (
                 <p className="text-neutral-300 leading-relaxed">{address}</p>
               )}
-              {latitude && longitude && (
+              {(latitude || longitude || address) && (
                 <Button 
                   variant="secondary" 
                   size="sm" 
