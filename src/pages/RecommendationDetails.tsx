@@ -98,12 +98,12 @@ const RecommendationDetails = () => {
         <div className="max-w-[1400px] mx-auto space-y-24">
           <RecommendationHeader {...recommendation} />
           <RecommendationContent {...recommendation} />
-          <NewsletterSection />
           <MoreRecommendations 
             destinationId={recommendation.destination_id}
             currentRecommendationId={recommendation.id}
             destinationName={recommendation.destinations.name}
           />
+          <NewsletterSection />
         </div>
       </div>
     </div>

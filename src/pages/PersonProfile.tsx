@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import type { Person } from "@/types/person";
 import PersonHeader from "@/components/person/PersonHeader";
 import PersonFilters from "@/components/person/PersonFilters";
 import PersonRecommendationGrid from "@/components/person/PersonRecommendationGrid";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet";
-import type { Person } from "@/types/person";
-import type { RecommendationWithDestination } from "@/types/recommendation";
 
 interface DestinationGroup {
   id: string;
@@ -19,6 +19,11 @@ const PersonProfile = () => {
   const { personSlug } = useParams();
   const [currentTab, setCurrentTab] = useState("");
   const [currentType, setCurrentType] = useState<string | null>(null);
+
+  // Add scroll to top effect
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const { data: person } = useQuery<Person>({
     queryKey: ["person", personSlug],
