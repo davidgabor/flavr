@@ -113,7 +113,7 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
           placeholder="Search destinations and recommendations..."
           value={searchQuery}
           onValueChange={setSearchQuery}
-          className="h-12 text-base text-white placeholder:text-neutral-400"
+          className="h-12 text-base text-white placeholder:text-neutral-400 focus:outline-none"
         />
       </div>
       <CommandList className="max-h-[60vh] overflow-y-auto p-4">
