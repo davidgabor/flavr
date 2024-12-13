@@ -14,7 +14,7 @@ const SearchResults = ({ results, isLoading, handleResultClick }: SearchResultsP
 
   if (isLoading) {
     return (
-      <div className="py-8 text-center text-sm text-neutral-300">
+      <div className="py-8 text-center text-sm text-neutral-400">
         Searching...
       </div>
     );
@@ -22,7 +22,7 @@ const SearchResults = ({ results, isLoading, handleResultClick }: SearchResultsP
 
   if (results.length === 0) {
     return (
-      <CommandEmpty className="py-8 text-center text-sm text-neutral-300">
+      <CommandEmpty className="py-8 text-center text-sm text-neutral-400">
         No results found.
       </CommandEmpty>
     );
