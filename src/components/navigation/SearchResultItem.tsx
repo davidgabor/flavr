@@ -18,7 +18,7 @@ const SearchResultItem = ({ result, onSelect }: SearchResultItemProps) => {
     <CommandItem
       value={result.name}
       onSelect={onSelect}
-      className="flex items-center py-4 px-3 cursor-pointer rounded-lg data-[selected=true]:bg-neutral-800 transition-colors duration-200"
+      className="flex items-center py-4 px-3 cursor-pointer rounded-lg data-[selected=true]:bg-neutral-800 transition-colors duration-200 hover:bg-transparent"
     >
       {icon}
       <div className="flex flex-col space-y-1">
