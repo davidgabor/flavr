@@ -106,17 +106,17 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
   };
 
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <div className="flex items-center border-b border-neutral-700/50 px-3">
-        <Search className="mr-2 h-4 w-4 shrink-0 text-neutral-400" />
+    <CommandDialog open={open} onOpenChange={onOpenChange} className="max-w-2xl mx-auto">
+      <div className="flex items-center border-b border-neutral-700/50 px-4 py-2">
+        <Search className="mr-2 h-5 w-5 shrink-0 text-neutral-400" />
         <CommandInput
           placeholder="Search destinations and recommendations..."
           value={searchQuery}
           onValueChange={setSearchQuery}
-          className="h-14"
+          className="h-12 text-base"
         />
       </div>
-      <CommandList className="max-h-[400px] overflow-y-auto p-2">
+      <CommandList className="max-h-[60vh] overflow-y-auto p-4">
         {debouncedQuery.length > 0 && (
           <SearchResults
             results={searchResults}

@@ -14,7 +14,7 @@ const SearchResults = ({ results, isLoading, handleResultClick }: SearchResultsP
 
   if (isLoading) {
     return (
-      <div className="py-6 text-center text-sm text-neutral-400">
+      <div className="py-8 text-center text-sm text-neutral-400">
         Searching...
       </div>
     );
@@ -22,16 +22,16 @@ const SearchResults = ({ results, isLoading, handleResultClick }: SearchResultsP
 
   if (results.length === 0) {
     return (
-      <CommandEmpty className="py-6 text-center text-sm text-neutral-400">
+      <CommandEmpty className="py-8 text-center text-sm text-neutral-400">
         No results found.
       </CommandEmpty>
     );
   }
 
   return (
-    <>
+    <div className="space-y-6">
       {destinations.length > 0 && (
-        <CommandGroup heading="Destinations" className="pb-4">
+        <CommandGroup heading="Destinations" className="pb-2">
           {destinations.map((result) => (
             <SearchResultItem
               key={`${result.resultType}-${result.id}`}
@@ -52,7 +52,7 @@ const SearchResults = ({ results, isLoading, handleResultClick }: SearchResultsP
           ))}
         </CommandGroup>
       )}
-    </>
+    </div>
   );
 };
 
