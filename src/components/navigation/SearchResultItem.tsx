@@ -1,38 +1,36 @@
-import { MapPin, Utensils } from "lucide-react";
 import { CommandItem } from "@/components/ui/command";
+import { MapPin, Utensils } from "lucide-react";
+import type { SearchResult } from "./types";
 
 interface SearchResultItemProps {
-  result: {
-    id: string;
-    name: string;
-    description?: string;
-    type?: string;
-    resultType: 'destination' | 'recommendation';
-    destination_name?: string;
-  };
+  result: SearchResult;
   onSelect: () => void;
 }
 
 const SearchResultItem = ({ result, onSelect }: SearchResultItemProps) => {
-  const isDestination = result.resultType === "destination";
-  const Icon = isDestination ? MapPin : Utensils;
+  const icon = result.resultType === 'destination' ? (
+    <MapPin className="mr-2 h-4 w-4 text-neutral-400" />
+  ) : (
+    <Utensils className="mr-2 h-4 w-4 text-neutral-400" />
+  );
 
   return (
     <CommandItem
-      key={`${result.resultType}-${result.id}`}
+      value={result.name}
       onSelect={onSelect}
-      className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-neutral-800/50 rounded-lg transition-colors"
+      className="flex items-center py-3 px-2 cursor-pointer"
     >
-      <Icon className="h-4 w-4 text-primary shrink-0" />
-      <div className="flex flex-col gap-1">
-        <span className="font-medium text-white">{result.name}</span>
-        {isDestination && result.description ? (
-          <span className="text-sm text-neutral-400 line-clamp-1">
-            {result.description}
+      {icon}
+      <div className="flex flex-col">
+        <span className="text-sm font-medium">{result.name}</span>
+        {result.resultType === 'recommendation' && result.destination_name && (
+          <span className="text-xs text-neutral-400">
+            {result.destination_name} • {result.type}
           </span>
-        ) : (
-          <span className="text-sm text-neutral-400">
-            {result.type} • {result.destination_name}
+        )}
+        {result.resultType === 'destination' && result.description && (
+          <span className="text-xs text-neutral-400 line-clamp-1">
+            {result.description}
           </span>
         )}
       </div>
