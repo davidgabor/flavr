@@ -106,14 +106,14 @@ const SearchDialog = ({ open, onOpenChange }: SearchDialogProps) => {
   };
 
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange} className="max-w-2xl mx-auto">
+    <CommandDialog open={open} onOpenChange={onOpenChange}>
       <div className="flex items-center border-b border-neutral-700/50 px-4 py-2">
         <Search className="mr-2 h-5 w-5 shrink-0 text-neutral-400" />
         <CommandInput
           placeholder="Search destinations and recommendations..."
           value={searchQuery}
           onValueChange={setSearchQuery}
-          className="h-12 text-base"
+          className="h-12 text-base text-white"
         />
       </div>
       <CommandList className="max-h-[60vh] overflow-y-auto p-4">
