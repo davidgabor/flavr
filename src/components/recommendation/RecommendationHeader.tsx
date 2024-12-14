@@ -86,7 +86,7 @@ const RecommendationHeader = ({
           )}
         </div>
 
-        <div className="relative mt-[72px] overflow-hidden bg-gradient-to-br from-neutral-800/80 to-neutral-900/80 backdrop-blur-sm border border-white/10">
+        <div className="relative mt-[0px] overflow-hidden bg-gradient-to-br from-neutral-800/80 to-neutral-900/80 backdrop-blur-sm border border-white/10">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none" />
           
           <div className="relative p-6 space-y-8">
