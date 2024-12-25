@@ -14,6 +14,7 @@ import PersonProfile from "./pages/PersonProfile";
 import People from "./pages/People";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import AI from "./pages/AI";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/p/:personSlug" element={<PersonProfile />} />
+              <Route path="/ai" element={<AI />} />
               <Route path="/:destinationSlug" element={<DestinationDetails />} />
               <Route path="/:destinationSlug/:recommendationSlug" element={<RecommendationDetails />} />
             </Routes>
