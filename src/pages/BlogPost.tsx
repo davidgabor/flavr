@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import BlogPostHeader from "@/components/blog/BlogPostHeader";
 import BlogPostContent from "@/components/blog/BlogPostContent";
 import RelatedContent from "@/components/blog/RelatedContent";
+import { Helmet } from "react-helmet";
 
 interface BlogPost {
   id: string;
@@ -62,7 +63,6 @@ const BlogPost = () => {
         throw postError;
       }
 
-      // Transform the data to a more usable format
       const transformedData = {
         ...postData,
         destinations: postData.blog_post_destinations.map((d: any) => d.destinations),
@@ -78,7 +78,15 @@ const BlogPost = () => {
   });
 
   if (isLoading) {
-    return <div className="min-h-screen bg-neutral-900" />;
+    return (
+      <div className="min-h-screen bg-neutral-900 animate-pulse">
+        <div className="max-w-3xl mx-auto px-4 py-24 space-y-8">
+          <div className="w-3/4 h-12 bg-neutral-800 rounded" />
+          <div className="w-1/4 h-6 bg-neutral-800 rounded" />
+          <div className="aspect-[2/1] bg-neutral-800 rounded" />
+        </div>
+      </div>
+    );
   }
 
   if (!post) {
@@ -92,20 +100,31 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-900 text-white pt-24">
-      <article className="max-w-4xl mx-auto px-4">
+    <div className="min-h-screen bg-neutral-900 text-white">
+      <Helmet>
+        <title>{post.title}</title>
+        <meta name="description" content={post.content.slice(0, 155)} />
+      </Helmet>
+
+      <article className="relative">
         <BlogPostHeader 
           title={post.title}
           publishedAt={post.published_at}
           coverImage={post.cover_image}
         />
         
-        <BlogPostContent content={post.content} />
+        <div className="relative z-10 -mt-32">
+          <div className="max-w-3xl mx-auto bg-neutral-900 rounded-t-xl px-6 md:px-12 pt-12 pb-24">
+            <BlogPostContent content={post.content} />
+          </div>
 
-        <RelatedContent 
-          destinations={post.destinations}
-          recommendations={post.recommendations}
-        />
+          <div className="max-w-5xl mx-auto px-4">
+            <RelatedContent 
+              destinations={post.destinations}
+              recommendations={post.recommendations}
+            />
+          </div>
+        </div>
       </article>
     </div>
   );

@@ -8,26 +8,32 @@ interface BlogPostHeaderProps {
 
 const BlogPostHeader = ({ title, publishedAt, coverImage }: BlogPostHeaderProps) => {
   return (
-    <header className="space-y-8 mb-12">
+    <header className="relative">
       {coverImage && (
-        <div className="aspect-[2/1] overflow-hidden rounded-lg">
-          <img
-            src={coverImage}
-            alt={title}
-            className="w-full h-full object-cover"
-          />
+        <div className="relative h-[70vh] w-full">
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${coverImage})` }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/40 via-neutral-900/40 to-neutral-900" />
+          </div>
         </div>
       )}
-      <div className="space-y-4">
-        <h1 className="text-4xl md:text-6xl font-judson">{title}</h1>
-        {publishedAt && (
-          <time 
-            dateTime={publishedAt}
-            className="text-neutral-400"
-          >
-            {format(new Date(publishedAt), "MMMM d, yyyy")}
-          </time>
-        )}
+      
+      <div className="absolute bottom-0 left-0 right-0">
+        <div className="max-w-3xl mx-auto px-6 md:px-12 py-12">
+          <div className="space-y-6 animate-fade-in">
+            <h1 className="font-judson text-5xl md:text-7xl leading-tight">{title}</h1>
+            {publishedAt && (
+              <time 
+                dateTime={publishedAt}
+                className="text-neutral-400 text-lg"
+              >
+                {format(new Date(publishedAt), "MMMM d, yyyy")}
+              </time>
+            )}
+          </div>
+        </div>
       </div>
     </header>
   );
