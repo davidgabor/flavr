@@ -11,12 +11,12 @@ const BlogPostHeader = ({ title, publishedAt, coverImage }: BlogPostHeaderProps)
     <header className="relative min-h-[70vh] flex items-end">
       {coverImage && (
         <div className="absolute inset-0">
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${coverImage})` }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/60 to-neutral-900" />
-          </div>
+          <img 
+            src={coverImage}
+            alt={title}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/80 to-neutral-900" />
         </div>
       )}
       
