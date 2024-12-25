@@ -21,7 +21,7 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${
+    <nav className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-200 ${
       isScrolled ? "bg-neutral-900/50 backdrop-blur-sm" : "bg-transparent"
     }`}>
       <div className="container px-4 mx-auto">

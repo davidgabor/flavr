@@ -8,7 +8,7 @@ interface BlogPostHeaderProps {
 
 const BlogPostHeader = ({ title, publishedAt, coverImage }: BlogPostHeaderProps) => {
   return (
-    <header className="relative min-h-[70vh] flex items-end">
+    <header className="relative min-h-[100vh] flex items-end -mt-16">
       {coverImage && (
         <div className="absolute inset-0">
           <img 
