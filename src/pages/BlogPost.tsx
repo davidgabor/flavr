@@ -80,10 +80,12 @@ const BlogPost = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-neutral-900 animate-pulse">
-        <div className="max-w-3xl mx-auto px-4 py-24 space-y-8">
-          <div className="w-3/4 h-12 bg-neutral-800 rounded" />
-          <div className="w-1/4 h-6 bg-neutral-800 rounded" />
-          <div className="aspect-[2/1] bg-neutral-800 rounded" />
+        <div className="h-[70vh] bg-neutral-800" />
+        <div className="max-w-3xl mx-auto px-4 -mt-32 relative z-10">
+          <div className="space-y-8">
+            <div className="w-3/4 h-12 bg-neutral-800 rounded" />
+            <div className="w-1/4 h-6 bg-neutral-800 rounded" />
+          </div>
         </div>
       </div>
     );
@@ -106,19 +108,19 @@ const BlogPost = () => {
         <meta name="description" content={post.content.slice(0, 155)} />
       </Helmet>
 
-      <article className="relative">
+      <article>
         <BlogPostHeader 
           title={post.title}
           publishedAt={post.published_at}
           coverImage={post.cover_image}
         />
         
-        <div className="relative z-10 -mt-32">
-          <div className="max-w-3xl mx-auto bg-neutral-900 rounded-t-xl px-6 md:px-12 pt-12 pb-24">
+        <div className="relative z-10">
+          <div className="max-w-3xl mx-auto px-6 md:px-12 py-12 md:py-24">
             <BlogPostContent content={post.content} />
           </div>
 
-          <div className="max-w-5xl mx-auto px-4">
+          <div className="max-w-5xl mx-auto px-4 pb-24">
             <RelatedContent 
               destinations={post.destinations}
               recommendations={post.recommendations}
