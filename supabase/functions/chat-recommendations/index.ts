@@ -66,22 +66,31 @@ serve(async (req) => {
     if (!openAIResponse.ok) {
       const errorData = await openAIResponse.json();
       console.error('OpenAI API error:', errorData);
+      
+      // Check specifically for quota errors
+      if (errorData.error?.code === 'insufficient_quota') {
+        return new Response(
+          JSON.stringify({
+            error: 'OpenAI API quota exceeded',
+            message: "I apologize, but I'm currently experiencing high demand. Please try again later or contact support.",
+            recommendations: recommendations // Still return recommendations even if AI fails
+          }),
+          { 
+            status: 429, // Too Many Requests
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          },
+        );
+      }
+      
       throw new Error(`OpenAI API error: ${JSON.stringify(errorData)}`);
     }
 
     const aiData = await openAIResponse.json();
     console.log('OpenAI response received');
 
-    if (!aiData.choices || !aiData.choices[0]) {
-      console.error('Unexpected OpenAI response format:', aiData);
-      throw new Error('Invalid response format from OpenAI');
-    }
-
-    const aiResponse = aiData.choices[0].message.content;
-
     return new Response(
       JSON.stringify({ 
-        message: aiResponse,
+        message: aiData.choices[0].message.content,
         recommendations: recommendations 
       }),
       { 

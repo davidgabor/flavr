@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Loader2, Send } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 import RecommendationCard from "@/components/destination/RecommendationCard";
 
 interface Message {
@@ -22,6 +23,7 @@ const AI = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,8 +51,23 @@ const AI = () => {
 
       const data = await response.json();
       
-      if (data.error) {
-        throw new Error(data.error);
+      if (response.status === 429) {
+        // Handle quota exceeded error
+        toast({
+          variant: "destructive",
+          title: "Service Temporarily Unavailable",
+          description: "Our AI service is currently experiencing high demand. Please try again later.",
+        });
+        setMessages(prev => [...prev, { 
+          role: 'assistant', 
+          content: data.message,
+          recommendations: data.recommendations
+        }]);
+        return;
+      }
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'An error occurred while processing your request');
       }
 
       setMessages(prev => [...prev, { 
@@ -60,6 +77,11 @@ const AI = () => {
       }]);
     } catch (error) {
       console.error('Error:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "An error occurred while processing your request. Please try again.",
+      });
       setMessages(prev => [...prev, { 
         role: 'assistant', 
         content: "I apologize, but I encountered an error while processing your request. Please try again."
