@@ -62,7 +62,7 @@ const DestinationDetails = () => {
     enabled: !!destinationData?.id,
   });
 
-  // New query to fetch other destinations
+  // Query to fetch other destinations
   const { data: otherDestinations = [] } = useQuery({
     queryKey: ["other-destinations", destinationData?.id],
     queryFn: async () => {
@@ -75,7 +75,7 @@ const DestinationDetails = () => {
         .select('*')
         .neq('id', destinationData.id)
         .limit(4)
-        .order('created_at', { ascending: false });
+        .order('name', { ascending: true });
       
       if (error) {
         console.error('Error fetching other destinations:', error);
