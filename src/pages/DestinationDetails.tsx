@@ -62,6 +62,32 @@ const DestinationDetails = () => {
     enabled: !!destinationData?.id,
   });
 
+  // New query to fetch other destinations
+  const { data: otherDestinations = [] } = useQuery({
+    queryKey: ["other-destinations", destinationData?.id],
+    queryFn: async () => {
+      if (!destinationData?.id) return [];
+      
+      console.log('Fetching other destinations...');
+      
+      const { data, error } = await supabase
+        .from('destinations')
+        .select('*')
+        .neq('id', destinationData.id)
+        .limit(4)
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        console.error('Error fetching other destinations:', error);
+        throw error;
+      }
+      
+      console.log('Fetched other destinations:', data);
+      return data;
+    },
+    enabled: !!destinationData?.id,
+  });
+
   const groupedRecommendations = recommendations.reduce((acc, recommendation) => {
     const type = recommendation.type;
     if (!acc[type]) {
@@ -91,7 +117,6 @@ const DestinationDetails = () => {
     );
   }
 
-  // If there are no recommendations, show the empty state without the hero
   if (recommendations.length === 0) {
     return (
       <div className="relative min-h-screen bg-neutral-900">
@@ -112,6 +137,7 @@ const DestinationDetails = () => {
           content={destinationData.description}
         />
       </Helmet>
+      
       <DestinationHeader 
         name={destinationData.name}
         description={destinationData.description}
@@ -154,6 +180,45 @@ const DestinationDetails = () => {
             />
           ))}
         </div>
+
+        {/* Explore More Destinations Section */}
+        {otherDestinations.length > 0 && (
+          <section className="mt-32">
+            <div className="space-y-8">
+              <div className="text-center">
+                <h2 className="text-4xl font-judson">Explore More Destinations</h2>
+                <p className="text-neutral-400 mt-2">
+                  Discover more amazing places around the world
+                </p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {otherDestinations.map((destination) => (
+                  <Link
+                    key={destination.id}
+                    to={`/${destination.name.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="group"
+                  >
+                    <div className="aspect-[4/5] overflow-hidden rounded-lg mb-4 bg-neutral-800">
+                      <img
+                        src={destination.image}
+                        alt={destination.name}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs uppercase tracking-wider text-neutral-500">
+                        {destination.country}
+                      </p>
+                      <h3 className="text-2xl font-judson group-hover:text-primary transition-colors">
+                        {destination.name}
+                      </h3>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );
