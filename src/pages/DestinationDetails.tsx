@@ -32,7 +32,13 @@ const DestinationDetails = () => {
       const searchName = destinationSlug.replace(/-/g, ' ');
       const { data, error } = await supabase
         .from("destinations")
-        .select("*")
+        .select(`
+          id,
+          name,
+          description,
+          image,
+          country
+        `)
         .ilike('name', searchName)
         .single();
       
@@ -53,7 +59,16 @@ const DestinationDetails = () => {
       
       const { data, error } = await supabase
         .from("recommendations")
-        .select("*")
+        .select(`
+          id,
+          name,
+          type,
+          cuisine,
+          rating,
+          price_level,
+          neighborhood,
+          image
+        `)
         .eq("destination_id", destinationData.id);
       
       if (error) throw error;
@@ -62,7 +77,6 @@ const DestinationDetails = () => {
     enabled: !!destinationData?.id,
   });
 
-  // Query to fetch other destinations
   const { data: otherDestinations = [] } = useQuery({
     queryKey: ["other-destinations", destinationData?.id],
     queryFn: async () => {
@@ -72,7 +86,12 @@ const DestinationDetails = () => {
       
       const { data, error } = await supabase
         .from('destinations')
-        .select('*')
+        .select(`
+          id,
+          name,
+          image,
+          country
+        `)
         .neq('id', destinationData.id)
         .limit(4)
         .order('name', { ascending: true });
@@ -131,19 +150,21 @@ const DestinationDetails = () => {
   return (
     <div className="relative min-h-screen bg-neutral-900">
       <Helmet>
-        <title>{destinationData.name}</title>
+        <title>{destinationData?.name}</title>
         <meta 
           name="description" 
-          content={destinationData.description}
+          content={destinationData?.description}
         />
       </Helmet>
       
-      <DestinationHeader 
-        name={destinationData.name}
-        description={destinationData.description}
-        image={destinationData.image}
-        country={destinationData.country}
-      />
+      {destinationData && (
+        <DestinationHeader 
+          name={destinationData.name}
+          description={destinationData.description}
+          image={destinationData.image}
+          country={destinationData.country}
+        />
+      )}
 
       {/* Newsletter Section */}
       <section className="relative z-10 -mt-24 mb-24">
@@ -156,7 +177,7 @@ const DestinationDetails = () => {
       
       <div className="px-4 py-8 max-w-7xl mx-auto">
         <div className="flex items-center justify-center gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide">
-          {types.map((type) => (
+          {Object.keys(groupedRecommendations).map((type) => (
             <button
               key={type}
               onClick={() => setSelectedType(type)}
@@ -176,7 +197,7 @@ const DestinationDetails = () => {
             <RecommendationCard
               key={recommendation.id}
               {...recommendation}
-              destinationName={destinationData.name}
+              destinationName={destinationData?.name || ''}
             />
           ))}
         </div>
