@@ -21,9 +21,9 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider defaultTheme="dark" storageKey="flavr-theme">
+    <ThemeProvider defaultTheme="light" storageKey="flavr-theme">
       <TooltipProvider>
-        <div className="min-h-screen bg-neutral-900 dark:bg-neutral-900">
+        <div className="min-h-screen bg-neutral-100 dark:bg-neutral-900 transition-colors duration-200">
           <BrowserRouter>
             <Navbar />
             <main className="pt-16">

@@ -34,8 +34,18 @@ export function ThemeProvider({
 
   useEffect(() => {
     const root = window.document.documentElement;
+    
+    // Remove both classes first
     root.classList.remove("light", "dark");
+    
+    // Add the current theme class
     root.classList.add(theme);
+    
+    // Update color scheme meta tag
+    const meta = document.querySelector('meta[name="color-scheme"]');
+    if (meta) {
+      meta.setAttribute("content", theme);
+    }
   }, [theme]);
 
   const value = {
