@@ -54,7 +54,6 @@ const RelatedContent = ({ destinations, recommendations }: RelatedContentProps) 
       {/* Recommendations */}
       {recommendations.length > 0 && (
         <div className="space-y-12">
-          <h3 className="text-2xl font-judson text-center">Featured Places</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
             {recommendations.map((recommendation) => (
               <a
