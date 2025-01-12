@@ -7,6 +7,7 @@ import BlogSidebar from "@/components/blog/BlogSidebar";
 import RelatedContent from "@/components/blog/RelatedContent";
 import MoreStories from "@/components/blog/MoreStories";
 import ExploreDestination from "@/components/blog/ExploreDestination";
+import MentionedPlaces from "@/components/blog/MentionedPlaces";
 import { Helmet } from "react-helmet";
 
 interface BlogPost {
@@ -134,6 +135,8 @@ const BlogPost = () => {
         />
         
         <div className="relative z-10 bg-white">
+          <MentionedPlaces recommendations={post.recommendations} />
+          
           <div className="max-w-7xl mx-auto px-4 lg:px-8 py-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
               <div className="lg:col-span-8">
