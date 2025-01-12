@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import BlogPostHeader from "@/components/blog/BlogPostHeader";
 import BlogPostContent from "@/components/blog/BlogPostContent";
+import BlogSidebar from "@/components/blog/BlogSidebar";
 import RelatedContent from "@/components/blog/RelatedContent";
 import { Helmet } from "react-helmet";
 
@@ -116,8 +117,15 @@ const BlogPost = () => {
         />
         
         <div className="relative z-10">
-          <div className="max-w-3xl mx-auto px-6 md:px-12 py-12 md:py-24">
-            <BlogPostContent content={post.content} />
+          <div className="max-w-6xl mx-auto px-6 md:px-12 py-12 md:py-24">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+              <div className="lg:col-span-8">
+                <BlogPostContent content={post.content} />
+              </div>
+              <div className="lg:col-span-4">
+                <BlogSidebar title={post.title} />
+              </div>
+            </div>
           </div>
 
           <div className="max-w-5xl mx-auto px-4 pb-24">

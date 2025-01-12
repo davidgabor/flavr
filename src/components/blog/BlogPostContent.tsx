@@ -14,7 +14,7 @@ const BlogPostContent = ({ content }: BlogPostContentProps) => {
 
   return (
     <div 
-      className="prose prose-invert prose-lg max-w-none
+      className="prose prose-invert prose-lg max-w-none text-left
         prose-p:text-neutral-300 prose-p:leading-relaxed prose-p:mb-8
         prose-headings:font-judson prose-headings:text-white prose-headings:mt-16 prose-headings:mb-8
         prose-h1:text-5xl md:prose-h1:text-6xl prose-h1:leading-tight
