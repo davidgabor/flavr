@@ -26,13 +26,6 @@ interface BlogPost {
     name: string;
     image: string;
   }[];
-  recommendations: {
-    id: string;
-    name: string;
-    type: string;
-    image: string;
-    destination_name: string;
-  }[];
 }
 
 const BlogPost = () => {
@@ -43,6 +36,7 @@ const BlogPost = () => {
     queryFn: async () => {
       console.log('Fetching blog post:', slug);
       
+      // First, fetch the blog post
       const { data: postData, error: postError } = await supabase
         .from("blog_posts")
         .select(`
@@ -52,20 +46,11 @@ const BlogPost = () => {
             name,
             image
           ),
-          blog_post_destinations!inner(
+          blog_post_destinations(
             destinations(
               id,
               name,
               image
-            )
-          ),
-          blog_post_recommendations!inner(
-            recommendations(
-              id,
-              name,
-              type,
-              image,
-              destinations(name)
             )
           )
         `)
@@ -77,18 +62,43 @@ const BlogPost = () => {
         throw postError;
       }
 
+      // Then, fetch all recommendations to match with content
+      const { data: recommendations, error: recommendationsError } = await supabase
+        .from("recommendations")
+        .select(`
+          id,
+          name,
+          type,
+          image,
+          destinations(name)
+        `);
+
+      if (recommendationsError) {
+        console.error('Error fetching recommendations:', recommendationsError);
+        throw recommendationsError;
+      }
+
+      // Find recommendations mentioned in the content
+      const mentionedRecommendations = recommendations.filter(rec => {
+        // Create a case-insensitive regex to match the recommendation name
+        const regex = new RegExp(`\\b${rec.name}\\b`, 'i');
+        return regex.test(postData.content);
+      });
+
+      console.log('Found mentioned recommendations:', mentionedRecommendations);
+
       const transformedData = {
         ...postData,
         author: postData.author,
         destinations: postData.blog_post_destinations.map((d: any) => d.destinations),
-        recommendations: postData.blog_post_recommendations.map((r: any) => ({
-          ...r.recommendations,
-          destination_name: r.recommendations.destinations.name
+        recommendations: mentionedRecommendations.map(r => ({
+          ...r,
+          destination_name: r.destinations.name
         }))
       };
 
-      console.log('Fetched blog post:', transformedData);
-      return transformedData as BlogPost;
+      console.log('Transformed blog post data:', transformedData);
+      return transformedData;
     },
   });
 
