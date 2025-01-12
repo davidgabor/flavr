@@ -16,15 +16,15 @@ const BlogSidebar = ({ title }: BlogSidebarProps) => {
 
   return (
     <div className="sticky top-8 space-y-8">
-      <div className="bg-neutral-800/50 border border-white/10 rounded-lg p-6">
-        <h3 className="font-judson text-xl mb-4 flex items-center gap-2">
+      <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-6">
+        <h3 className="font-judson text-xl mb-4 flex items-center gap-2 text-neutral-900">
           <Share2 className="w-5 h-5" />
           Share this article
         </h3>
         <div className="flex flex-col gap-3">
           <Button
             variant="outline"
-            className="w-full justify-start gap-2"
+            className="w-full justify-start gap-2 border-neutral-200 hover:bg-neutral-100"
             onClick={() => window.open(shareLinks.twitter, '_blank')}
           >
             <Twitter className="w-4 h-4" />
@@ -32,7 +32,7 @@ const BlogSidebar = ({ title }: BlogSidebarProps) => {
           </Button>
           <Button
             variant="outline"
-            className="w-full justify-start gap-2"
+            className="w-full justify-start gap-2 border-neutral-200 hover:bg-neutral-100"
             onClick={() => window.open(shareLinks.facebook, '_blank')}
           >
             <Facebook className="w-4 h-4" />
@@ -40,7 +40,7 @@ const BlogSidebar = ({ title }: BlogSidebarProps) => {
           </Button>
           <Button
             variant="outline"
-            className="w-full justify-start gap-2"
+            className="w-full justify-start gap-2 border-neutral-200 hover:bg-neutral-100"
             onClick={() => window.open(shareLinks.linkedin, '_blank')}
           >
             <Linkedin className="w-4 h-4" />

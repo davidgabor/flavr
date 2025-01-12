@@ -80,12 +80,12 @@ const BlogPost = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-neutral-900 animate-pulse">
-        <div className="h-[70vh] bg-neutral-800" />
+      <div className="min-h-screen bg-white animate-pulse">
+        <div className="h-[70vh] bg-neutral-100" />
         <div className="max-w-3xl mx-auto px-4 -mt-32 relative z-10">
           <div className="space-y-8">
-            <div className="w-3/4 h-12 bg-neutral-800 rounded" />
-            <div className="w-1/4 h-6 bg-neutral-800 rounded" />
+            <div className="w-3/4 h-12 bg-neutral-200 rounded" />
+            <div className="w-1/4 h-6 bg-neutral-200 rounded" />
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@ const BlogPost = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-neutral-900 flex items-center justify-center text-white">
+      <div className="min-h-screen bg-white flex items-center justify-center text-neutral-900">
         <div className="text-center">
           <h1 className="heading-1">Blog post not found</h1>
         </div>
@@ -103,7 +103,7 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-900 text-white">
+    <div className="min-h-screen bg-white text-neutral-900">
       <Helmet>
         <title>{post.title}</title>
         <meta name="description" content={post.content.slice(0, 155)} />
