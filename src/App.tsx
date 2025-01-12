@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "./components/theme/ThemeProvider";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -20,30 +21,35 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <div className="min-h-screen bg-neutral-900">
-        <BrowserRouter>
-          <Navbar />
-          <main className="pt-16">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/destinations" element={<Destinations />} />
-              <Route path="/people" element={<People />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/p/:personSlug" element={<PersonProfile />} />
-              <Route path="/ai" element={<AI />} />
-              <Route path="/:destinationSlug" element={<DestinationDetails />} />
-              <Route path="/:destinationSlug/:recommendationSlug" element={<RecommendationDetails />} />
-            </Routes>
-          </main>
-          <Footer />
-        </BrowserRouter>
-      </div>
-      <Toaster />
-      <Sonner />
-    </TooltipProvider>
+    <ThemeProvider defaultTheme="dark" storageKey="flavr-theme">
+      <TooltipProvider>
+        <div className="min-h-screen bg-neutral-900 dark:bg-neutral-900">
+          <BrowserRouter>
+            <Navbar />
+            <main className="pt-16">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/destinations" element={<Destinations />} />
+                <Route path="/people" element={<People />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route path="/p/:personSlug" element={<PersonProfile />} />
+                <Route path="/ai" element={<AI />} />
+                <Route path="/:destinationSlug" element={<DestinationDetails />} />
+                <Route
+                  path="/:destinationSlug/:recommendationSlug"
+                  element={<RecommendationDetails />}
+                />
+              </Routes>
+            </main>
+            <Footer />
+          </BrowserRouter>
+        </div>
+        <Toaster />
+        <Sonner />
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

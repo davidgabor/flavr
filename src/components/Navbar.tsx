@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Menu, X, Search } from "lucide-react";
 import SearchDialog from "./navigation/SearchDialog";
+import { ThemeToggle } from "./theme/ThemeToggle";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -63,6 +64,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center space-x-4">
+            <ThemeToggle />
             <button
               onClick={() => setIsSearchOpen(true)}
               className="text-neutral-400 hover:text-white transition-colors p-2"
