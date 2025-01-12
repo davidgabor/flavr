@@ -45,7 +45,7 @@ const BlogPostHeader = ({ title, publishedAt, coverImage, author }: BlogPostHead
               )}
               {author && (
                 <Link 
-                  to={`/people/${author.id}`}
+                  to={`/p/${author.id}`}
                   className="inline-flex items-center justify-center space-x-4 bg-white/5 backdrop-blur-sm px-6 py-3 rounded-full hover:bg-white/10 transition-colors duration-200"
                 >
                   <Avatar className="h-14 w-14 border-2 border-white/20">
