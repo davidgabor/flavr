@@ -58,7 +58,7 @@ const MentionedPlaces = ({ recommendations }: MentionedPlacesProps) => {
           </div>
           <ScrollBar 
             orientation="horizontal" 
-            className="bg-neutral-200 hover:bg-neutral-300 transition-colors" 
+            className="bg-neutral-200 hover:bg-neutral-300 transition-colors scrollbar-hide" 
           />
         </ScrollArea>
       </div>
