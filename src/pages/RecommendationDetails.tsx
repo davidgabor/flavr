@@ -72,7 +72,6 @@ const RecommendationDetails = () => {
     retry: false
   });
 
-  // Handle 404 cases
   if (!isLoading && (!destination || !recommendation)) {
     return (
       <div className="min-h-screen bg-neutral-900 flex items-center justify-center">
@@ -102,35 +101,37 @@ const RecommendationDetails = () => {
         />
       </Helmet>
 
-      <RecommendationHeader 
-        id={recommendation.id}
-        name={recommendation.name}
-        type={recommendation.type}
-        cuisine={recommendation.cuisine}
-        price_level={recommendation.price_level}
-        rating={recommendation.rating}
-        images={recommendation.images}
-        image={recommendation.image}
-        address={recommendation.address}
-        latitude={recommendation.latitude}
-        longitude={recommendation.longitude}
-        website={recommendation.website}
-        instagram={recommendation.instagram}
-        phone={recommendation.phone}
-        description={recommendation.description}
-      />
-      
-      <div className="space-y-24 pb-24">
-        <RecommendationContent 
+      <div className="container px-4 md:px-6 py-8 space-y-24">
+        <RecommendationHeader 
           id={recommendation.id}
-          hours={recommendation.hours}
+          name={recommendation.name}
+          type={recommendation.type}
+          cuisine={recommendation.cuisine}
+          price_level={recommendation.price_level}
+          rating={recommendation.rating}
+          images={recommendation.images}
+          image={recommendation.image}
+          address={recommendation.address}
+          latitude={recommendation.latitude}
+          longitude={recommendation.longitude}
+          website={recommendation.website}
+          instagram={recommendation.instagram}
+          phone={recommendation.phone}
+          description={recommendation.description}
         />
-        <NewsletterSection />
-        <MoreRecommendations 
-          currentRecommendationId={recommendation.id}
-          destinationId={recommendation.destination_id}
-          destinationName={recommendation.destinations.name}
-        />
+        
+        <div className="space-y-24">
+          <RecommendationContent 
+            id={recommendation.id}
+            hours={recommendation.hours}
+          />
+          <NewsletterSection />
+          <MoreRecommendations 
+            currentRecommendationId={recommendation.id}
+            destinationId={recommendation.destination_id}
+            destinationName={recommendation.destinations.name}
+          />
+        </div>
       </div>
     </div>
   );
