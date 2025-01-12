@@ -15,6 +15,11 @@ interface BlogPost {
   content: string;
   cover_image: string | null;
   published_at: string | null;
+  author: {
+    id: string;
+    name: string;
+    image: string | null;
+  } | null;
   destinations: {
     id: string;
     name: string;
@@ -41,6 +46,11 @@ const BlogPost = () => {
         .from("blog_posts")
         .select(`
           *,
+          author:people(
+            id,
+            name,
+            image
+          ),
           blog_post_destinations(
             destinations(
               id,
@@ -68,6 +78,7 @@ const BlogPost = () => {
 
       const transformedData = {
         ...postData,
+        author: postData.author,
         destinations: postData.blog_post_destinations.map((d: any) => d.destinations),
         recommendations: postData.blog_post_recommendations.map((r: any) => ({
           ...r.recommendations,
@@ -119,6 +130,7 @@ const BlogPost = () => {
           title={post.title}
           publishedAt={post.published_at}
           coverImage={post.cover_image}
+          author={post.author}
         />
         
         <div className="relative z-10 bg-white">
