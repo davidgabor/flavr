@@ -1,5 +1,7 @@
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { User } from "lucide-react";
 
 interface BlogPostHeaderProps {
   title: string;
@@ -32,7 +34,7 @@ const BlogPostHeader = ({ title, publishedAt, coverImage, author }: BlogPostHead
             <h1 className="font-judson text-4xl md:text-6xl lg:text-7xl leading-tight text-white mb-6">
               {title}
             </h1>
-            <div className="space-y-4">
+            <div className="space-y-6">
               {publishedAt && (
                 <time
                   dateTime={publishedAt}
@@ -42,20 +44,26 @@ const BlogPostHeader = ({ title, publishedAt, coverImage, author }: BlogPostHead
                 </time>
               )}
               {author && (
-                <div className="flex items-center justify-center space-x-3">
-                  <Avatar className="h-12 w-12 border-2 border-white/10">
+                <Link 
+                  to={`/people/${author.id}`}
+                  className="inline-flex items-center justify-center space-x-4 bg-white/5 backdrop-blur-sm px-6 py-3 rounded-full hover:bg-white/10 transition-colors duration-200"
+                >
+                  <Avatar className="h-14 w-14 border-2 border-white/20">
                     {author.image ? (
                       <AvatarImage src={author.image} alt={author.name} />
                     ) : (
                       <AvatarFallback className="bg-neutral-800 text-white">
-                        {author.name.split(' ').map(n => n[0]).join('')}
+                        <User className="h-6 w-6" />
                       </AvatarFallback>
                     )}
                   </Avatar>
-                  <span className="text-white text-lg font-medium">
-                    {author.name}
-                  </span>
-                </div>
+                  <div className="flex flex-col items-start">
+                    <span className="text-neutral-400 text-sm">Written by</span>
+                    <span className="text-white text-lg font-medium">
+                      {author.name}
+                    </span>
+                  </div>
+                </Link>
               )}
             </div>
           </div>
