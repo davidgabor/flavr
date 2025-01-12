@@ -102,10 +102,29 @@ const RecommendationDetails = () => {
         />
       </Helmet>
 
-      <RecommendationHeader recommendation={recommendation} />
+      <RecommendationHeader 
+        id={recommendation.id}
+        name={recommendation.name}
+        type={recommendation.type}
+        cuisine={recommendation.cuisine}
+        price_level={recommendation.price_level}
+        rating={recommendation.rating}
+        images={recommendation.images}
+        image={recommendation.image}
+        address={recommendation.address}
+        latitude={recommendation.latitude}
+        longitude={recommendation.longitude}
+        website={recommendation.website}
+        instagram={recommendation.instagram}
+        phone={recommendation.phone}
+        description={recommendation.description}
+      />
       
       <div className="space-y-24 pb-24">
-        <RecommendationContent recommendation={recommendation} />
+        <RecommendationContent 
+          id={recommendation.id}
+          hours={recommendation.hours}
+        />
         <NewsletterSection />
         <MoreRecommendations 
           currentRecommendationId={recommendation.id}
