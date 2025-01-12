@@ -15,6 +15,7 @@ import People from "./pages/People";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import AI from "./pages/AI";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
     <TooltipProvider>
       <div className="min-h-screen bg-neutral-900">
         <BrowserRouter>
+          <ScrollToTop />
           <Navbar />
           <main className="pt-16">
             <Routes>
