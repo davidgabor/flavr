@@ -81,7 +81,7 @@ const BlogPost = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-white animate-pulse">
-        <div className="h-[70vh] bg-neutral-100" />
+        <div className="h-[80vh] bg-neutral-100" />
         <div className="max-w-3xl mx-auto px-4 -mt-32 relative z-10">
           <div className="space-y-8">
             <div className="w-3/4 h-12 bg-neutral-200 rounded" />
@@ -116,19 +116,19 @@ const BlogPost = () => {
           coverImage={post.cover_image}
         />
         
-        <div className="relative z-10">
-          <div className="max-w-6xl mx-auto px-6 md:px-12 py-12 md:py-24">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="relative z-10 bg-white">
+          <div className="max-w-7xl mx-auto px-4 lg:px-8 py-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
               <div className="lg:col-span-8">
                 <BlogPostContent content={post.content} />
               </div>
-              <div className="lg:col-span-4">
+              <aside className="lg:col-span-4">
                 <BlogSidebar title={post.title} />
-              </div>
+              </aside>
             </div>
           </div>
 
-          <div className="max-w-5xl mx-auto px-4 pb-24">
+          <div className="max-w-7xl mx-auto px-4 lg:px-8 pb-24">
             <RelatedContent 
               destinations={post.destinations}
               recommendations={post.recommendations}
