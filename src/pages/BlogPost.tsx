@@ -52,14 +52,14 @@ const BlogPost = () => {
             name,
             image
           ),
-          blog_post_destinations(
+          blog_post_destinations!inner(
             destinations(
               id,
               name,
               image
             )
           ),
-          blog_post_recommendations(
+          blog_post_recommendations!inner(
             recommendations(
               id,
               name,
