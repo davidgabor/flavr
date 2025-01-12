@@ -5,6 +5,8 @@ import BlogPostHeader from "@/components/blog/BlogPostHeader";
 import BlogPostContent from "@/components/blog/BlogPostContent";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import RelatedContent from "@/components/blog/RelatedContent";
+import MoreStories from "@/components/blog/MoreStories";
+import ExploreDestination from "@/components/blog/ExploreDestination";
 import { Helmet } from "react-helmet";
 
 interface BlogPost {
@@ -102,6 +104,9 @@ const BlogPost = () => {
     );
   }
 
+  // Get the first destination from the post's destinations array
+  const mainDestination = post.destinations[0];
+
   return (
     <div className="min-h-screen bg-white text-neutral-900">
       <Helmet>
@@ -128,11 +133,20 @@ const BlogPost = () => {
             </div>
           </div>
 
-          <div className="max-w-7xl mx-auto px-4 lg:px-8 pb-24">
+          <div className="max-w-7xl mx-auto px-4 lg:px-8">
             <RelatedContent 
               destinations={post.destinations}
               recommendations={post.recommendations}
             />
+            
+            <MoreStories currentPostId={post.id} />
+            
+            {mainDestination && (
+              <ExploreDestination 
+                destinationId={mainDestination.id}
+                destinationName={mainDestination.name}
+              />
+            )}
           </div>
         </div>
       </article>
